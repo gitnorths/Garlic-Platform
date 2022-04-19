@@ -1,0 +1,36 @@
+.hung-login {
+  height: 100%;
+  background-image: url("@/assets/images/login-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  .el-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: 150px;
+    width: 350px;
+    height: 100%;
+
+    &-item {
+      width: 100%;
+      margin-bottom: 26px;
+
+      .el-input {
+        &__inner {
+          background-color: #001E62;
+          border-color: #001E62;
+        }
+      }
+
+      .el-button {
+        width: 100%;
+      }
+    }
+  }
+}
