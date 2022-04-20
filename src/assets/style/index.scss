@@ -1,9 +1,39 @@
+input::placeholder {
+  color: #e4f3ff;
+  font-size: 14px;
+}
+
+.el-checkbox {
+  &__input.is-checked .el-checkbox__inner,
+  &__input.is-indeterminate .el-checkbox__inner {
+    background-color: #40acff;
+    border-color: #40acff;
+  }
+}
+
 .hung-login {
   height: 100%;
   background-image: url("@/assets/images/login-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+
+  .el-input {
+    &__inner {
+      padding-left: 44px;
+    }
+
+    &__prefix {
+      display: flex;
+      align-items: center;
+      left: 14px;
+
+      img {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
 
   .el-form {
     display: flex;
@@ -21,14 +51,73 @@
       width: 100%;
       margin-bottom: 26px;
 
+      // &__error {
+      //   left: 44px;
+      // }
+
+      h1 {
+        img {
+          width: 100%;
+        }
+      }
+
       .el-input {
         &__inner {
-          background-color: #001E62;
-          border-color: #001E62;
+          background-color: rgba(#001e62, 0.5);
+          border-color: rgba(#4171c1, 0.5);
+          color: #ffffff;
+          transition: all 0.3s;
+        }
+      }
+
+      .el-checkbox {
+        color: #ffffff;
+
+        &.is-checked {
+          .el-checkbox__inner {
+            background-color: #40acff;
+          }
+        }
+
+        &__inner {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          font-weight: bold;
+          background-color: initial;
+
+          &::after {
+            border-width: 2px;
+            top: 2px;
+            left: 5px;
+          }
+        }
+
+        &__label {
+          font-size: 14px;
         }
       }
 
       .el-button {
+        width: 100%;
+        background-color: #40acff;
+        box-shadow: 0px 8px 16px 0px rgba(#40acff, 0.25);
+      }
+
+      .el-link {
+        font-size: 14px;
+      }
+    }
+
+    .login-checked {
+      .el-form-item__content {
+        line-height: initial;
+      }
+
+      &__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
       }
     }

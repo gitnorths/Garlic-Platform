@@ -1,13 +1,13 @@
-import Vue from "vue";
-import "./registerServiceWorker";
-import router from "./router";
-import store from "./store";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import App from "./App.vue";
+import Vue from 'vue';
+import './registerServiceWorker';
+import router from './router';
+import store from './store';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import App from './App.vue';
 
-import "./assets/style/reset.scss";
-import "./assets/style/index.scss";
+import './assets/style/reset.scss';
+import './assets/style/index.scss';
 
 Vue.use(ElementUI);
 
@@ -17,4 +17,4 @@ new Vue({
   router,
   store,
   render: (h) => h(App),
-}).$mount("#app");
+}).$mount('#app');
