@@ -1,24 +1,24 @@
 <template>
   <div class="hung-login">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="loginFormRef">
       <el-form-item>
         <!-- <el-image :src="urls"></el-image> -->
         <h1><img :src="iconTitle" alt="" /></h1>
       </el-form-item>
       <el-form-item prop="phone">
-        <el-input v-model="ruleForm.phone" placeholder="手机号码">
+        <el-input v-model="ruleForm.phone" clearable placeholder="手机号码">
           <img :src="iconPhone" alt="" slot="prefix" />
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="ruleForm.password" type="password" placeholder="密码">
+        <el-input v-model="ruleForm.password" type="password" clearable placeholder="密码">
           <img :src="iconPassWord" alt="" slot="prefix" />
         </el-input>
       </el-form-item>
       <el-form-item prop="verify">
         <el-row :gutter="16">
           <el-col :span="14">
-            <el-input v-model="ruleForm.verify" placeholder="验证码">
+            <el-input v-model="ruleForm.verify" clearable placeholder="验证码">
               <img :src="iconVerify" alt="" slot="prefix" />
             </el-input>
           </el-col>
@@ -32,7 +32,7 @@
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"> 登录 </el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')"> 登 录 </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -41,7 +41,7 @@
 <script>
 // import { sm3Digest, sm4Encrypt, sm4Decrypt } from "@/utils/gm-crypto";
 // import { mapMutations } from "vuex";
-// import storage from "@/utils/storage";
+import storage from '@/utils/storage';
 // import Cookies from "js-cookie";
 
 export default {
@@ -52,7 +52,7 @@ export default {
         phone: '',
         password: '',
         verify: '',
-        checked: true,
+        checked: false,
       },
       iconTitle: require('../../assets/images/login-title.png'),
       iconPhone: require('../../assets/images/login-phone.png'),
@@ -77,13 +77,31 @@ export default {
   destroyed() {
     window.removeEventListener('keydown', this.keyDown, false); //销毁回车事件，如果不销毁，在其他页面敲回车也会执行回车登录操作。
   },
+  created() {
+    let phone = localStorage.getItem('phone');
+    if (phone !== null) {
+      this.ruleForm.phone = phone;
+      this.ruleForm.checked = true;
+    }
+  },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm() {
+      this.$refs.loginFormRef.validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const { phone } = this.ruleForm;
+          //记住账号
+          if (phone !== null) {
+            localStorage.setItem('phone', this.ruleForm.phone);
+            storage.setLocal(['authority'], this.ruleForm.phone);
+            this.$message({
+              message: '登录成功！',
+              type: 'success',
+            });
+            this.$router.push('/');
+          } else {
+            localStorage.removeItem('phone');
+          }
         } else {
-          console.log('error submit!!');
           return false;
         }
       });

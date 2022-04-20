@@ -33,10 +33,14 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
     next();
   } else {
-    let token = localStorage.getItem('authorith');
+    //若要跳转的页面是个人界面
+    let token = localStorage.getItem('authority'); //获取本地存储的token值
+    console.log(token);
     if (token === null || token === '') {
+      //若token为空则验证不成功，跳转到登录页面
       next('/login');
     } else {
+      //不为空则验证成功
       next();
     }
   }
