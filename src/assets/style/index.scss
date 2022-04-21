@@ -11,123 +11,236 @@ input::placeholder {
   }
 }
 
-.hung-login {
+.ds {
   height: 100%;
-  background-image: url("@/assets/images/login-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
 
-  .el-input {
-    &__inner {
-      padding-left: 44px;
-    }
-
-    &__prefix {
-      display: flex;
-      align-items: center;
-      left: 14px;
-
-      img {
-        width: 22px;
-        height: 22px;
-      }
-    }
-  }
-
-  .el-form {
+  &-flex {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    margin-left: 150px;
-    width: 350px;
-    height: 100%;
+    justify-content: space-between;
+  }
 
-    &-item {
-      width: 100%;
-      margin-bottom: 26px;
+  &-login {
+    background-image: url("@/assets/images/login/bg.png");
 
-      &__error {
-        font-size: 16px;
+    .el-input {
+      &__inner {
+        padding-left: 44px;
       }
 
-      h1 {
-        padding-top: 80px;
+      &__prefix {
+        display: flex;
+        align-items: center;
+        left: 14px;
+
         img {
-          width: 100%;
-          display: block;
-          margin-bottom: 6px;
+          width: 22px;
+          height: 22px;
         }
       }
+    }
 
-      .el-input {
-        &__inner {
-          height: 50px;
+    .el-form {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: 150px;
+      width: 350px;
+      height: 100%;
+
+      &-item {
+        width: 100%;
+        margin-bottom: 26px;
+
+        &__error {
           font-size: 16px;
-          background-color: rgba(#001e62, 0.5);
-          border-color: rgba(#4171c1, 0.5);
-          color: #ffffff;
-          transition: all 0.3s;
         }
-      }
 
-      .el-checkbox {
-        color: #e4f3ff;
-
-        &.is-checked {
-          .el-checkbox__inner {
-            background-color: #40acff;
+        h1 {
+          padding-top: 80px;
+          img {
+            width: 100%;
+            display: block;
+            margin-bottom: 6px;
           }
         }
 
-        &__inner {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          font-weight: bold;
-          background-color: initial;
-
-          &::after {
-            border-width: 3px;
-            top: 3px;
-            left: 6px;
+        .el-input {
+          &__inner {
+            height: 50px;
+            font-size: 16px;
+            background-color: rgba(#001e62, 0.5);
+            border-color: rgba(#4171c1, 0.5);
+            color: #ffffff;
+            transition: all 0.3s;
           }
         }
 
-        &__label {
+        .el-checkbox {
+          color: #e4f3ff;
+
+          &.is-checked {
+            .el-checkbox__inner {
+              background-color: #40acff;
+            }
+          }
+
+          &__inner {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-weight: bold;
+            background-color: initial;
+
+            &::after {
+              border-width: 3px;
+              top: 3px;
+              left: 6px;
+            }
+          }
+
+          &__label {
+            font-size: 18px;
+          }
+        }
+
+        .el-button {
+          width: 100%;
+          height: 50px;
+          font-size: 20px;
+          background-color: #40acff;
+          box-shadow: 0px 8px 16px 0px rgba(#40acff, 0.25);
+        }
+
+        .el-link {
           font-size: 18px;
         }
       }
 
-      .el-button {
-        width: 100%;
-        height: 50px;
-        font-size: 20px;
-        background-color: #40acff;
-        box-shadow: 0px 8px 16px 0px rgba(#40acff, 0.25);
+      .login-checked {
+        margin-bottom: 22px;
+
+        .el-form-item__content {
+          line-height: initial;
+        }
+
+        &__content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &-home {
+    background-image: url("@/assets/images/home/bg.png");
+    background-color: #000000;
+
+    &::after,
+    &::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      display: block;
+      content: "";
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+    }
+
+    &::after {
+      height: 400px;
+      bottom: 0;
+      background-image: url("@/assets/images/home/bottom.png");
+    }
+
+    &::before {
+      height: 10px;
+      bottom: 20px;
+      background-image: url("@/assets/images/home/footer.png");
+    }
+
+    .el-header {
+      height: 106px !important;
+      padding: 0 38px;
+      background-image: url("@/assets/images/home/header.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+
+      .ds-flex {
+        height: 100%;
       }
 
-      .el-link {
-        font-size: 18px;
+      span {
+        font-size: 16px;
+        color: #e2effe;
+      }
+
+      .right {
+        .el-link {
+          margin-left: 40px;
+
+          &--inner {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+
+            &:hover {
+              color: rgba(#ffffff, 0.75);
+            }
+          }
+
+          .el-avatar {
+            background: initial;
+            margin-right: 10px;
+          }
+        }
       }
     }
 
-    .login-checked {
-      margin-bottom: 22px;
+    .el-main {
+      position: relative;
+      padding: 0 30px;
 
-      .el-form-item__content {
-        line-height: initial;
+      .ds-flex {
+        height: 100%;
       }
 
-      &__content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
+      .left,
+      .right {
+        display: block;
+        width: 172px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+      }
+
+      .left {
+        background-image: url("@/assets/images/home/left.png");
+      }
+
+      .right {
+        background-image: url("@/assets/images/home/right.png");
+      }
+
+      .center {
+        flex: 1;
+        height: 100%;
+        background-image: url("@/assets/images/home/disc.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center bottom;
       }
     }
   }

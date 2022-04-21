@@ -1,5 +1,5 @@
 <template>
-  <div class="hung-login">
+  <div class="ds ds-login">
     <el-form :model="ruleForm" :rules="rules" ref="loginFormRef">
       <el-form-item>
         <!-- <el-image :src="urls"></el-image> -->
@@ -54,10 +54,10 @@ export default {
         verify: '',
         checked: false,
       },
-      iconTitle: require('../../assets/images/login-title.png'),
-      iconPhone: require('../../assets/images/login-phone.png'),
-      iconPassWord: require('../../assets/images/login-pass.png'),
-      iconVerify: require('../../assets/images/login-verify.png'),
+      iconTitle: require('../../assets/images/login/title.png'),
+      iconPhone: require('../../assets/images/login/phone.png'),
+      iconPassWord: require('../../assets/images/login/pass.png'),
+      iconVerify: require('../../assets/images/login/verify.png'),
       rules: {
         phone: [
           { required: true, message: '请输入手机号码' },
@@ -97,7 +97,7 @@ export default {
               message: '登录成功！',
               type: 'success',
             });
-            this.$router.push('/');
+            this.$router.push('/home');
           } else {
             localStorage.removeItem('phone');
           }
