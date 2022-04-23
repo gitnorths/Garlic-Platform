@@ -213,33 +213,91 @@ input::placeholder {
       padding: 0 30px;
 
       .ds-flex {
+        position: relative;
         height: 100%;
+
+        &::before,
+        &::after {
+          position: absolute;
+          top: 0;
+          display: block;
+          content: "";
+          width: 172px;
+          height: 100%;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center center;
+        }
+
+        &::before {
+          left: 30px;
+          background-image: url("@/assets/images/home/left.png");
+        }
+
+        &::after {
+          right: 30px;
+          background-image: url("@/assets/images/home/right.png");
+        }
+
+        .ds-number {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 0;
+          height: 100%;
+
+          ul {
+            li {
+              margin: 50px 0;
+              color: #ffffff;
+
+              span {
+                font-size: 40px;
+                font-family: "DIN-BoldItalic";
+                font-style: italic;
+                font-weight: bold;
+
+                &.color1 {
+                  color: #20fbff;
+                }
+                &.color2 {
+                  color: #34d2ff;
+                }
+                &.color3 {
+                  color: #6996fe;
+                }
+                &.color4 {
+                  color: #20fbff;
+                }
+                &.color5 {
+                  color: #34d2ff;
+                }
+              }
+
+              p {
+                font-size: 18px;
+                font-family: "PingFang-SC-Medium";
+                color: #ffffff;
+              }
+            }
+          }
+
+          &.left {
+            left: 155px;
+          }
+
+          &.right {
+            right: 155px;
+          }
+        }
       }
 
-      .left,
-      .right {
-        display: block;
-        width: 172px;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center center;
-      }
-
-      .left {
-        background-image: url("@/assets/images/home/left.png");
-      }
-
-      .right {
-        background-image: url("@/assets/images/home/right.png");
-      }
-
-      .center {
-        flex: 1;
+      .ds-map {
+        width: 100%;
         height: 100%;
         background-image: url("@/assets/images/home/disc.png");
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: 1370px 400px;
         background-position: center bottom;
       }
     }
