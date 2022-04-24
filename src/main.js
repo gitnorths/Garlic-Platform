@@ -5,13 +5,18 @@ import store from './store';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
+import dataV from '@jiaminghi/data-view';
 
 import './assets/style/reset.scss';
 import './assets/style/index.scss';
 
 Vue.use(ElementUI);
 
+import * as echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false;
+
+Vue.use(dataV);
 
 new Vue({
   router,
