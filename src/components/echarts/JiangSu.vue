@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Echart ref="centreLeft2ChartRef" :options="options" height="360px" width="330px"></Echart>
+    <Echart ref="mapChartRef" :options="options" height="700px" width="660px"></Echart>
   </div>
 </template>
 
@@ -26,44 +26,35 @@ export default {
       handler(newData) {
         // 设置点的位置(经纬度)
         const geoCoordMap = {
-          厦门市: [118.11022, 24.490474, 20],
-          福州市: [119.206239, 26.275302, 20],
-          泉州市: [118.589421, 24.908853, 20],
-          漳州市: [117.561801, 24.510897, 20],
-          龙岩市: [116.82978, 25.391603, 20],
-          莆田市: [119.007558, 25.591011, 20],
-          三明市: [117.435001, 26.465444, 20],
-          南平市: [118.178459, 27.535627, 20],
-          宁德市: [119.527082, 27.15924, 20],
+          南京市: [118.791277, 32.060447, 20],
+          无锡市: [120.307736, 31.493195, 20],
+          徐州市: [117.280019, 34.205689, 20],
+          常州市: [119.969289, 31.812037, 20],
+          苏州市: [120.581256, 31.300996, 20],
+          南通市: [120.890069, 31.982945, 20],
+          连云港市: [119.21607, 34.597765, 20],
+          淮安市: [119.010114, 33.611678, 20],
+          盐城市: [120.156672, 33.350937, 20],
+          扬州市: [119.407972, 32.395643, 20],
+          镇江市: [119.451424, 32.202181, 20],
+          泰州市: [119.918325, 32.45713, 20],
+          宿迁市: [118.269989, 33.963285, 20],
         };
+
         let seriesData = [
-          {
-            name: '厦门市',
-          },
-          {
-            name: '福州市',
-          },
-          {
-            name: '泉州市',
-          },
-          {
-            name: '漳州市',
-          },
-          {
-            name: '龙岩市',
-          },
-          {
-            name: '莆田市',
-          },
-          {
-            name: '三明市',
-          },
-          {
-            name: '南平市',
-          },
-          {
-            name: '宁德市',
-          },
+          { name: '南京市' },
+          { name: '无锡市' },
+          { name: '徐州市' },
+          { name: '常州市' },
+          { name: '苏州市' },
+          { name: '南通市' },
+          { name: '连云港市' },
+          { name: '淮安市' },
+          { name: '盐城市' },
+          { name: '扬州市' },
+          { name: '镇江市' },
+          { name: '泰州市' },
+          { name: '宿迁市' },
         ];
         let convertData = function (data) {
           let scatterData = [];
@@ -112,7 +103,7 @@ export default {
             zoom: 1.2,
             top: '10%',
             left: '16%',
-            map: '福建',
+            map: '江苏',
             roam: false,
             areaColor: 'rgba(0,0,0,0)',
             shadowColor: 'rgba(7,114,204, .8)',
@@ -128,7 +119,7 @@ export default {
               type: 'map',
               aspectScale: 0.85, //长宽比
               zoom: 1.2,
-              mapType: '福建', // 自定义扩展图表类型
+              mapType: '江苏', // 自定义扩展图表类型
               top: '10%',
               left: '16%',
               color: 'red',
@@ -201,7 +192,7 @@ export default {
       const length = 9;
       this.$nextTick(() => {
         try {
-          const map = this.$refs.centreLeft2ChartRef.chart;
+          const map = this.$refs.mapChartRef.chart;
           let index = Math.floor(Math.random() * length);
           while (index === this.preSelectMapIndex || index >= length) {
             index = Math.floor(Math.random() * length);
@@ -230,7 +221,7 @@ export default {
     handleMapRandomSelect() {
       this.$nextTick(() => {
         try {
-          const map = this.$refs.centreLeft2ChartRef.chart;
+          const map = this.$refs.mapChartRef.chart;
           const _self = this;
           setTimeout(() => {
             _self.reSelectMapRandomArea();
@@ -264,3 +255,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.ds-echarts {
+  width: 700px;
+  height: 660px;
+}
+</style>

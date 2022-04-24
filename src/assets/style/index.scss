@@ -223,6 +223,7 @@ input::placeholder {
     .el-main {
       position: relative;
       padding: 0 30px;
+      z-index: 1001;
 
       .ds-flex {
         position: relative;

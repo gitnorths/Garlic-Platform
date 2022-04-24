@@ -169,10 +169,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.ds-echarts {
-  width: 700px;
-  height: 660px;
-}
-</style>
