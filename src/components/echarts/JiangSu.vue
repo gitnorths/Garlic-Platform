@@ -26,19 +26,19 @@ export default {
       handler(newData) {
         // 设置点的位置(经纬度)
         const geoCoordMap = {
-          南京: [118.791277, 32.060447, 20],
-          无锡: [120.307736, 31.493195, 20],
-          徐州: [117.280019, 34.205689, 20],
-          常州: [119.969289, 31.812037, 20],
-          苏州: [120.581256, 31.300996, 20],
-          南通: [120.890069, 31.982945, 20],
-          连云港: [119.21607, 34.597765, 20],
-          淮安: [119.010114, 33.611678, 20],
-          盐城: [120.156672, 33.350937, 20],
-          扬州: [119.407972, 32.395643, 20],
-          镇江: [119.451424, 32.202181, 20],
-          泰州: [119.918325, 32.45713, 20],
-          宿迁: [118.269989, 33.963285, 20],
+          南京: [118.791277, 32.060447, 100],
+          无锡: [120.307736, 31.493195, 100],
+          徐州: [117.280019, 34.205689, 100],
+          常州: [119.969289, 31.812037, 100],
+          苏州: [120.581256, 31.300996, 100],
+          南通: [120.890069, 31.982945, 100],
+          连云港: [119.21607, 34.597765, 100],
+          淮安: [119.010114, 33.611678, 100],
+          盐城: [120.156672, 33.350937, 100],
+          扬州: [119.407972, 32.395643, 100],
+          镇江: [119.451424, 32.202181, 100],
+          泰州: [119.918325, 32.45713, 100],
+          宿迁: [118.269989, 33.963285, 100],
         };
 
         let seriesData = [
@@ -130,13 +130,11 @@ export default {
               top: '10%',
               left: '16%',
               itemStyle: {
-                normal: {
-                  areaColor: 'rgba(5, 142, 189, 0.5)',
-                  borderColor: '#A1E8FF',
-                  borderWidth: 2,
-                  shadowBlur: 1,
-                  shadowColor: 'rgba(5, 142, 189, 0.5)',
-                },
+                areaColor: 'rgba(5, 142, 189, 0.5)',
+                borderColor: '#A1E8FF',
+                borderWidth: 2,
+                shadowBlur: 1,
+                shadowColor: 'rgba(5, 142, 189, 0.5)',
                 emphasis: {
                   areaColor: '#4f7fff',
                   borderColor: 'rgba(0,242,252,.6)',
@@ -164,7 +162,7 @@ export default {
             {
               type: 'effectScatter',
               coordinateSystem: 'geo',
-              symbolSize: 7,
+              symbolSize: 15,
               effectType: 'ripple',
               legendHoverLink: false,
               showEffectOn: 'render',
@@ -175,11 +173,9 @@ export default {
               },
               zlevel: 1,
               itemStyle: {
-                normal: {
-                  color: '#99FBFE',
-                  shadowBlur: 5,
-                  shadowColor: '#fff',
-                },
+                color: '#99FBFE',
+                shadowBlur: 5,
+                shadowColor: '#fff',
               },
               data: convertData(seriesData),
             },
@@ -193,83 +189,83 @@ export default {
     },
   },
   methods: {
-    // 开启定时器
-    startInterval() {
-      const _self = this;
-      // 应通过接口获取配置时间，暂时写死5s
-      const time = 2000;
-      if (this.intervalId !== null) {
-        clearInterval(this.intervalId);
-      }
-      this.intervalId = setInterval(() => {
-        _self.reSelectMapRandomArea();
-      }, time);
-    },
-    // 重新随机选中地图区域
-    reSelectMapRandomArea() {
-      const length = 9;
-      this.$nextTick(() => {
-        try {
-          const map = this.$refs.mapChartRef.chart;
-          let index = Math.floor(Math.random() * length);
-          while (index === this.preSelectMapIndex || index >= length) {
-            index = Math.floor(Math.random() * length);
-          }
-          map.dispatchAction({
-            type: 'mapUnSelect',
-            seriesIndex: 0,
-            dataIndex: this.preSelectMapIndex,
-          });
-          map.dispatchAction({
-            type: 'showTip',
-            seriesIndex: 0,
-            dataIndex: index,
-          });
-          map.dispatchAction({
-            type: 'mapSelect',
-            seriesIndex: 0,
-            dataIndex: index,
-          });
-          this.preSelectMapIndex = index;
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    },
-    handleMapRandomSelect() {
-      this.$nextTick(() => {
-        try {
-          const map = this.$refs.mapChartRef.chart;
-          const _self = this;
-          setTimeout(() => {
-            _self.reSelectMapRandomArea();
-          }, 0);
-          // 移入区域，清除定时器、取消之前选中并选中当前
-          map.on('mouseover', function (params) {
-            clearInterval(_self.intervalId);
-            map.dispatchAction({
-              type: 'mapUnSelect',
-              seriesIndex: 0,
-              dataIndex: _self.preSelectMapIndex,
-            });
-            map.dispatchAction({
-              type: 'mapSelect',
-              seriesIndex: 0,
-              dataIndex: params.dataIndex,
-            });
-            _self.preSelectMapIndex = params.dataIndex;
-          });
-          // 移出区域重新随机选中地图区域，并开启定时器
-          map.on('globalout', function () {
-            _self.reSelectMapRandomArea();
-            _self.startInterval();
-          });
-          this.startInterval();
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    },
+    // // 开启定时器
+    // startInterval() {
+    //   const _self = this;
+    //   // 应通过接口获取配置时间，暂时写死5s
+    //   const time = 2000;
+    //   if (this.intervalId !== null) {
+    //     clearInterval(this.intervalId);
+    //   }
+    //   this.intervalId = setInterval(() => {
+    //     _self.reSelectMapRandomArea();
+    //   }, time);
+    // },
+    // // 重新随机选中地图区域
+    // reSelectMapRandomArea() {
+    //   const length = 9;
+    //   this.$nextTick(() => {
+    //     try {
+    //       const map = this.$refs.mapChartRef.chart;
+    //       let index = Math.floor(Math.random() * length);
+    //       while (index === this.preSelectMapIndex || index >= length) {
+    //         index = Math.floor(Math.random() * length);
+    //       }
+    //       map.dispatchAction({
+    //         type: 'mapUnSelect',
+    //         seriesIndex: 0,
+    //         dataIndex: this.preSelectMapIndex,
+    //       });
+    //       map.dispatchAction({
+    //         type: 'showTip',
+    //         seriesIndex: 0,
+    //         dataIndex: index,
+    //       });
+    //       map.dispatchAction({
+    //         type: 'mapSelect',
+    //         seriesIndex: 0,
+    //         dataIndex: index,
+    //       });
+    //       this.preSelectMapIndex = index;
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   });
+    // },
+    // handleMapRandomSelect() {
+    //   this.$nextTick(() => {
+    //     try {
+    //       const map = this.$refs.mapChartRef.chart;
+    //       const _self = this;
+    //       setTimeout(() => {
+    //         _self.reSelectMapRandomArea();
+    //       }, 0);
+    //       // 移入区域，清除定时器、取消之前选中并选中当前
+    //       map.on('mouseover', function (params) {
+    //         clearInterval(_self.intervalId);
+    //         map.dispatchAction({
+    //           type: 'mapUnSelect',
+    //           seriesIndex: 0,
+    //           dataIndex: _self.preSelectMapIndex,
+    //         });
+    //         map.dispatchAction({
+    //           type: 'mapSelect',
+    //           seriesIndex: 0,
+    //           dataIndex: params.dataIndex,
+    //         });
+    //         _self.preSelectMapIndex = params.dataIndex;
+    //       });
+    //       // 移出区域重新随机选中地图区域，并开启定时器
+    //       map.on('globalout', function () {
+    //         _self.reSelectMapRandomArea();
+    //         _self.startInterval();
+    //       });
+    //       this.startInterval();
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   });
+    // },
   },
 };
 </script>
