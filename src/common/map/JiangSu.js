@@ -51,7 +51,7 @@
         type: 'Feature',
         properties: {
           adcode: 320100,
-          name: '南京市',
+          name: '南京',
           center: [118.767413, 32.041544],
           centroid: [118.847868, 31.927726],
           childrenNum: 11,
@@ -503,7 +503,7 @@
         type: 'Feature',
         properties: {
           adcode: 320200,
-          name: '无锡市',
+          name: '无锡',
           center: [120.301663, 31.574729],
           childrenNum: 7,
           level: 'city',
@@ -791,7 +791,7 @@
         type: 'Feature',
         properties: {
           adcode: 320300,
-          name: '徐州市',
+          name: '徐州',
           center: [117.184811, 34.261792],
           centroid: [117.521565, 34.355594],
           childrenNum: 10,
@@ -1353,7 +1353,7 @@
         type: 'Feature',
         properties: {
           adcode: 320400,
-          name: '常州市',
+          name: '常州',
           center: [119.946973, 31.772752],
           centroid: [119.641979, 31.623547],
           childrenNum: 6,
@@ -1705,7 +1705,7 @@
         type: 'Feature',
         properties: {
           adcode: 320500,
-          name: '苏州市',
+          name: '苏州',
           center: [120.619585, 31.299379],
           centroid: [120.660806, 31.382865],
           childrenNum: 9,
@@ -1993,7 +1993,7 @@
         type: 'Feature',
         properties: {
           adcode: 320600,
-          name: '南通市',
+          name: '南通',
           center: [120.864608, 32.016212],
           centroid: [121.047928, 32.182334],
           childrenNum: 7,
@@ -2240,7 +2240,7 @@
         type: 'Feature',
         properties: {
           adcode: 320700,
-          name: '连云港市',
+          name: '连云港',
           center: [119.178821, 34.600018],
           centroid: [119.144784, 34.536075],
           childrenNum: 6,
@@ -2588,7 +2588,7 @@
         type: 'Feature',
         properties: {
           adcode: 320800,
-          name: '淮安市',
+          name: '淮安',
           center: [119.021265, 33.597506],
           centroid: [118.971034, 33.352326],
           childrenNum: 7,
@@ -2939,7 +2939,7 @@
         type: 'Feature',
         properties: {
           adcode: 320900,
-          name: '盐城市',
+          name: '盐城',
           center: [120.139998, 33.377631],
           centroid: [120.19868, 33.516581],
           childrenNum: 9,
@@ -3315,7 +3315,7 @@
         type: 'Feature',
         properties: {
           adcode: 321000,
-          name: '扬州市',
+          name: '扬州',
           center: [119.421003, 32.393159],
           centroid: [119.479719, 32.737224],
           childrenNum: 6,
@@ -3603,7 +3603,7 @@
         type: 'Feature',
         properties: {
           adcode: 321100,
-          name: '镇江市',
+          name: '镇江',
           center: [119.452753, 32.204402],
           centroid: [119.458183, 32.014028],
           childrenNum: 6,
@@ -3871,7 +3871,7 @@
         type: 'Feature',
         properties: {
           adcode: 321200,
-          name: '泰州市',
+          name: '泰州',
           center: [119.915176, 32.484882],
           centroid: [120.060841, 32.571433],
           childrenNum: 6,
@@ -4160,7 +4160,7 @@
         type: 'Feature',
         properties: {
           adcode: 321300,
-          name: '宿迁市',
+          name: '宿迁',
           center: [118.275162, 33.963008],
           centroid: [118.526352, 33.784713],
           childrenNum: 5,

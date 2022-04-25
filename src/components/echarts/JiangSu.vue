@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Echart ref="mapChartRef" :options="options" height="700px" width="660px"></Echart>
+    <Echart ref="mapChartRef" class="ds-echarts" :options="options"></Echart>
   </div>
 </template>
 
@@ -26,35 +26,35 @@ export default {
       handler(newData) {
         // 设置点的位置(经纬度)
         const geoCoordMap = {
-          南京市: [118.791277, 32.060447, 20],
-          无锡市: [120.307736, 31.493195, 20],
-          徐州市: [117.280019, 34.205689, 20],
-          常州市: [119.969289, 31.812037, 20],
-          苏州市: [120.581256, 31.300996, 20],
-          南通市: [120.890069, 31.982945, 20],
-          连云港市: [119.21607, 34.597765, 20],
-          淮安市: [119.010114, 33.611678, 20],
-          盐城市: [120.156672, 33.350937, 20],
-          扬州市: [119.407972, 32.395643, 20],
-          镇江市: [119.451424, 32.202181, 20],
-          泰州市: [119.918325, 32.45713, 20],
-          宿迁市: [118.269989, 33.963285, 20],
+          南京: [118.791277, 32.060447, 20],
+          无锡: [120.307736, 31.493195, 20],
+          徐州: [117.280019, 34.205689, 20],
+          常州: [119.969289, 31.812037, 20],
+          苏州: [120.581256, 31.300996, 20],
+          南通: [120.890069, 31.982945, 20],
+          连云港: [119.21607, 34.597765, 20],
+          淮安: [119.010114, 33.611678, 20],
+          盐城: [120.156672, 33.350937, 20],
+          扬州: [119.407972, 32.395643, 20],
+          镇江: [119.451424, 32.202181, 20],
+          泰州: [119.918325, 32.45713, 20],
+          宿迁: [118.269989, 33.963285, 20],
         };
 
         let seriesData = [
-          { name: '南京市' },
-          { name: '无锡市' },
-          { name: '徐州市' },
-          { name: '常州市' },
-          { name: '苏州市' },
-          { name: '南通市' },
-          { name: '连云港市' },
-          { name: '淮安市' },
-          { name: '盐城市' },
-          { name: '扬州市' },
-          { name: '镇江市' },
-          { name: '泰州市' },
-          { name: '宿迁市' },
+          { name: '南京' },
+          { name: '无锡' },
+          { name: '徐州' },
+          { name: '常州' },
+          { name: '苏州' },
+          { name: '南通' },
+          { name: '连云港' },
+          { name: '淮安' },
+          { name: '盐城' },
+          { name: '扬州' },
+          { name: '镇江' },
+          { name: '泰州' },
+          { name: '宿迁' },
         ];
         let convertData = function (data) {
           let scatterData = [];
@@ -73,8 +73,10 @@ export default {
           showLegendSymbol: true,
           tooltip: {
             trigger: 'item',
-            fontSize: 14,
-            lineHeight: 22,
+            textStyle: {
+              fontSize: 14,
+              lineHeight: 22,
+            },
             position: (point) => {
               // 固定在顶部
               return [point[0] + 50, point[1] - 20];
@@ -105,12 +107,17 @@ export default {
             left: '16%',
             map: '江苏',
             roam: false,
-            areaColor: 'rgba(0,0,0,0)',
-            shadowColor: 'rgba(7,114,204, .8)',
-            shadowOffsetX: 5,
-            shadowOffsetY: 5,
-            emphasis: {
-              areaColor: '#00aeef',
+            itemStyle: {
+              normal: {
+                borderWidth: 2,
+                areaColor: 'rgba(7,114,204,0)',
+                shadowColor: 'rgba(7,114,204, .8)',
+                shadowOffsetX: -8,
+                shadowOffsetY: 8,
+              },
+              emphasis: {
+                areaColor: '#00aeef',
+              },
             },
           },
           series: [
@@ -122,27 +129,34 @@ export default {
               mapType: '江苏', // 自定义扩展图表类型
               top: '10%',
               left: '16%',
-              color: 'red',
-              areaColor: 'rgba(19,54,162, .5)',
-              borderColor: 'rgba(0,242,252,.3)',
-              borderWidth: 1,
-              shadowBlur: 7,
-              shadowColor: '#00f2fc',
-              emphasis: {
-                areaColor: '#4f7fff',
-                borderColor: 'rgba(0,242,252,.6)',
-                borderWidth: 2,
-                shadowBlur: 10,
-                shadowColor: '#00f2fc',
+              itemStyle: {
+                normal: {
+                  areaColor: 'rgba(5, 142, 189, 0.5)',
+                  borderColor: '#A1E8FF',
+                  borderWidth: 2,
+                  shadowBlur: 1,
+                  shadowColor: 'rgba(5, 142, 189, 0.5)',
+                },
+                emphasis: {
+                  areaColor: '#4f7fff',
+                  borderColor: 'rgba(0,242,252,.6)',
+                  borderWidth: 2,
+                  shadowBlur: 10,
+                  shadowColor: '#00f2fc',
+                },
               },
               label: {
                 formatter: (params) => `${params.name}`,
                 show: true,
                 position: 'insideRight',
-                fontSize: 14,
-                color: '#efefef',
+                textStyle: {
+                  fontSize: 14,
+                  color: '#efefef',
+                },
                 emphasis: {
-                  color: '#fff',
+                  textStyle: {
+                    color: '#fff',
+                  },
                 },
               },
               data: newData,
@@ -160,9 +174,13 @@ export default {
                 brushType: 'stroke',
               },
               zlevel: 1,
-              color: '#99FBFE',
-              shadowBlur: 5,
-              shadowColor: '#fff',
+              itemStyle: {
+                normal: {
+                  color: '#99FBFE',
+                  shadowBlur: 5,
+                  shadowColor: '#fff',
+                },
+              },
               data: convertData(seriesData),
             },
           ],
@@ -257,7 +275,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ds-echarts {
-  width: 700px;
-  height: 660px;
+  width: 900px !important;
+  height: 700px !important;
 }
 </style>

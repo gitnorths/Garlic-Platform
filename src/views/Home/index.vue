@@ -32,7 +32,7 @@
                   :endVal="endVal"
                   :decimals="decimals"
                   :duration="duration"
-                  class="color1"
+                  class="color2"
                 ></countTo>
               </li>
               <li>
@@ -48,7 +48,6 @@
             </ul>
           </div>
           <div class="ds-map">
-            <!-- <div ref="mapChart" class="ds-echarts"></div> -->
             <JSMap :cdata="cdata" />
           </div>
           <div class="ds-number right">
