@@ -4,6 +4,7 @@
     <el-container v-else class="ds ds-home">
       <el-header>
         <div class="ds-flex">
+          <dv-decoration-10 style="width: 347px; height: 2px; position: absolute; top: 14px; left: 92px" />
           <div class="left"><span>2022年2月28日 星期三</span></div>
           <div class="right">
             <el-link :underline="false">
@@ -47,8 +48,22 @@
               </li>
             </ul>
           </div>
-          <div class="ds-map">
-            <JSMap :cdata="cdata" />
+          <div class="ds-center">
+            <div class="ds-map">
+              <JSMap :cdata="cdata" />
+              <div class="ds-map__suspend __shhfw">
+                <p>社会化服务</p>
+                <span></span>
+              </div>
+              <div class="ds-map__suspend __cyxx">
+                <p>产业信息</p>
+                <span></span>
+              </div>
+              <div class="ds-map__suspend __kxjc">
+                <p>科学监测</p>
+                <span></span>
+              </div>
+            </div>
           </div>
           <div class="ds-number right">
             <ul>

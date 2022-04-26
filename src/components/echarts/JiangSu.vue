@@ -54,12 +54,12 @@ export default {
         // 设置点的位置(经纬度)
         let geoCoordMap = {
           南京: [118.767413, 32.041544],
-          无锡: [120.301663, 31.574729],
+          无锡: [120.331663, 31.574729],
           徐州: [117.584811, 34.261792],
           常州: [119.946973, 31.772752],
           苏州: [120.619585, 31.299379],
           南通: [120.864608, 32.216212],
-          连云港: [119.178821, 34.600018],
+          连云港: [119.308821, 34.300018],
           淮安: [119.151265, 33.597506],
           盐城: [120.139998, 33.377631],
           扬州: [119.421003, 32.393159],
@@ -70,8 +70,8 @@ export default {
 
         let seriesData = [
           { name: '南京', value: 26 },
-          { name: '无锡', value: 35 },
-          { name: '徐州', value: 0 },
+          { name: '无锡', value: 0 },
+          { name: '徐州', value: 35 },
           { name: '常州', value: 0 },
           { name: '苏州', value: 0 },
           { name: '南通', value: 0 },
@@ -139,18 +139,15 @@ export default {
           showLegendSymbol: true,
           tooltip: {
             trigger: 'item',
-            fontSize: 14,
             lineHeight: 22,
-            position: (point) => {
-              // 固定在顶部
-              return [point[0] + 50, point[1] - 20];
+            backgroundColor: 'rgba(29, 38, 71)',
+            textStyle: {
+              color: '#20fbff',
+              fontSize: 14,
             },
-            // 如果需要自定义 tooltip样式，需要使用formatter
-            /*
-              formatter: params => {
-                return `<div style=""> ... </div>`
-              }
-            */
+            formatter: (params) => {
+              return params.name + ': ' + params.value;
+            },
           },
           // 底部背景
           geo: [
@@ -369,7 +366,7 @@ export default {
                 // borderWidth: 1,
                 fontSize: 16,
                 fontWeight: 'bold',
-                color: '#FFFFFF',
+                color: '#20fbff',
                 formatter(params) {
                   if (params.data[3] > 0) {
                     return params.data[2];
