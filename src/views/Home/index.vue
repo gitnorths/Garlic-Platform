@@ -32,7 +32,7 @@
                   :endVal="endVal"
                   :decimals="decimals"
                   :duration="duration"
-                  class="color2"
+                  class="color1"
                 ></countTo>
               </li>
               <li>
@@ -119,7 +119,7 @@ export default {
         },
         {
           name: '徐州',
-          value: 10,
+          value: 20,
         },
       ],
     };

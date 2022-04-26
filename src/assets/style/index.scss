@@ -110,6 +110,7 @@ input::placeholder {
             border-radius: 50%;
             font-weight: bold;
             background-color: initial;
+            margin-top: -2px;
 
             &::after {
               border-width: 3px;
