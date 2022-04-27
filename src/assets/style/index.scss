@@ -359,6 +359,19 @@ input::placeholder {
               background-size: 90px 90px;
               background-position: center center;
             }
+
+            &::after {
+              position: absolute;
+              left: 0;
+              top: 100%;
+              display: block;
+              content: "";
+              width: 114px;
+              height: 60px;
+              background-repeat: no-repeat;
+              background-size: 100% 100%;
+              background-image: url("@/assets/images/home/suspend-bot.png");
+            }
           }
 
           &.__shhfw {

@@ -26,24 +26,15 @@
         <div class="ds-flex">
           <div class="ds-number left">
             <ul>
-              <li>
-                <p>产量(吨）</p>
+              <li v-for="(item, index) in numberData.slice(0, 2)" :key="index">
+                <p>{{ item.name }}({{ item.unit }})</p>
                 <countTo
-                  :startVal="startVal"
-                  :endVal="endVal"
+                  :start-val="Number(item.sVal)"
+                  :end-val="Number(item.eVal)"
                   :decimals="decimals"
                   :duration="duration"
-                  class="color1"
-                ></countTo>
-              </li>
-              <li>
-                <p>产值(吨）</p>
-                <countTo
-                  :startVal="startVal"
-                  :endVal="endVal"
-                  :decimals="decimals"
-                  :duration="duration"
-                  class="color2"
+                  :class="`${item.cName}`"
+                  mountedCallback
                 ></countTo>
               </li>
             </ul>
@@ -51,50 +42,25 @@
           <div class="ds-center">
             <div class="ds-map">
               <JSMap :cdata="cdata" />
-              <div class="ds-map__suspend __shhfw">
-                <p>社会化服务</p>
-                <span></span>
-              </div>
-              <div class="ds-map__suspend __cyxx">
-                <p>产业信息</p>
-                <span></span>
-              </div>
-              <div class="ds-map__suspend __kxjc">
-                <p>科学监测</p>
-                <span></span>
+              <div v-for="(item, index) in suspend" :key="index" :class="`ds-map__suspend ${item.className}`">
+                <router-link :to="`${item.path}`">
+                  <p>{{ item.name }}</p>
+                  <span></span>
+                </router-link>
               </div>
             </div>
           </div>
           <div class="ds-number right">
             <ul>
-              <li>
-                <p>蒜头种植面积(km²)</p>
+              <li v-for="(item, index) in numberData.slice(2, 6)" :key="index">
+                <p>{{ item.name }}({{ item.unit }})</p>
                 <countTo
-                  :startVal="startVal"
-                  :endVal="endVal"
+                  :start-val="Number(item.sVal)"
+                  :end-val="Number(item.eVal)"
                   :decimals="decimals"
                   :duration="duration"
-                  class="color3"
-                ></countTo>
-              </li>
-              <li>
-                <p>蒜苗种植面积(km²)</p>
-                <countTo
-                  :startVal="startVal"
-                  :endVal="endVal"
-                  :decimals="decimals"
-                  :duration="duration"
-                  class="color4"
-                ></countTo>
-              </li>
-              <li>
-                <p>蒜薹种植面积(km²)</p>
-                <countTo
-                  :startVal="startVal"
-                  :endVal="endVal"
-                  :decimals="decimals"
-                  :duration="duration"
-                  class="color5"
+                  :class="`${item.cName}`"
+                  mountedCallback
                 ></countTo>
               </li>
             </ul>
@@ -106,6 +72,7 @@
 </template>
 
 <script>
+import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
 import JSMap from '@/components/echarts/JiangSu.vue';
 
@@ -122,15 +89,13 @@ export default {
       decimals: 1,
       duration: 1500,
       startVal: 0,
-      endVal: 12560.2,
-
+      endVal: 0,
+      suspend: [],
+      numberData: [],
       cdata: [
         {
           name: '南京',
           value: 10,
-          elseData: {
-            // 这里放置地图 tooltip 里想显示的数据
-          },
         },
         {
           name: '徐州',
@@ -141,6 +106,18 @@ export default {
   },
   mounted() {
     this.cancelLoading();
+    this.suspend = [
+      { name: '社会化服务', className: '__shhfw', path: '/login' },
+      { name: '产业信息', className: '__cyxx', path: '/cyxx' },
+      { name: '科学监测', className: '__kxjc', path: '/login' },
+    ];
+    this.numberData = [
+      { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
+      { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
+      { name: '蒜头种植面积', unit: 'km²', cName: 'color3', sVal: 0, eVal: 12560.2 },
+      { name: '蒜苗种植面积', unit: 'km²', cName: 'color4', sVal: 0, eVal: 12560.2 },
+      { name: '蒜薹种植面积', unit: 'km²', cName: 'color5', sVal: 0, eVal: 12560.2 },
+    ];
   },
   beforeDestroy() {
     clearInterval(this.timing);

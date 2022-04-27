@@ -159,7 +159,7 @@ export default {
               silent: true,
               z: 3,
               layoutSize: '95%',
-              layoutCenter: ['49.5%', '50.5%'],
+              layoutCenter: ['49.4%', '50%'],
               itemStyle: {
                 areaColor: '#2082B3',
                 borderColor: '#2798D8',
@@ -177,7 +177,7 @@ export default {
               silent: true,
               z: 2,
               layoutSize: '95%',
-              layoutCenter: ['49.5%', '51.3%'],
+              layoutCenter: ['48.8%', '50%'],
               itemStyle: {
                 areaColor: '#0E6A99',
                 borderColor: '#2580B9',
@@ -192,7 +192,7 @@ export default {
               silent: true,
               z: 1,
               layoutSize: '95%',
-              layoutCenter: ['49.5%', '52.1%'],
+              layoutCenter: ['48.2%', '50%'],
               itemStyle: {
                 areaColor: '#0A4C74',
                 borderColor: '#085589',
@@ -210,7 +210,7 @@ export default {
               silent: true,
               z: 0,
               layoutSize: '95%',
-              layoutCenter: ['49.5%', '52.9%'],
+              layoutCenter: ['47.5%', '50%'],
               itemStyle: {
                 areaColor: '#054576',
                 borderColor: '#013D73',

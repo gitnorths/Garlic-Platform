@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from '../views/Home/';
 import LoginView from '../views/Login/';
+import HomeView from '../views/Home/';
+import CyxxView from '../views/Home/cyxx';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: HomeView,
+  },
+  {
+    path: '/cyxx',
+    name: 'cyxx',
+    component: CyxxView,
   },
 ];
 
