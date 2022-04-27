@@ -6,15 +6,15 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 import dataV from '@jiaminghi/data-view';
-import BaiduMap from 'vue-baidu-map';
 
 import './assets/style/reset.scss';
 import './assets/style/index.scss';
 
+//JSON
+import JsonViewer from 'vue-json-viewer';
+Vue.use(JsonViewer);
+
 Vue.use(ElementUI);
-Vue.use(BaiduMap, {
-  ak: 'w3bQcaIR8NQZuz4G0VKOboOHh8a5l8jG',
-});
 
 import * as echarts from 'echarts';
 Vue.prototype.$echarts = echarts;
