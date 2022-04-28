@@ -10,9 +10,12 @@ import dataV from '@jiaminghi/data-view';
 import './assets/style/reset.scss';
 import './assets/style/index.scss';
 
-//JSON
-import JsonViewer from 'vue-json-viewer';
-Vue.use(JsonViewer);
+// AmapVue.config.key = 'ddd292c88aa1bad9c04891a47724f40a';
+
+import AmapVue from '@amap/amap-vue';
+
+AmapVue.config.key = 'ddd292c88aa1bad9c04891a47724f40a';
+Vue.use(AmapVue);
 
 Vue.use(ElementUI);
 
