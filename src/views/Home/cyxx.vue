@@ -1,13 +1,19 @@
 <template>
-  <div id="container" style="width: 100%; height: 100%"></div>
+  <div style="width: 100%; height: 100%">
+    <dv-loading class="dv-loading" v-show="loading">Loading...</dv-loading>
+    <div id="container"></div>
+  </div>
 </template>
 
 <script>
 import AMap from 'AMap';
+import { Message } from 'element-ui';
+
 export default {
   name: 'CYXX',
   data() {
     return {
+      loading: true,
       map: null,
       mapStyle: 'darkblue', // darkblue, grey
       level: 'district',
@@ -22,7 +28,8 @@ export default {
   },
   methods: {
     initAMap() {
-      this.map = new AMap.Map('container', {
+      let that = this;
+      that.map = new AMap.Map('container', {
         zoom: 11,
         adcode: [320000],
         depth: 2,
@@ -41,11 +48,19 @@ export default {
           'county-stroke': 'rgba(255,255,255,0.5)', // 中国区县边界
         },
       });
-      //使用CSS默认样式定义地图上的鼠标样式
-      this.map.setDefaultCursor('pointer');
+      // 使用CSS默认样式定义地图上的鼠标样式
+      that.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      this.map.setMapStyle(mapStyle);
-      this.drawBounds();
+      that.map.setMapStyle(mapStyle);
+      that.drawBounds();
+      that.map.on('complete', function () {
+        that.loading = false;
+
+        Message({
+          message: '地图加载完成',
+          type: 'success',
+        });
+      });
     },
     //自定义鼠标样式图标
     switchMapStyle() {
@@ -105,8 +120,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app-container {
-  width: 100%;
+#container {
+  width: 100vw;
+  height: 100vh;
   position: relative;
+}
+.dv-loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 101;
 }
 </style>

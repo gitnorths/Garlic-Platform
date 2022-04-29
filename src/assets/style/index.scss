@@ -11,7 +11,8 @@ input::placeholder {
   }
 }
 
-.ds-bg {
+.ds-bg,
+.dv-loading {
   width: 100%;
   height: 100%;
   background-image: url("@/assets/images/home/pageBg.png");
