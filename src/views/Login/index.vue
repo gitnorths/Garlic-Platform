@@ -1,5 +1,5 @@
 <template>
-  <div class="ds ds-login">
+  <div class="gp gp-login">
     <el-form :model="ruleForm" :rules="rules" ref="loginFormRef">
       <el-form-item>
         <!-- <el-image :src="urls"></el-image> -->

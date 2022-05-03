@@ -1,37 +1,62 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import LoginView from '../views/Login/';
-import HomeView from '../views/Home/';
-import CyxxView from '../views/Home/cyxx';
+import Layout from '@/layout';
 
 Vue.use(VueRouter);
 
-const routes = [
+export const baseRoutes = [
   {
     path: '/',
-    component: HomeView,
+    redirect: '/home',
   },
   {
     path: '/login',
-    name: 'login',
-    component: LoginView,
+    name: 'Login',
+    meta: { title: '登录页' },
+    component: () => import('@/views/Login'),
   },
   {
     path: '/home',
-    name: 'home',
-    component: HomeView,
+    name: 'Home',
+    meta: { title: '首页' },
+    component: () => import('@/views/Home'),
   },
+];
+
+// 产业信息
+export const industryRoutes = [
   {
-    path: '/cyxx',
-    name: 'cyxx',
-    component: CyxxView,
+    path: '/industry-information',
+    name: 'IndustryInformation',
+    meta: { title: '产品信息' },
+    component: Layout,
+    children: [
+      {
+        path: '/basic-information',
+        name: 'BasicInformation',
+        component: () => import('@/views/IndustryInformation/basic-information.vue'),
+        meta: { title: '基本信息' },
+      },
+      {
+        path: '/farmers-data',
+        name: 'FarmersData',
+        component: () => import('@/views/IndustryInformation/farmers-data.vue'),
+        meta: { title: '农户数据' },
+      },
+      {
+        path: '/garlic-exports',
+        name: 'GarlicExports',
+        component: () => import('@/views/IndustryInformation/garlic-exports.vue'),
+        meta: { title: '大蒜出口' },
+      },
+    ],
   },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes: [...baseRoutes, ...industryRoutes],
 });
 
 router.beforeEach((to, from, next) => {

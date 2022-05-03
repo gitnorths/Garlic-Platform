@@ -1,9 +1,9 @@
 <template>
-  <div class="ds-bg">
+  <div class="gp-bg">
     <dv-loading v-if="loading">Loading...</dv-loading>
-    <el-container v-else class="ds ds-home">
+    <el-container v-else class="gp gp-home">
       <el-header>
-        <div class="ds-flex">
+        <div class="gp-flex">
           <dv-decoration-10 style="width: 347px; height: 2px; position: absolute; top: 14px; left: 92px" />
           <div class="left"><span>2022年2月28日 星期三</span></div>
           <div class="right">
@@ -23,8 +23,8 @@
         </div>
       </el-header>
       <el-main>
-        <div class="ds-flex">
-          <div class="ds-number left">
+        <div class="gp-flex">
+          <div class="gp-number left">
             <ul>
               <li v-for="(item, index) in numberData.slice(0, 2)" :key="index">
                 <p>{{ item.name }}({{ item.unit }})</p>
@@ -39,10 +39,10 @@
               </li>
             </ul>
           </div>
-          <div class="ds-center">
-            <div class="ds-map">
+          <div class="gp-center">
+            <div class="gp-map">
               <JSMap :cdata="cdata" />
-              <div v-for="(item, index) in suspend" :key="index" :class="`ds-map__suspend ${item.className}`">
+              <div v-for="(item, index) in suspend" :key="index" :class="`gp-map__suspend ${item.className}`">
                 <router-link :to="`${item.path}`">
                   <p>{{ item.name }}</p>
                   <span></span>
@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="ds-number right">
+          <div class="gp-number right">
             <ul>
               <li v-for="(item, index) in numberData.slice(2, 6)" :key="index">
                 <p>{{ item.name }}({{ item.unit }})</p>
@@ -74,7 +74,7 @@
 <script>
 import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
-import JSMap from '@/components/echarts/JiangSu.vue';
+import JSMap from '@/components/maps/JiangSu.vue';
 
 export default {
   name: 'HomeView',
@@ -108,7 +108,7 @@ export default {
     this.cancelLoading();
     this.suspend = [
       { name: '社会化服务', className: '__shhfw', path: '/login' },
-      { name: '产业信息', className: '__cyxx', path: '/cyxx' },
+      { name: '产业信息', className: '__cyxx', path: '/basic-information' },
       { name: '科学监测', className: '__kxjc', path: '/login' },
     ];
     this.numberData = [

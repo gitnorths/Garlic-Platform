@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Echart ref="mapChartRef" class="ds-echarts" :options="options"></Echart>
+    <Echart ref="mapChartRef" class="gp-echarts" :options="options"></Echart>
   </div>
 </template>
 
@@ -564,7 +564,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.ds-echarts {
+.gp-echarts {
   width: 900px !important;
   height: 700px !important;
 }
