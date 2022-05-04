@@ -42,96 +42,96 @@ export default {
           ],
           moveLines: [
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '美国',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [-118.24311, 34.052713],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '澳大利亚',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [149.08, -35.15],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '以色列',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [35.12, 31.47],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '巴西',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [-48.678945, -10.493623],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '泰国',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [100.35, 13.45],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '沙特阿拉伯',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [46.42, 24.41],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '新加坡',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [103.51, 1.18],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '新西兰',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [174.46, -41.19],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '阿根廷',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [-60.0, -36.3],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '埃塞俄比亚',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [38.42, 9.02],
               ],
             },
             {
-              fromName: '长春',
+              fromName: '徐州',
               toName: '哥伦比亚',
               coords: [
-                [125.299633, 43.914039],
+                [117.584811, 34.261792],
                 [-74.0, 4.34],
               ],
             },
           ],
         };
-        let cityData = [{ name: '长春', value: [125.299633, 43.914039, 10] }];
+        let cityData = [{ name: '徐州', value: [117.584811, 34.261792, 10] }];
         this.$echarts.registerMap('world', worldJson);
         this.options = {
           tooltip: {
@@ -232,14 +232,12 @@ export default {
                 scale: 8,
               },
               label: {
-                normal: {
-                  show: true,
-                  position: 'right',
-                  color: '#9966cc',
-                  formatter: '{b}',
-                  textStyle: {
-                    color: '#fff',
-                  },
+                show: true,
+                position: 'right',
+                color: '#9966cc',
+                formatter: '{b}',
+                textStyle: {
+                  color: '#fff',
                 },
                 emphasis: {
                   show: true,
@@ -248,25 +246,23 @@ export default {
               symbol: 'pin',
               symbolSize: 20,
               itemStyle: {
-                normal: {
-                  show: true,
-                  color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [
-                      {
-                        offset: 0,
-                        color: '#F65857', // 0% 处的颜色
-                      },
-                      {
-                        offset: 1,
-                        color: '#EC2624', // 100% 处的颜色
-                      },
-                    ],
-                  },
+                show: true,
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: '#F65857', // 0% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: '#EC2624', // 100% 处的颜色
+                    },
+                  ],
                 },
               },
               data: cityData,
@@ -282,14 +278,12 @@ export default {
                 scale: 2, //波纹圆环最大限制，值越大波纹越大
               },
               label: {
-                normal: {
-                  show: false,
-                  position: 'right', //显示位置
-                  offset: [5, 0], //偏移设置
-                  formatter: '{b}', //圆环显示文字
-                  textStyle: {
-                    color: 'rgb(214,206,143)',
-                  },
+                show: true,
+                position: 'right', //显示位置
+                offset: [5, 0], //偏移设置
+                formatter: '{b}', //圆环显示文字
+                textStyle: {
+                  color: 'rgb(214,206,143)',
                 },
               },
               emphasis: {
