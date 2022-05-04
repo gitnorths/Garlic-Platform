@@ -170,6 +170,21 @@ let sData = [
     name: '蒜苗',
   },
 ];
+let legendColors = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
+let legendData = [];
+for (var j = 0; j < sData.length; j++) {
+  var data = {
+    name: sData[j].name,
+    icon: 'circle',
+    textStyle: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      lineHeight: 20,
+      color: legendColors[j],
+    },
+  };
+  legendData.push(data);
+}
 
 export default {
   name: 'BasicInformation',
@@ -536,20 +551,33 @@ export default {
           itemGap: 10,
           itemWidth: 10,
           itemHeight: 10,
-          textStyle: { color: '#c3cad9' },
-          formatter: function (params) {
+          data: legendData,
+          formatter: function (name) {
             let num = sData[0].value + sData[1].value + sData[2].value;
             for (let i = 0; i < sData.length; i++) {
-              if (params == sData[i].name) {
-                return (
-                  params + ' ' + ((sData[i].value / num) * 100).toFixed(2) + ' %\n面积：' + sData[i].value + ' k㎡'
-                );
+              if (name == sData[i].name) {
+                return `${name} ${((sData[i].value / num) * 100).toFixed(2)}%\n{value|面积：}{value|${
+                  sData[i].value
+                } } {value|k㎡}`;
               }
             }
+          },
+          textStyle: {
+            rich: {
+              value: {
+                color: '#ffffff',
+                fontSize: 12,
+              },
+            },
           },
         },
         tooltip: {
           trigger: 'item',
+          backgroundColor: 'rgba(50, 123, 222, 0.9)', // 背景
+          borderWidth: 0,
+          textStyle: {
+            color: '#FFFFFF',
+          },
           formatter: '{b} : {c} ({d}%)',
         },
       },
@@ -937,18 +965,23 @@ export default {
         }),
 
         label: {
+          formatter: function (params) {
+            return '{b|' + params.name + '}';
+          },
           rich: {
             b: {
-              color: '#d9efff',
-              fontSize: 15,
-              height: 40,
-            },
-            c: {
-              color: '#fff',
+              color: '#ffffff',
               fontSize: 14,
+              height: 40,
+              padding: [21, 0],
             },
           },
         },
+        // labelLine: {
+        //   length: 30,
+        //   length2: 20,
+        //   maxSurfaceAngle: 80,
+        // },
         itemStyle: {
           borderWidth: 5,
           borderColor: '#010825',

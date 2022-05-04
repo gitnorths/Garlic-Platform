@@ -45,6 +45,10 @@ input::placeholder {
     background-position: center center;
   }
 
+  &-mb15 {
+    margin-bottom: 15px;
+  }
+
   &-flex {
     display: flex;
   }
@@ -55,6 +59,14 @@ input::placeholder {
 
   &-flex1 {
     flex: 1;
+  }
+
+  &-flex2 {
+    flex: 2;
+  }
+
+  &-flex3 {
+    flex: 3;
   }
 
   &-home {
@@ -688,6 +700,7 @@ input::placeholder {
       background-repeat: no-repeat;
       background-size: 100%;
       background-image: url("@/assets/images/home/menu.png");
+      transition: all 0.3s;
 
       span {
         font-size: 18px;
@@ -707,6 +720,145 @@ input::placeholder {
           -webkit-text-fill-color: transparent;
         }
       }
+    }
+  }
+
+  &-industry {
+    .gp-title {
+      margin-bottom: 10px;
+    }
+    .gp-box {
+      background-color: rgba(#000d1c, 0.7);
+    }
+  }
+
+  &-table {
+    .el-table {
+      color: #ffffff;
+      font-size: 15px;
+      background-color: initial;
+
+      &::before {
+        background-color: initial;
+      }
+
+      .el-table__cell {
+        padding: 5px 0;
+      }
+
+      thead {
+        color: #73afff;
+      }
+
+      tr {
+        background-color: initial;
+      }
+
+      th {
+        &.el-table__cell {
+          background-color: rgba(#002654, 0.5);
+          font-size: 15px;
+          font-weight: bold;
+
+          &.is-leaf {
+            border-color: rgba(#415a89, 0.5);
+          }
+        }
+      }
+
+      td.el-table__cell,
+      th.el-table__cell.is-leaf {
+        border-color: rgba(#050e1a, 0.5);
+        font-size: 12px;
+      }
+
+      &.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+        background-color: rgba(#0052c1, 0.4);
+      }
+    }
+  }
+
+  &-infinite {
+    &__list {
+      height: 54vh;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        background-color: rgba(#002654, 0.5);
+        border-bottom: 1px solid rgba(#415a89, 0.5);
+        margin-bottom: 5px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        b {
+          width: 46px;
+          text-align: center;
+          color: #00ffff;
+          font-size: 16px;
+          font-weight: bold;
+          font-style: italic;
+        }
+
+        p {
+          flex: 1;
+          color: #ffffff;
+          font-size: 16px;
+        }
+
+        span {
+          padding: 0 15px;
+          color: #73afff;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  &-eports {
+    height: 100%;
+    padding-top: 90px;
+    padding-right: 440px;
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+
+      p {
+        width: 400px;
+        height: 70px;
+        line-height: 70px;
+        margin: 0 25px;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: Bold;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-image: url("@/assets/images/home/garlic-exports.png");
+
+        b {
+          color: #1AE1E5;
+          font-size: 36px;
+          font-weight: bold;
+          padding: 0 15px;
+        }
+
+        span {
+          color: #1AE1E5;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__body {
+      flex: 1;
     }
   }
 }
