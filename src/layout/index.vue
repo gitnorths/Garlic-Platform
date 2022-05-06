@@ -2,7 +2,7 @@
   <div style="width: 100%; height: 100%">
     <el-container class="gp-container">
       <el-header class="gp-header zIndex101">
-        <div class="gp-gohome"></div>
+        <div class="gp-gohome" @click="goHome"></div>
         <el-menu :default-active="$router.currentRoute.path" router class="gp-menu" mode="horizontal">
           <el-menu-item v-for="item in asyncMenuList" :index="`${item.path}`" :key="item.path">
             <span>{{ item.meta.title }}</span>
@@ -28,7 +28,7 @@
                 <b>李永明</b> 管理员 <i class="el-icon-caret-bottom el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item class="clearfix"> 退出 </el-dropdown-item>
+                <el-dropdown-item class="clearfix"> <span @click="layout">退出</span> </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { industryRoutes } from '@/router';
+import { industryRoutes, scienceRoutes } from '@/router';
 
 export default {
   name: 'HomeView',
@@ -58,9 +58,22 @@ export default {
   },
   computed: {
     asyncMenuList() {
-      return industryRoutes[0].children;
+      if (this.$route.path === '/anchor-point') {
+        return scienceRoutes[0].children;
+      } else if (this.$route.path === '/basic-information') {
+        return industryRoutes[0].children;
+      } else {
+        return industryRoutes[0].children;
+      }
     },
   },
-  methods: {},
+  methods: {
+    goHome() {
+      this.$router.push({ path: '/home' });
+    },
+    layout() {
+      this.$router.push({ path: '/login' });
+    },
+  },
 };
 </script>

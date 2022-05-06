@@ -109,7 +109,7 @@ export default {
     this.suspend = [
       { name: '社会化服务', className: '__shhfw', path: '/login' },
       { name: '产业信息', className: '__cyxx', path: '/basic-information' },
-      { name: '科学监测', className: '__kxjc', path: '/login' },
+      { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
     ];
     this.numberData = [
       { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },

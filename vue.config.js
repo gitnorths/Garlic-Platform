@@ -11,7 +11,6 @@ module.exports = {
   configureWebpack: {
     externals: {
       AMap: 'AMap',
-      'element-ui': 'ElementUI',
     },
     resolve: {
       alias: {

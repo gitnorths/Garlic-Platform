@@ -53,10 +53,41 @@ export const industryRoutes = [
   },
 ];
 
+// 科学监测
+export const scienceRoutes = [
+  {
+    path: '/science',
+    name: 'Science',
+    meta: { title: '科学监测' },
+    component: Layout,
+    children: [
+      {
+        path: '/anchor-point',
+        name: 'AnchorPoint',
+        component: () => import(/* webpackChunkName:"anchor-point"*/ '@/views/science/anchor-point.vue'),
+        meta: { title: '测土配方施肥定位点监测' },
+      },
+      {
+        path: '/integrated-monitoring',
+        name: 'IntegratedMonitoring',
+        component: () =>
+          import(/* webpackChunkName:"integrated-monitoring"*/ '@/views/science/integrated-monitoring.vue'),
+        meta: { title: '蒜田综合监控' },
+      },
+      {
+        path: '/quality-grade',
+        name: 'QualityGrade',
+        component: () => import(/* webpackChunkName:"quality-grade"*/ '@/views/science/quality-grade.vue'),
+        meta: { title: '耕地质量等级' },
+      },
+    ],
+  },
+];
+
 const router = new VueRouter({
   // mode: 'history',
   // base: process.env.BASE_URL,
-  routes: [...baseRoutes, ...industryRoutes],
+  routes: [...baseRoutes, ...industryRoutes, ...scienceRoutes],
 });
 
 router.beforeEach((to, from, next) => {

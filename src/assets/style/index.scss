@@ -692,14 +692,19 @@ input::placeholder {
     }
 
     > .el-menu-item {
-      width: 170px;
+      // width: 170px;
       height: 44px;
       line-height: 44px;
+      padding: 0 30px 0 40px;
       text-align: center;
       background-color: initial !important;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-image: url("@/assets/images/home/menu.png");
+      // background-repeat: no-repeat;
+      // background-size: 100% 100%;
+      // background-image: url("@/assets/images/home/menu.png");
+      border-image-source: url("@/assets/images/home/menu.png");
+      border-image-repeat: stretch round;
+      border-image-width: 45px 45px;
+      border-image-slice: 45 45 fill;
       transition: all 0.3s;
 
       span {
@@ -710,7 +715,8 @@ input::placeholder {
       &:hover,
       &.is-active {
         border-width: 0;
-        background-image: url("@/assets/images/home/ment-active.png");
+        border-image-source: url("@/assets/images/home/ment-active.png");
+        // background-image: url("@/assets/images/home/ment-active.png");
 
         span {
           font-weight: bold;
@@ -736,6 +742,74 @@ input::placeholder {
       &.height {
         flex: auto;
         height: 35vh;
+      }
+    }
+  }
+
+  &-science {
+    .gp-right {
+      width: 700px;
+
+      .gp-box {
+        padding: 20px;
+        ul {
+          display: flex;
+          justify-content: center;
+          li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 156px;
+            height: 150px;
+            margin: 0 5px;
+            background-image: url("@/assets/images/home/icon-round.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
+
+            span {
+              padding: 30px 0 20px;
+              color: #1ae1e5;
+              font-size: 36px;
+              font-weight: bold;
+            }
+            p {
+              position: relative;
+              color: #ffffff;
+              font-size: 12px;
+              line-height: 30px;
+              padding-left: 10px;
+
+              &::after {
+                position: absolute;
+                left: -20px;
+                top: 0;
+                display: block;
+                content: "";
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                background-size: 100%;
+              }
+
+              &.area::after {
+                background-image: url("@/assets/images/home/icon-area.png");
+              }
+
+              &.city::after {
+                background-image: url("@/assets/images/home/icon-city.png");
+              }
+
+              &.province::after {
+                background-image: url("@/assets/images/home/icon-province.png");
+              }
+
+              &.countries::after {
+                background-image: url("@/assets/images/home/icon-countries.png");
+              }
+            }
+          }
+        }
       }
     }
   }
