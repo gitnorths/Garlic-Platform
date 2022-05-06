@@ -13,13 +13,13 @@ export const baseRoutes = [
     path: '/login',
     name: 'Login',
     meta: { title: '登录页' },
-    component: () => import('@/views/login'),
+    component: () => import(/* webpackChunkName:"login"*/ '@/views/login'),
   },
   {
     path: '/home',
     name: 'Home',
     meta: { title: '首页' },
-    component: () => import('@/views/home'),
+    component: () => import(/* webpackChunkName:"home"*/ '@/views/home'),
   },
 ];
 
@@ -34,19 +34,19 @@ export const industryRoutes = [
       {
         path: '/basic-information',
         name: 'BasicInformation',
-        component: () => import('@/views/industry/basic-information.vue'),
+        component: () => import(/* webpackChunkName:"basic-information"*/ '@/views/industry/basic-information.vue'),
         meta: { title: '基本信息' },
       },
       {
         path: '/farmers-data',
         name: 'FarmersData',
-        component: () => import('@/views/industry/farmers-data.vue'),
+        component: () => import(/* webpackChunkName:"farmers-data"*/ '@/views/industry/farmers-data.vue'),
         meta: { title: '农户数据' },
       },
       {
         path: '/garlic-exports',
         name: 'GarlicExports',
-        component: () => import('@/views/industry/garlic-exports.vue'),
+        component: () => import(/* webpackChunkName:"garlic-exports"*/ '@/views/industry/garlic-exports.vue'),
         meta: { title: '大蒜出口' },
       },
     ],
