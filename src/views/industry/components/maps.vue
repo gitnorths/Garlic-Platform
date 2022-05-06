@@ -21,7 +21,7 @@ export default {
       level: 'district',
       district: '江苏省',
       polygons: [],
-      zoom: 7.8,
+      zoom: 7.5,
       adcode: 320000,
       depth: 2,
       colors: {

@@ -12,7 +12,7 @@
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>大蒜交易量及总额</span></div>
-        <div class="gp-box">
+        <div class="gp-box height">
           <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" @chartClick="baseClick" />
         </div>
       </div>

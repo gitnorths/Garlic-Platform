@@ -13,40 +13,40 @@ export const baseRoutes = [
     path: '/login',
     name: 'Login',
     meta: { title: '登录页' },
-    component: () => import('@/views/Login'),
+    component: () => import('@/views/login'),
   },
   {
     path: '/home',
     name: 'Home',
     meta: { title: '首页' },
-    component: () => import('@/views/Home'),
+    component: () => import('@/views/home'),
   },
 ];
 
 // 产业信息
 export const industryRoutes = [
   {
-    path: '/industry-information',
-    name: 'IndustryInformation',
+    path: '/industry',
+    name: 'Industry',
     meta: { title: '产品信息' },
     component: Layout,
     children: [
       {
         path: '/basic-information',
         name: 'BasicInformation',
-        component: () => import('@/views/IndustryInformation/basic-information.vue'),
+        component: () => import('@/views/industry/basic-information.vue'),
         meta: { title: '基本信息' },
       },
       {
         path: '/farmers-data',
         name: 'FarmersData',
-        component: () => import('@/views/IndustryInformation/farmers-data.vue'),
+        component: () => import('@/views/industry/farmers-data.vue'),
         meta: { title: '农户数据' },
       },
       {
         path: '/garlic-exports',
         name: 'GarlicExports',
-        component: () => import('@/views/IndustryInformation/garlic-exports.vue'),
+        component: () => import('@/views/industry/garlic-exports.vue'),
         meta: { title: '大蒜出口' },
       },
     ],
@@ -54,8 +54,8 @@ export const industryRoutes = [
 ];
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  // mode: 'history',
+  // base: process.env.BASE_URL,
   routes: [...baseRoutes, ...industryRoutes],
 });
 

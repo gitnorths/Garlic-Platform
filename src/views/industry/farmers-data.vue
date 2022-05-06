@@ -4,7 +4,7 @@
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
-        <div class="gp-box">
+        <div class="gp-box height">
           <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" @chartClick="baseClick" />
         </div>
       </div>
@@ -86,18 +86,18 @@ export default {
       baseOption: {
         title: {
           text: '2426万亩',
-          left: '39%',
+          left: '31%',
           y: '42%',
           textAlign: 'center',
           textStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontSize: 28,
+            fontSize: '24px',
           },
           subtext: '1126户',
           subtextStyle: {
             color: '#71B0F8',
-            fontSize: 20,
+            fontSize: '18px',
           },
         },
         grid: {
@@ -111,7 +111,6 @@ export default {
           orient: 'vertical',
           right: '10',
           y: 'center',
-          padding: 10,
           icon: 'circle',
           itemGap: 10,
           itemWidth: 10,
@@ -131,7 +130,7 @@ export default {
             rich: {
               value: {
                 color: '#ffffff',
-                fontSize: 12,
+                fontSize: '12px',
               },
             },
           },
@@ -146,7 +145,7 @@ export default {
           formatter: '{b}: {c}（{d}%）',
         },
       },
-      height: '57vh',
+      height: '42vh',
       tableData: [
         {
           name: '李大田',
@@ -313,7 +312,7 @@ export default {
         name: '面积与品种',
         type: 'pie',
         radius: ['45%', '70%'],
-        center: ['40%', '50%'],
+        center: ['32%', '50%'],
         color: ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'],
         data: sData.sort(function (a, b) {
           return a.value - b.value;

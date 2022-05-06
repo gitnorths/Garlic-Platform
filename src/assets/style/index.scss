@@ -574,13 +574,13 @@ input::placeholder {
   &-left {
     left: 0;
     padding-left: 15px;
-    background: linear-gradient(90deg, #010825 0%, rgba(1, 8, 37, 0) 100%);
+    background: linear-gradient(90deg, rgba(1, 8, 37, 1) 0%, rgba(1, 8, 37, 0.2) 100%);
   }
 
   &-right {
     right: 0;
     padding-right: 15px;
-    background: linear-gradient(-90deg, #010825 0%, rgba(1, 8, 37, 0) 100%);
+    background: linear-gradient(-90deg, rgba(1, 8, 37, 1) 0%, rgba(1, 8, 37, 0.2) 100%);
   }
 
   &-title {
@@ -724,11 +724,19 @@ input::placeholder {
   }
 
   &-industry {
+    .gp-right {
+      width: 540px;
+    }
     .gp-title {
       margin-bottom: 10px;
     }
     .gp-box {
       background-color: rgba(#000d1c, 0.7);
+
+      &.height {
+        flex: auto;
+        height: 35vh;
+      }
     }
   }
 
@@ -757,7 +765,7 @@ input::placeholder {
       th {
         &.el-table__cell {
           background-color: rgba(#002654, 0.5);
-          font-size: 15px;
+          font-size: 16px;
           font-weight: bold;
 
           &.is-leaf {
@@ -769,7 +777,7 @@ input::placeholder {
       td.el-table__cell,
       th.el-table__cell.is-leaf {
         border-color: rgba(#050e1a, 0.5);
-        font-size: 12px;
+        font-size: 16px;
       }
 
       &.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
@@ -780,7 +788,7 @@ input::placeholder {
 
   &-infinite {
     &__list {
-      height: 49.5vh;
+      height: 36vh;
 
       &-item {
         display: flex;
@@ -843,14 +851,14 @@ input::placeholder {
         background-image: url("@/assets/images/home/garlic-exports.png");
 
         b {
-          color: #1AE1E5;
+          color: #1ae1e5;
           font-size: 36px;
           font-weight: bold;
           padding: 0 15px;
         }
 
         span {
-          color: #1AE1E5;
+          color: #1ae1e5;
           font-size: 20px;
           font-weight: bold;
         }

@@ -958,7 +958,7 @@ export default {
         name: '面积与品种',
         type: 'pie',
         radius: '50%',
-        center: ['40%', '50%'],
+        center: ['35%', '50%'],
         color: ['#1AE1E5', '#00FFCF', '#4D81E7'],
         data: sData.sort(function (a, b) {
           return a.value - b.value;
