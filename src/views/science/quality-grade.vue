@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg gp-industry">
-    <Science-Maps />
+    <QualityGradeMaps />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ScienceMaps from './components/science-maps';
+import QualityGradeMaps from './components/quality-grade-maps';
 import BaseChart from '@/components/echarts/baseChart';
 
 let sData = [
@@ -77,7 +77,7 @@ for (var j = 0; j < sData.length; j++) {
 export default {
   name: 'BasicInformation',
   components: {
-    ScienceMaps,
+    QualityGradeMaps,
     BaseChart,
   },
   data() {

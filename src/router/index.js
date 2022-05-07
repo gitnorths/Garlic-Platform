@@ -28,7 +28,7 @@ export const industryRoutes = [
   {
     path: '/industry',
     name: 'Industry',
-    meta: { title: '产品信息' },
+    meta: { title: '产业信息' },
     component: Layout,
     children: [
       {
@@ -72,13 +72,13 @@ export const scienceRoutes = [
         name: 'IntegratedMonitoring',
         component: () =>
           import(/* webpackChunkName:"integrated-monitoring"*/ '@/views/science/integrated-monitoring.vue'),
-        meta: { title: '蒜田综合监控' },
+        meta: { title: '蒜田环境综合监控' },
       },
       {
         path: '/quality-grade',
         name: 'QualityGrade',
         component: () => import(/* webpackChunkName:"quality-grade"*/ '@/views/science/quality-grade.vue'),
-        meta: { title: '耕地质量等级' },
+        meta: { title: '耕地质量等级图集' },
       },
     ],
   },

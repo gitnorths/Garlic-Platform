@@ -21,7 +21,7 @@ export default {
       level: 'district',
       district: '江苏省',
       polygons: [],
-      zoom: 7.8,
+      zoom: 7,
       adcode: 320000,
       depth: 2,
       colors: {
@@ -56,7 +56,7 @@ export default {
         pitch: 0,
         viewMode: '3D',
       });
-      this.map.panBy(-200, 0);
+      this.map.panBy(-100, 0);
 
       that.initPro(that.adcode, that.depth);
     },
@@ -169,8 +169,8 @@ export default {
           // icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
           icon:
             i === 0
-              ? require('../../../assets/images/home/mark2.png')
-              : require('../../../assets/images/home/mark.png'),
+              ? require('../../../assets/images/icon/mark2.png')
+              : require('../../../assets/images/icon/mark.png'),
           position: lnglats[i],
         });
         //鼠标点击marker弹出自定义的信息窗体

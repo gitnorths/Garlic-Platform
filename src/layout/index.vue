@@ -3,8 +3,9 @@
     <el-container class="gp-container">
       <el-header class="gp-header zIndex101">
         <div class="gp-gohome" @click="goHome"></div>
+        <div class="gp-header__title">{{ asyncMenuList[0].meta.title }}</div>
         <el-menu :default-active="$router.currentRoute.path" router class="gp-menu" mode="horizontal">
-          <el-menu-item v-for="item in asyncMenuList" :index="`${item.path}`" :key="item.path">
+          <el-menu-item v-for="item in asyncMenuList[0].children" :index="`${item.path}`" :key="item.path">
             <span>{{ item.meta.title }}</span>
           </el-menu-item>
         </el-menu>
@@ -50,6 +51,7 @@ export default {
   components: {},
   data() {
     return {
+      title: '',
       activeIndex: '1',
       menuRoutes: [],
       settings: require('../assets/images/home/setting2.png'),
@@ -58,12 +60,12 @@ export default {
   },
   computed: {
     asyncMenuList() {
-      if (this.$route.path === '/anchor-point') {
-        return scienceRoutes[0].children;
-      } else if (this.$route.path === '/basic-information') {
-        return industryRoutes[0].children;
+      if (this.$route.matched[0].name === 'Science') {
+        return scienceRoutes;
+      } else if (this.$route.matched[0].name === 'Industry') {
+        return industryRoutes;
       } else {
-        return industryRoutes[0].children;
+        return industryRoutes;
       }
     },
   },

@@ -49,6 +49,10 @@ input::placeholder {
     margin-bottom: 15px;
   }
 
+  &-p20 {
+    padding: 20px;
+  }
+
   &-flex {
     display: flex;
   }
@@ -100,7 +104,7 @@ input::placeholder {
     .el-header {
       height: 106px !important;
       padding: 0 38px;
-      background-image: url("@/assets/images/home/header.png");
+      background-image: url("@/assets/images/home/header-center.png");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: contain;
@@ -462,9 +466,6 @@ input::placeholder {
   }
 
   &-gohome {
-    position: absolute;
-    left: 15px;
-    top: 15px;
     width: 56px;
     height: 48px;
     z-index: 101;
@@ -492,7 +493,7 @@ input::placeholder {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-image: url("@/assets/images/home/header-cyxx.png");
+    background-image: url("@/assets/images/home/header.png");
 
     &__form {
       align-items: center;
@@ -542,6 +543,19 @@ input::placeholder {
         }
       }
     }
+
+    &__title {
+      flex: 0 0 350px;
+      padding-left: 75px;
+      font-size: 44px;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      font-weight: 600;
+      // color: #ffffff;
+      // text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
+      background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   &-main {
@@ -564,11 +578,9 @@ input::placeholder {
   &-left,
   &-right {
     position: absolute;
-    top: 0;
     width: 440px;
-    height: 100%;
-    padding-top: 95px;
-    padding-bottom: 30px;
+    top: 95px;
+    bottom: 45px;
   }
 
   &-left {
@@ -584,14 +596,27 @@ input::placeholder {
   }
 
   &-title {
-    width: 420px;
+    position: relative;
+    width: 100%;
     height: 50px;
     line-height: 50px;
     font-weight: bold;
     padding-left: 50px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("@/assets/images/home/title.png");
+    background: linear-gradient(90deg, #004191 0%, rgba(0, 65, 145, 0) 100%);
+
+    &::before {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      display: block;
+      content: "";
+      width: 20px;
+      height: 100%;
+      background-image: url("@/assets/images/icon/title.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+    }
 
     span {
       font-size: 22px;
@@ -608,6 +633,25 @@ input::placeholder {
 
   &-box {
     flex: 1;
+  }
+
+  &-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0 0;
+
+    span {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .el-radio-button__inner {
+      background: #001841;
+      border-color: #1c63c4 !important;
+      color: #1c63c4;
+    }
   }
 
   &-map__marker {
@@ -687,6 +731,9 @@ input::placeholder {
 
   &-menu {
     &.el-menu.el-menu--horizontal {
+      flex: 1;
+      display: flex;
+      justify-content: end;
       background-color: initial;
       border-width: 0;
     }
@@ -742,74 +789,6 @@ input::placeholder {
       &.height {
         flex: auto;
         height: 35vh;
-      }
-    }
-  }
-
-  &-science {
-    .gp-right {
-      width: 700px;
-
-      .gp-box {
-        padding: 20px;
-        ul {
-          display: flex;
-          justify-content: center;
-          li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            width: 156px;
-            height: 150px;
-            margin: 0 5px;
-            background-image: url("@/assets/images/home/icon-round.png");
-            background-repeat: no-repeat;
-            background-size: 100%;
-
-            span {
-              padding: 30px 0 20px;
-              color: #1ae1e5;
-              font-size: 36px;
-              font-weight: bold;
-            }
-            p {
-              position: relative;
-              color: #ffffff;
-              font-size: 12px;
-              line-height: 30px;
-              padding-left: 10px;
-
-              &::after {
-                position: absolute;
-                left: -20px;
-                top: 0;
-                display: block;
-                content: "";
-                width: 30px;
-                height: 30px;
-                background-repeat: no-repeat;
-                background-size: 100%;
-              }
-
-              &.area::after {
-                background-image: url("@/assets/images/home/icon-area.png");
-              }
-
-              &.city::after {
-                background-image: url("@/assets/images/home/icon-city.png");
-              }
-
-              &.province::after {
-                background-image: url("@/assets/images/home/icon-province.png");
-              }
-
-              &.countries::after {
-                background-image: url("@/assets/images/home/icon-countries.png");
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -941,6 +920,124 @@ input::placeholder {
 
     &__body {
       flex: 1;
+    }
+  }
+
+  &-science {
+    .gp-right {
+      width: 700px;
+
+      .gp-box {
+        background-color: #020f22;
+
+        ul {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 15px;
+
+          li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 156px;
+            height: 150px;
+            background-image: url("@/assets/images/icon/round.png");
+            background-repeat: no-repeat;
+            background-size: 100%;
+
+            span {
+              padding: 30px 0 20px;
+              color: #1ae1e5;
+              font-size: 36px;
+              font-weight: bold;
+            }
+            p {
+              position: relative;
+              color: #ffffff;
+              font-size: 12px;
+              line-height: 30px;
+              padding-left: 10px;
+
+              &::after {
+                position: absolute;
+                left: -20px;
+                top: 0;
+                display: block;
+                content: "";
+                width: 30px;
+                height: 30px;
+                background-repeat: no-repeat;
+                background-size: 100%;
+              }
+
+              &.area::after {
+                background-image: url("@/assets/images/icon/area.png");
+              }
+
+              &.city::after {
+                background-image: url("@/assets/images/icon/city.png");
+              }
+
+              &.province::after {
+                background-image: url("@/assets/images/icon/province.png");
+              }
+
+              &.countries::after {
+                background-image: url("@/assets/images/icon/countries.png");
+              }
+            }
+          }
+        }
+
+        .gp-title {
+          &::before {
+            width: 34px;
+            background-image: url("@/assets/images/icon/data.png");
+          }
+        }
+      }
+    }
+  }
+
+  &-integrated {
+    .gp-right {
+      width: 360px;
+      background-color: #020f22;
+
+      .gp-group {
+        justify-content: flex-start;
+        padding: 15px 0;
+        border-bottom: 1px dashed #004191;
+
+        span {
+          position: relative;
+          font-size: 16px;
+          padding: 0 15px 0 50px;
+
+          &::before {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            display: block;
+            content: "";
+            width: 24px;
+            height: 100%;
+            background-image: url("@/assets/images/icon/point.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+          }
+        }
+
+        p {
+          color: #517FBC;
+          font-size: 14px;
+        }
+      }
+
+      .gp-box {
+      }
     }
   }
 }
