@@ -19,8 +19,8 @@
       <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
         <div class="gp-title"><span>大蒜出口国家排名</span></div>
         <div class="gp-box">
-          <ul class="gp-infinite__list" v-infinite-scroll="load" style="overflow: auto">
-            <li v-for="(item, index) in ranking" :key="index" class="gp-infinite__list-item">
+          <ul class="gp-list" v-infinite-scroll="load" style="overflow: auto">
+            <li v-for="(item, index) in list" :key="index" class="gp-list__item">
               <b>{{ item.index }}</b>
               <p>{{ item.name }}</p>
               <span>{{ item.type }}</span>
@@ -88,7 +88,7 @@ export default {
   },
   data() {
     return {
-      ranking: [
+      list: [
         { index: 1, name: '美国', type: '蒜头', value: 239, unit: '万吨' },
         { index: 2, name: '法国', type: '蒜苗', value: 239, unit: '万吨' },
         { index: 3, name: '澳大利亚', type: '蒜薹', value: 239, unit: '万吨' },
