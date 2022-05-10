@@ -107,7 +107,7 @@ export default {
   mounted() {
     this.cancelLoading();
     this.suspend = [
-      { name: '社会化服务', className: '__shhfw', path: '/login' },
+      { name: '社会化服务', className: '__shhfw', path: '/procurement' },
       { name: '产业信息', className: '__cyxx', path: '/basic-information' },
       { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
     ];

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { industryRoutes, scienceRoutes } from '@/router';
+import { industryRoutes, scienceRoutes, socialRoutes } from '@/router';
 
 export default {
   name: 'HomeView',
@@ -60,7 +60,9 @@ export default {
   },
   computed: {
     asyncMenuList() {
-      if (this.$route.matched[0].name === 'Science') {
+      if (this.$route.matched[0].name === 'Social') {
+        return socialRoutes;
+      } else if (this.$route.matched[0].name === 'Science') {
         return scienceRoutes;
       } else if (this.$route.matched[0].name === 'Industry') {
         return industryRoutes;

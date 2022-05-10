@@ -169,7 +169,7 @@ export default {
           // icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
           icon:
             i === 0
-              ? require('../../../assets/images/icon/mark2.png')
+              ? require('../../../assets/images/icon/mark-green.png')
               : require('../../../assets/images/icon/mark.png'),
           position: lnglats[i],
         });

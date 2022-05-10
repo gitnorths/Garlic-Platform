@@ -84,10 +84,49 @@ export const scienceRoutes = [
   },
 ];
 
+// 社会化服务
+export const socialRoutes = [
+  {
+    path: '/social',
+    name: 'Social',
+    meta: { title: '社会化服务' },
+    component: Layout,
+    children: [
+      {
+        path: '/procurement',
+        name: 'Procurement',
+        component: () => import(/* webpackChunkName:"procurement"*/ '@/views/social/procurement.vue'),
+        meta: { title: '大蒜购销服务' },
+      },
+      {
+        path: '/formula',
+        name: 'Formula',
+        component: () => import(/* webpackChunkName:"formula"*/ '@/views/social/formula.vue'),
+        meta: { title: '测土配方施肥' },
+      },
+      {
+        path: '/prevention-control',
+        name: 'PreventionControl',
+        component: () => import(/* webpackChunkName:"prevention-control"*/ '@/views/social/prevention-control.vue'),
+        meta: { title: '病虫害绿色防控' },
+      },
+      {
+        path: '/mechanization-intellectualization',
+        name: 'MechanizationIntellectualization',
+        component: () =>
+          import(
+            /* webpackChunkName:"mechanization-intellectualization"*/ '@/views/social/mechanization-intellectualization.vue'
+          ),
+        meta: { title: '机械化/智能化' },
+      },
+    ],
+  },
+];
+
 const router = new VueRouter({
   // mode: 'history',
   // base: process.env.BASE_URL,
-  routes: [...baseRoutes, ...industryRoutes, ...scienceRoutes],
+  routes: [...baseRoutes, ...industryRoutes, ...scienceRoutes, ...socialRoutes],
 });
 
 router.beforeEach((to, from, next) => {

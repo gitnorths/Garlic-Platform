@@ -21,7 +21,7 @@ export default {
       level: 'district',
       district: '江苏省',
       polygons: [],
-      zoom: 7,
+      zoom: 7.5,
       adcode: 320000,
       depth: 2,
       colors: {
@@ -111,13 +111,11 @@ export default {
             '   <div id="closeX" class="gp-map__marker--close"></div>\n' +
             ' </div>\n' +
             ' <div class="gp-map__marker--body">\n' +
-            '   <p>农户：李大头  </p>\n' +
-            '   <p>品种：品种蒜头</p>\n' +
-            '   <p>类型：蒜头</p>\n' +
-            '   <p>面积：130亩</p>\n' +
-            '   <p>地址：徐州市铜山县大庄镇18组</p>\n' +
+            '   <p>用户类型：收购网点</p>\n' +
+            '   <p>用户名称：彭州中信蒜业食品</p>\n' +
+            '   <p>联系电话：1381380011</p>\n' +
+            '   <p>地址：江苏省徐州市邳州市八义集镇八 集村部街南</p>\n' +
             ' </div>\n' +
-            ' <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n' +
             '</div>'
         );
 

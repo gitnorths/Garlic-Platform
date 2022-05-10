@@ -659,6 +659,43 @@ input::placeholder {
     background: rgba(#041141, 0.9);
     border: 1px solid rgba(#0073df, 0.9);
 
+    &.__marker2 {
+      display: flex;
+      flex-direction: column;
+      width: 740px;
+      height: 640px;
+      padding: 0;
+
+      .header2 {
+        width: 100%;
+        margin: 0;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        border-bottom: 1px solid #0073df;
+        background: linear-gradient(0deg, #1c63c4 0%, rgba(28, 99, 196, 0) 100%);
+        // background-image: initial;
+
+        span {
+          font-size: 24px;
+          font-family: PingFang SC;
+          font-weight: bold;
+          color: #ffffff;
+          background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .close2 {
+          right: 15px;
+        }
+      }
+
+      .body2 {
+        flex: 1;
+      }
+    }
+
     &--header {
       position: relative;
       width: 340px;
@@ -712,10 +749,11 @@ input::placeholder {
 
     &--close {
       position: absolute;
-      top: 7px;
+      top: 50%;
       right: 35px;
       width: 20px;
       height: 20px;
+      margin-top: -10px;
       background-repeat: no-repeat;
       background-size: contain;
       background-image: url("@/assets/images/home/close.png");
@@ -723,6 +761,19 @@ input::placeholder {
 
       &:hover {
         background-image: url("@/assets/images/home/closehover.png");
+      }
+    }
+
+    &--nav {
+      padding: 15px 30px;
+      border-bottom: 1px dashed #004191;
+      background: linear-gradient(0deg, rgb(0 65 145 / 30%) 0%, rgba(0, 65, 145, 0) 50%);
+
+      span {
+        font-size: 20px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #ffffff;
       }
     }
   }
@@ -875,6 +926,62 @@ input::placeholder {
         padding: 0 15px;
         color: #73afff;
         font-size: 16px;
+      }
+    }
+  }
+
+  &-group {
+    justify-content: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px dashed #004191;
+    background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 25%);
+
+    span {
+      position: relative;
+      font-size: 20px;
+      font-weight: bold;
+      padding-left: 60px;
+      margin-right: 24px;
+
+      &::before {
+        position: absolute;
+        left: 20px;
+        top: 0;
+        display: block;
+        content: "";
+        width: 24px;
+        height: 100%;
+        background-image: url("@/assets/images/icon/point.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+      }
+    }
+
+    p {
+      color: #517fbc;
+      font-size: 16px;
+    }
+  }
+
+  &-btn {
+    padding: 20px 25px;
+
+    .el-button {
+      width: 150px;
+      height: 46px;
+      background: rgba(0, 57, 128, 0.7);
+      border: 1px solid #004191;
+      border-radius: 8px;
+      font-size: 18px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #88abda;
+
+      &.active {
+        border: 1px solid;
+        border-image: linear-gradient(180deg, #71acfd, #5198f8) 10 10;
+        background: linear-gradient(180deg, #1c63c4 0%, rgba(28, 99, 196, 0) 100%);
       }
     }
   }
@@ -1084,40 +1191,6 @@ input::placeholder {
     .gp-right {
       width: 560px;
 
-      .gp-group {
-        justify-content: flex-start;
-        padding: 15px 0;
-        border-bottom: 1px dashed #004191;
-        background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 25%);
-
-        span {
-          position: relative;
-          font-size: 20px;
-          font-weight: bold;
-          padding-left: 60px;
-          margin-right: 24px;
-
-          &::before {
-            position: absolute;
-            left: 20px;
-            top: 0;
-            display: block;
-            content: "";
-            width: 24px;
-            height: 100%;
-            background-image: url("@/assets/images/icon/point.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center center;
-          }
-        }
-
-        p {
-          color: #517fbc;
-          font-size: 16px;
-        }
-      }
-
       .gp-box {
         display: flex;
         flex-direction: column;
@@ -1173,6 +1246,244 @@ input::placeholder {
     .gp-right {
       width: 420px;
       bottom: auto;
+    }
+  }
+
+  &-procurement {
+    .gp-left,
+    .gp-right {
+      width: 420px;
+      .gp-box {
+        background-color: rgba(0, 13, 28, 0.8);
+      }
+    }
+
+    .gp-box {
+      display: flex;
+      flex-direction: column;
+      background-color: #000d1c;
+
+      .gp-list {
+        height: auto;
+
+        &.__header {
+          .gp-list__item {
+            border-bottom: 1px dashed #004191;
+            background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 25%);
+
+            b {
+              padding-left: 10px;
+            }
+
+            b,
+            p,
+            span {
+              font-size: 16px;
+            }
+          }
+        }
+
+        &.__body {
+          padding: 0 10px;
+          height: 75vh;
+          overflow-y: auto;
+        }
+
+        &__item {
+          height: 50px;
+          margin: 0;
+          border-color: #003d76;
+          background-color: initial;
+
+          &:last-child {
+            border-width: 0;
+          }
+
+          b,
+          p,
+          span {
+            color: #feffff;
+            font-size: 14px;
+          }
+
+          b {
+            width: 80px;
+            font-weight: normal;
+            font-style: initial;
+
+            &.green {
+              color: #00ffff;
+            }
+
+            &.blue {
+              color: #73afff;
+            }
+          }
+
+          p {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          img {
+            display: block;
+            height: 23px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .gp-right {
+      .gp-box {
+        .gp-list {
+          &.__header {
+            .gp-list__item {
+              padding-right: 15px;
+            }
+          }
+
+          &__item {
+            b {
+              width: 50px;
+              color: #feffff;
+              font-size: 14px;
+              border-radius: 4px;
+
+              &.bgGreen {
+                background-color: #25b257;
+              }
+
+              &.bgOrange {
+                background-color: #ffa42e;
+              }
+            }
+
+            p {
+              padding: 0 20px;
+            }
+
+            span {
+              &:first-child {
+                width: 120px;
+                padding: 0 10px;
+              }
+
+              &:last-child {
+                width: 100px;
+                padding: 0;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-formula {
+    .gp-right {
+      width: 700px;
+
+      .gp-group,
+      .gp-btn,
+      .gp-box {
+        background-color: rgba(0, 13, 28, 0.8);
+      }
+
+      .gp-box {
+        flex: initial;
+        height: 65vh;
+        overflow-y: auto;
+        padding: 0 26px;
+
+        .el-descriptions {
+          border: 1px solid #004191;
+          margin-bottom: 14px;
+
+          &__header {
+            height: 50px;
+            background: #09183b;
+            margin: 0;
+          }
+
+          &__title {
+            width: 140px;
+            height: 50px;
+            line-height: 50px;
+            // text-align: center;
+            padding-left: 30px;
+            color: #ffffff;
+            font-size: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-image: url("@/assets/images/home/title3.png");
+          }
+
+          &__body {
+            color: #ffffff;
+            background-color: initial;
+
+            td {
+              border-color: #004191;
+              padding-left: 20px;
+            }
+          }
+
+          &-item {
+            &__label {
+              width: 100px;
+              color: #50a2d3;
+              font-size: 16px;
+              padding-left: 20px;
+              background: initial;
+              border-color: #004191;
+            }
+
+            &__content {
+              color: #ffffff;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    &-title {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background: linear-gradient(90deg, #004191 0%, rgba(0, 65, 145, 0) 100%);
+      padding-left: 52px;
+      margin-bottom: 20px;
+
+      &::before {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        margin-top: -18px;
+        display: block;
+        content: "";
+        width: 28px;
+        height: 36px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-image: url("@/assets/images/icon/formula.png");
+      }
+
+      span {
+        font-size: 22px;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #ffffff;
+        background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 }
