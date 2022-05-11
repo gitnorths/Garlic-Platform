@@ -245,69 +245,72 @@ input::placeholder {
           position: absolute;
           left: 0;
           top: 0;
+          bottom: 35px;
           z-index: 10;
           display: block;
           content: "";
           width: 100%;
-          height: 750px;
-          background-image: url("@/assets/images/home/map.png");
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-        }
-
-        &__bottom {
-          position: relative;
-          width: 100%;
-          height: 100%;
           background-image: url("@/assets/images/home/disc.png");
           background-repeat: no-repeat;
           background-size: contain;
           background-position: center bottom;
+          // transform: rotateX(-70deg) scaleY(2);
+          transform-style: preserve-3d; //子元素是位于 3D 空间中
 
-          .__bg {
+          &::after {
+            display: block;
+            content: "";
             position: absolute;
+            top: 0;
             left: 0;
-            bottom: 0;
             width: 100%;
-            height: 300px;
-            z-index: -1;
-            border-radius: 50%;
-            background-color: rgba(29, 83, 131, 0.4);
-            box-shadow: 0 0 80px rgba(29, 83, 131, 0.8);
-            transform: rotateX(15deg);
-            animation: warn 6s ease-in-out;
-            animation-iteration-count: infinite;
+            height: 90%;
+            background-image: url("@/assets/images/home/map.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            transform-style: preserve-3d; //子元素是位于 3D 空间中
           }
+        }
 
-          .__rotate {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 300px;
-            z-index: 1;
-            border-radius: 50%;
-            border: 1px solid #78cdf6;
+        .__bg {
+          position: absolute;
+          left: 0;
+          bottom: 35px;
+          width: 100%;
+          height: 300px;
+          z-index: -1;
+          border-radius: 50%;
+          background-color: rgba(29, 83, 131, 0.4);
+          box-shadow: 0 0 80px rgba(29, 83, 131, 0.8);
+          transform: rotateX(15deg);
+          animation: warn 6s ease-in-out;
+          animation-iteration-count: infinite;
+        }
 
-            // .dot {
-            //   width: 20px;
-            //   height: 20px;
-            //   left: 150px;
-            //   top: 70px;
-            //   background: #78cdf6;
-            //   border-radius: 100%;
-            //   position: absolute;
-            //   animation: move 10s linear infinite;
-            // }
-          }
+        &__orbits {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          z-index: 11;
+          width: 100%;
+          height: 350px;
+          border: 2px solid #a0daff;
+          border-radius: 50%;
+          transform: scaleY(0.5) rotateX(45deg);
+
+          animation-name: operation; //动画名称
+          animation-duration: 6s; //持续时间
+          animation-delay: 1s; //一秒后执行
+          animation-iteration-count: infinite; //无限次播放
+          animation-timing-function: linear; //均速
         }
 
         &__suspend {
           position: absolute;
           width: 114px;
           height: 114px;
-
+          z-index: 20;
           p {
             position: absolute;
             top: -45px;
@@ -1590,5 +1593,19 @@ input::placeholder {
   100% {
     transform: scale(1);
     opacity: 0;
+  }
+}
+
+@keyframes operation {
+  0% {
+    transform: scaleY(0.5) rotateX(45deg) rotateZ(0);
+  }
+
+  50% {
+    transform: scaleY(0.5) rotateX(45deg) rotateZ(30deg);
+  }
+
+  100% {
+    transform: scaleY(0.5) rotateX(45deg) rotateZ(0);
   }
 }

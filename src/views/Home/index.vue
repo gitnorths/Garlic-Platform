@@ -41,13 +41,10 @@
           </div>
           <div class="gp-center">
             <div class="gp-map">
-              <div class="gp-map__information"></div>
-              <div class="gp-map__bottom">
-                <div class="__bg"></div>
-                <div class="__rotate">
-                  <div class="dot"></div>
-                </div>
+              <div class="gp-map__information">
+                <div class="gp-map__orbits"></div>
               </div>
+              <div class="__bg"></div>
               <div v-for="(item, index) in suspend" :key="index" :class="`gp-map__suspend ${item.className}`">
                 <router-link :to="`${item.path}`">
                   <p>{{ item.name }}</p>
