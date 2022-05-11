@@ -54,8 +54,8 @@ export default {
       title: '',
       activeIndex: '1',
       menuRoutes: [],
-      settings: require('../assets/images/home/setting2.png'),
-      messages: require('../assets/images/home/message2.png'),
+      settings: require('../assets/images/icon/setting2.png'),
+      messages: require('../assets/images/icon/message2.png'),
     };
   },
   computed: {

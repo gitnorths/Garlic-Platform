@@ -41,7 +41,13 @@
           </div>
           <div class="gp-center">
             <div class="gp-map">
-              <JSMap :cdata="cdata" />
+              <div class="gp-map__information"></div>
+              <div class="gp-map__bottom">
+                <div class="__bg"></div>
+                <div class="__rotate">
+                  <div class="dot"></div>
+                </div>
+              </div>
               <div v-for="(item, index) in suspend" :key="index" :class="`gp-map__suspend ${item.className}`">
                 <router-link :to="`${item.path}`">
                   <p>{{ item.name }}</p>
@@ -74,18 +80,17 @@
 <script>
 import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
-import JSMap from '@/components/maps/JiangSu.vue';
 
 export default {
   name: 'HomeView',
-  components: { JSMap, countTo },
+  components: { countTo },
   data() {
     return {
       timing: null,
       loading: true,
-      setting: require('../../assets/images/home/setting.png'),
-      message: require('../../assets/images/home/message.png'),
-      user: require('../../assets/images/home/user.png'),
+      setting: require('../../assets/images/icon/setting.png'),
+      message: require('../../assets/images/icon/message.png'),
+      user: require('../../assets/images/icon/user.png'),
       decimals: 1,
       duration: 1500,
       startVal: 0,
