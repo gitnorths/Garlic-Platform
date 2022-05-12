@@ -22,7 +22,11 @@
               <img :src="iconVerify" alt="" slot="prefix" />
             </el-input>
           </el-col>
-          <el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
+          <el-col :span="10">
+            <div class="grid-content bg-purple">
+              <img :src="captchaImg" class="imgcaptcha" @click="getCaptcha" alt />
+            </div>
+          </el-col>
         </el-row>
       </el-form-item>
       <el-form-item class="login-checked">
@@ -39,10 +43,8 @@
 </template>
 
 <script>
-// import { sm3Digest, sm4Encrypt, sm4Decrypt } from "@/utils/gm-crypto";
-// import { mapMutations } from "vuex";
 import storage from '@/utils/storage';
-// import Cookies from "js-cookie";
+import { codeImage } from '@/api/';
 
 export default {
   name: 'LoginView',
@@ -69,9 +71,11 @@ export default {
           { min: 6, max: 6, message: '验证码长度为6个字符', trigger: 'blur' },
         ],
       },
+      captchaImg: '',
     };
   },
   mounted() {
+    this.getCaptcha();
     window.addEventListener('keydown', this.keyDown); //监听用户回车事件
   },
   destroyed() {
@@ -85,6 +89,12 @@ export default {
     }
   },
   methods: {
+    getCaptcha() {
+      console.log(123);
+      codeImage().then((res) => {
+        console.log(res);
+      });
+    },
     submitForm() {
       this.$refs.loginFormRef.validate((valid) => {
         if (valid) {
@@ -120,3 +130,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.imgcaptcha {
+  margin: 8px;
+  background: white;
+  width: 93px;
+  height: 34px;
+}
+</style>
