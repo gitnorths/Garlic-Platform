@@ -1,170 +1,116 @@
 <template>
-  <div class="gp-bg gp-integrated">
-    <ProcurementMaps />
-    <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
-      <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>农业遥感监测</span></div>
-        <div class="gp-box">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="大蒜种植分布" name="first">
-              <el-carousel indicator-position="outside">
-                <el-carousel-item v-for="item in 3" :key="item">
-                  <h3>{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </el-tab-pane>
-            <el-tab-pane label="大蒜冻害分级" name="second">
-              <el-carousel indicator-position="outside">
-                <el-carousel-item v-for="item in 3" :key="item">
-                  <h3>{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </el-tab-pane>
-            <el-tab-pane label="大蒜长势监测" name="third">
-              <el-carousel indicator-position="outside">
-                <el-carousel-item v-for="item in 3" :key="item">
-                  <h3>{{ item }}</h3>
-                </el-carousel-item>
-              </el-carousel>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </div>
-    </div>
-    <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
-      <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>蒜田环境监控视频</span></div>
-        <div class="gp-group">
-          <span>监测点</span>
-          <p>太仓市浏河镇飞凤路尽头西</p>
-        </div>
-        <div class="gp-box">
-          <div class="gp-box__video"></div>
-          <ul class="gp-box__ul">
-            <li v-for="(item, index) in integratedData" :key="index">
-              <img :src="item.src" alt="" />
-              <p>
-                <b>{{ item.name }}</b>
-                <span>{{ item.value }}{{ item.unit }}</span>
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="gp-bg gp-mechanization">
+    <ul class="infinite-list" v-infinite-scroll="load" style="overflow: auto">
+      <el-row :gutter="20">
+        <el-col :span="24">
+          <div class="gp-mechanization__title">
+            <img :src="mechanizationSrc" alt="" />
+            <div class="gp-mechanization__box">
+              <div class="gp-mechanization__box-left">
+                <p>大蒜的全程机械化包括：<span>耕整、播种、植保、收获、加工</span>等环节。</p>
+                <p>
+                  为了便于机械化收获，必须统一耕整地方式，统一行距、株距。改变传统农艺，以适应机械化生产，真正实现农机农艺的融合。
+                </p>
+                <p>耕整地、植保、加工等环节的机械化一般都有通用机械设备，最关键的在于播种和收获。</p>
+              </div>
+              <div class="gp-mechanization__box-right">
+                <el-button type="primary" icon="el-icon-video-play"> 履带自走式大蒜联合收获机 </el-button>
+                <el-button type="primary" icon="el-icon-video-play"> 大蒜正牙播种机 </el-button>
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <el-col v-for="(item, i) in lists" :key="i" :span="24">
+          <div class="grid-prevention">
+            <img :src="item.src" alt="" />
+          </div>
+        </el-col>
+      </el-row>
+    </ul>
   </div>
 </template>
 
 <script>
-import ProcurementMaps from './components/procurement-maps';
-
 export default {
-  name: 'ProcurementView',
-  components: {
-    ProcurementMaps,
-  },
+  name: 'MechanizationIntellectualizationView',
   data() {
     return {
-      activeName: 'first',
-      integratedData: [
+      mechanizationSrc: require('../../assets/images/home/mechanization0.png'),
+      lists: [
         {
-          name: '空气温度',
-          value: 14,
-          unit: '℃',
-          src: require('../../assets/images/icon/kqwd.png'),
+          src: require('../../assets/images/home/mechanization1.png'),
         },
         {
-          name: '空气湿度',
-          value: 23,
-          unit: '%',
-          src: require('../../assets/images/icon/kqsd.png'),
-        },
-        {
-          name: '风速风向',
-          value: '西北偏西风',
-          unit: '',
-          src: require('../../assets/images/icon/fsfx.png'),
-        },
-        {
-          name: '降雨量',
-          value: 0,
-          unit: 'mm/min',
-          src: require('../../assets/images/icon/jyl.png'),
-        },
-        {
-          name: '光照强度',
-          value: 0.2,
-          unit: 'Klux',
-          src: require('../../assets/images/icon/gzqd.png'),
-        },
-        {
-          name: '土壤温度',
-          value: 26.2,
-          unit: '℃',
-          src: require('../../assets/images/icon/trwd.png'),
-        },
-        {
-          name: '土壤湿度',
-          value: 42.3,
-          unit: '%',
-          src: require('../../assets/images/icon/trsd.png'),
-        },
-        {
-          name: '土壤盐分',
-          value: 27.75,
-          unit: 'mg/L',
-          src: require('../../assets/images/icon/tryf.png'),
-        },
-        {
-          name: '土壤电导率',
-          value: 37,
-          unit: 'μS/cm',
-          src: require('../../assets/images/icon/trddl.png'),
-        },
-        {
-          name: '土壤PH值',
-          value: 5.59,
-          unit: 'PH',
-          src: require('../../assets/images/icon/ph.png'),
-        },
-        {
-          name: '有机质含量',
-          value: 15.2,
-          unit: 'g/kg',
-          src: require('../../assets/images/icon/yjzhl.png'),
-        },
-        {
-          name: '全氮',
-          value: 1.5,
-          unit: 'g/kg',
-          src: require('../../assets/images/icon/qd.png'),
-        },
-        {
-          name: '有效磷',
-          value: 10.4,
-          unit: 'mg/kg',
-          src: require('../../assets/images/icon/yxl.png'),
-        },
-        {
-          name: '速效钾',
-          value: 47,
-          unit: 'mg/kg',
-          src: require('../../assets/images/icon/sxj.png'),
-        },
-        {
-          name: '土壤容重',
-          value: 1.47,
-          unit: 'g/cm',
-          src: require('../../assets/images/icon/trrz.png'),
+          src: require('../../assets/images/home/mechanization2.png'),
         },
       ],
     };
   },
   mounted() {},
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-  },
+  methods: {},
 };
 </script>
+
+<style lang="scss" scoped>
+.gp-mechanization {
+  background-color: #010825;
+  padding: 100px 15px 45px;
+
+  &__title {
+    background: rgba(#041141, 0.9);
+    border: 1px solid rgba(#0073df, 0.9);
+    border-radius: 4px;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &__box {
+    display: flex;
+    padding: 30px 20px 30px 45px;
+
+    p {
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 36px;
+    }
+
+    span {
+      color: #16d0ff;
+    }
+
+    &-left {
+      flex: 1;
+    }
+
+    &-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .el-button {
+        min-width: 320px;
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .infinite-list {
+    height: 100%;
+    padding-right: 15px;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .el-row {
+      .el-col {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+</style>

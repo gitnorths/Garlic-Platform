@@ -23,7 +23,34 @@ export default {
   },
   watch: {
     cdata: {
-      handler(seriesData) {
+      handler(newData) {
+        console.log(newData);
+        // let convertData = function (data) {
+        //   let scatterData = [];
+        //   for (var i = 0; i < data.length; i++) {
+        //     var geoCoord = geoCoordMap[data[i].name];
+        //     if (geoCoord) {
+        //       scatterData.push({
+        //         name: data[i].name,
+        //         value: geoCoord.concat(data[i].value),
+        //       });
+        //     }
+        //   }
+        //   return scatterData;
+        // };
+
+        // let domImg = document.createElement('img');
+        // domImg.style.height = domImg.height = domImg.width = domImg.style.width = '8px';
+        // domImg.src =
+        //   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAIAAAAmKNuZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE4MTE0OTgyQTdDQzExRUI4Q0RBRkMwQkFGMTY2NDhEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE4MTE0OTgzQTdDQzExRUI4Q0RBRkMwQkFGMTY2NDhEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTgxMTQ5ODBBN0NDMTFFQjhDREFGQzBCQUYxNjY0OEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTgxMTQ5ODFBN0NDMTFFQjhDREFGQzBCQUYxNjY0OEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4v4trwAAAAVklEQVR42mL0D225cu0hAzWAjpY8C9CsL19/wIV4uDnI5gKNYmKgKhjcxrFAggBZiBIuyDhqRQWQOxoVo1ExGhWjUTEaFYMiKoB1LVq1TXZUAI0CCDAAcAlaxCt7dtQAAAAASUVORK5CYII=';
+
+        // let domImgHover = document.createElement('img');
+        // domImgHover.style.height = domImgHover.height = domImgHover.width = domImgHover.style.width = '8px';
+        // domImgHover.src =
+        //   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAIAAAAmKNuZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkFDQ0Q2RjYyQTdDRDExRUI4ODUxRDIxRjkzMEExNzg2IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkFDQ0Q2RjYzQTdDRDExRUI4ODUxRDIxRjkzMEExNzg2Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QUNDRDZGNjBBN0NEMTFFQjg4NTFEMjFGOTMwQTE3ODYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QUNDRDZGNjFBN0NEMTFFQjg4NTFEMjFGOTMwQTE3ODYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6FboimAAAASklEQVR42mIUnL9XtHsDAzXA69IARjWtXJYX7+FCfyQEKeEyMVAVDG7jWCB+RhaihAsybjQqRqNiNCpGo2I0KoZZVDBSt9oGCDAAhYNrvRu3DWEAAAAASUVORK5CYII=';
+
+        // console.log(domImg);
+        // console.log(domImgHover);
         // 设置点的位置(经纬度)
         let geoCoordMap = {
           南京: [118.767413, 32.041544],
@@ -40,6 +67,22 @@ export default {
           泰州: [120.015176, 32.484882],
           宿迁: [118.575162, 33.963008],
         };
+
+        let seriesData = [
+          { name: '南京', value: 26 },
+          { name: '无锡', value: 0 },
+          { name: '徐州', value: 35 },
+          { name: '常州', value: 0 },
+          { name: '苏州', value: 0 },
+          { name: '南通', value: 0 },
+          { name: '连云港', value: 0 },
+          { name: '淮安', value: 0 },
+          { name: '盐城', value: 0 },
+          { name: '扬州', value: 0 },
+          { name: '镇江', value: 0 },
+          { name: '泰州', value: 0 },
+          { name: '宿迁', value: 0 },
+        ];
 
         // 动态计算柱形图的高度（定一个max）
         let lineMaxHeight = function () {
@@ -95,7 +138,6 @@ export default {
         this.options = {
           showLegendSymbol: true,
           tooltip: {
-            show: false,
             trigger: 'item',
             lineHeight: 22,
             backgroundColor: 'rgba(29, 38, 71)',
@@ -111,24 +153,75 @@ export default {
           geo: [
             {
               map: '江苏',
-              aspectScale: 1,
+              aspectScale: 0.9,
               zoom: 1, // 默认显示级别
               roam: false, // 是否允许缩放
               silent: true,
-              z: 1,
-              layoutSize: '100%',
-              layoutCenter: ['52%', '50%'],
-              label: {
-                show: false,
-              },
+              z: 3,
+              layoutSize: '95%',
+              layoutCenter: ['49.4%', '50%'],
               itemStyle: {
-                opacity: 0,
                 areaColor: '#2082B3',
                 borderColor: '#2798D8',
                 borderWidth: 6,
               },
               emphasis: {
-                disabled: false,
+                show: false,
+              },
+            },
+            {
+              map: '江苏',
+              aspectScale: 0.9,
+              zoom: 1, // 默认显示级别
+              roam: false, // 是否允许缩放
+              silent: true,
+              z: 2,
+              layoutSize: '95%',
+              layoutCenter: ['48.8%', '50%'],
+              itemStyle: {
+                areaColor: '#0E6A99',
+                borderColor: '#2580B9',
+                borderWidth: 6,
+              },
+            },
+            {
+              map: '江苏',
+              aspectScale: 0.9,
+              zoom: 1, // 默认显示级别
+              roam: false, // 是否允许缩放
+              silent: true,
+              z: 1,
+              layoutSize: '95%',
+              layoutCenter: ['48.2%', '50%'],
+              itemStyle: {
+                areaColor: '#0A4C74',
+                borderColor: '#085589',
+                borderWidth: 6,
+              },
+              emphasis: {
+                show: false,
+              },
+            },
+            {
+              map: '江苏',
+              aspectScale: 0.9,
+              zoom: 1, // 默认显示级别
+              roam: false, // 是否允许缩放
+              silent: true,
+              z: 0,
+              layoutSize: '95%',
+              layoutCenter: ['47.5%', '50%'],
+              itemStyle: {
+                areaColor: '#054576',
+                borderColor: '#013D73',
+                borderWidth: 6,
+                shadowColor: '#013D73',
+                shadowBlur: 50,
+                shadowOffsetX: -25,
+                shadowOffsetY: 10,
+              },
+              emphasis: {
+                show: false,
               },
             },
           ],
@@ -138,19 +231,24 @@ export default {
               map: '江苏',
               roam: false,
               zoom: 1, // 默认显示级别
-              z: 2,
+              z: 40,
               silent: false,
-              layoutSize: '100%',
-              layoutCenter: ['52%', '50%'],
+              layoutSize: '95.5%',
+              layoutCenter: ['50%', '50%'],
               aspectScale: 0.9,
               label: {
-                show: false,
-                formatter: function () {
-                  return '';
+                show: true,
+                fontSize: 14,
+                color: '#CFD6E3',
+                formatter: function (params) {
+                  if (params.value > 0) {
+                    return '';
+                  } else {
+                    return params.name;
+                  }
                 },
               },
               itemStyle: {
-                opacity: 0,
                 borderColor: '#A1E8FF',
                 borderWidth: 1,
                 areaColor: {
@@ -173,7 +271,7 @@ export default {
                 },
               },
               emphasis: {
-                disabled: false,
+                show: true,
                 itemStyle: {
                   borderWidth: 2,
                   areaColor: {

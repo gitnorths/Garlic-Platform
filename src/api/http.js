@@ -2,9 +2,12 @@
 // 引入
 import axios from 'axios';
 // 环境
-axios.defaults.baseURL = 'https://garlic.chinanoni.com/'; //  要请求的后台地址
+// http://172.31.16.244:9528/
+// https://garlic.chinanoni.com/
+axios.defaults.baseURL = 'http://172.31.16.244:9528/'; //  要请求的后台地址
 // 请求超时
 axios.defaults.timeout = 30000;
+axios.defaults.headers['deviceId'] = '123';
 //  post 请求头
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 

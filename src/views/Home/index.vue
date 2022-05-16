@@ -42,8 +42,10 @@
           <div class="gp-center">
             <div class="gp-map">
               <div class="gp-map__information">
+                <JSMap class="jsmap" :cdata="cdata" />
                 <div class="gp-map__orbits"></div>
               </div>
+
               <div class="__bg"></div>
               <div v-for="(item, index) in suspend" :key="index" :class="`gp-map__suspend ${item.className}`">
                 <router-link :to="`${item.path}`">
@@ -77,10 +79,11 @@
 <script>
 import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
+import JSMap from '@/components/maps/JiangSu.vue';
 
 export default {
   name: 'HomeView',
-  components: { countTo },
+  components: { countTo, JSMap },
   data() {
     return {
       timing: null,
@@ -96,12 +99,12 @@ export default {
       numberData: [],
       cdata: [
         {
-          name: '南京',
-          value: 10,
+          name: '盐城',
+          value: 20,
         },
         {
           name: '徐州',
-          value: 20,
+          value: 10,
         },
       ],
     };
@@ -133,3 +136,81 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.gp {
+  .jsmap {
+    position: relative;
+    z-index: 10;
+  }
+  &-marker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+
+    &.xuzhou {
+      margin-left: -160px;
+      margin-top: -230px;
+    }
+
+    &__bottom {
+      width: 50px;
+      height: 50px;
+      background-color: #ffff00;
+      border-radius: 50%;
+      transform: rotateX(-45deg) rotateY(0deg);
+    }
+
+    .cuboid {
+      position: absolute;
+      bottom: 35px;
+      left: 17px;
+      z-index: 1;
+      transform-style: preserve-3d; /* 使得所有子元素在3D空间中呈现 */
+      transform: rotateX(-30deg) rotateY(30deg);
+
+      & > div {
+        width: 18px;
+        position: absolute;
+        opacity: 0.5; /* 半透明效果方便查看绘制情况 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .back {
+        height: 36px;
+        background-color: #9900ff;
+        transform: rotateY(180deg) translateZ(9px);
+      }
+      .right {
+        height: 36px;
+        background-color: #333333;
+        transform: rotateY(90deg) translateZ(9px);
+      }
+      .left {
+        height: 36px;
+        background-color: #00ff99;
+        transform: rotateY(-90deg) translateZ(9px);
+      }
+      .top {
+        height: 18px;
+        background-color: #0099ff;
+        transform: rotateX(90deg) translateZ(9px);
+      }
+      .bottom {
+        height: 18px;
+        background-color: #ffcc00;
+        transform: rotateX(-90deg) translateZ(27px);
+      }
+      .front {
+        height: 36px;
+        background-color: #ff5757;
+        transform: rotateY(0deg) translateZ(9px);
+      }
+    }
+  }
+}
+</style>
