@@ -1136,6 +1136,24 @@ export default {
         font-size: 14px;
       }
     }
+
+    &-dropdown {
+      border-color: #4d81e7;
+      background-color: #003980;
+
+      &__item {
+        color: #f5f7fa;
+
+        &.hover,
+        &:hover {
+          background-color: #4d81e7;
+        }
+      }
+
+      .el-popper .popper__arrow::after {
+        border-bottom-color: #4d81e7;
+      }
+    }
   }
 }
 </style>

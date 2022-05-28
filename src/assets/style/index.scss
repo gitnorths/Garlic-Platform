@@ -193,13 +193,15 @@ input::placeholder {
 }
 
 .gp-left {
-  left: 15px;
-  background: linear-gradient(90deg, rgba(1, 8, 37, 1) 0%, rgba(1, 8, 37, 0.2) 100%);
+  left: 0;
+  padding-left: 15px;
+  background: linear-gradient(90deg, #010825 0%, rgba(1, 8, 37, 0) 100%);
 }
 
 .gp-right {
-  right: 15px;
-  background: linear-gradient(-90deg, rgba(1, 8, 37, 1) 0%, rgba(1, 8, 37, 0.2) 100%);
+  right: 0;
+  padding-right: 15px;
+  background: linear-gradient(-90deg, #010825 0%, rgba(1, 8, 37, 0) 100%);
 }
 
 .gp-title {
