@@ -9,7 +9,7 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <!-- <DsMaps /> -->
+    <DsMaps />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -55,14 +55,14 @@
 
 <script>
 import qs from 'qs';
-// import DsMaps from './components/maps';
+import DsMaps from './components/maps';
 import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
 
 export default {
   name: 'BasicInformation',
   components: {
-    // DsMaps,
+    DsMaps,
     BaseChart,
   },
   data() {
@@ -566,7 +566,7 @@ export default {
     };
   },
   mounted() {
-    // this.getInfo();
+    this.getInfo();
     this.getMapsInfo();
   },
   methods: {
@@ -1067,23 +1067,28 @@ export default {
     // 地图坐标拾取
     getMapsInfo() {
       console.log(this.distribution, this.type);
-      let params = {};
-      if (this.distribution && this.distribution != 0) {
-        params = {
-          region: this.distribution,
-          level: this.distribution ? '3' : '',
-        };
-        if (this.type) {
-          params.keyword = this.type;
-        }
-      } else {
-        params = {
-          region: '',
-          level: '',
-        };
-      }
+      // let params = {};
+      // if (this.distribution && this.distribution != 0) {
+      //   params = {
+      //     keyword: this.type,
+      //     region: this.distribution,
+      //     level: this.distribution ? '3' : '',
+      //   };
+      // } else {
+      //   params = {
+      //     region: '',
+      //     level: '',
+      //   };
+      // }
       this.$api
-        .postBaseApi('gc/cropDistributed/getCropDistributeds', params)
+        .postBaseApi(
+          'gc/cropDistributed/getCropDistributeds',
+          qs.stringify({
+            keyword: this.type,
+            region: this.distribution,
+            level: this.distribution ? '3' : '',
+          })
+        )
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
