@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import qs from 'qs';
 import DsMaps from './components/maps';
 import BaseChart from '@/components/echarts/baseChart';
 
@@ -951,44 +952,6 @@ export default {
       },
     ];
 
-    // 面积与品种
-    this.mjypzOption.color = ['#003366', '#006699', '#4cabce', '#e5323e'];
-    this.mjypzOption.series = [
-      {
-        name: '面积与品种',
-        type: 'pie',
-        radius: '50%',
-        center: ['35%', '50%'],
-        color: ['#1AE1E5', '#00FFCF', '#4D81E7'],
-        data: sData.sort(function (a, b) {
-          return a.value - b.value;
-        }),
-
-        label: {
-          formatter: function (params) {
-            return '{b|' + params.name + '}';
-          },
-          rich: {
-            b: {
-              color: '#ffffff',
-              fontSize: 14,
-              height: 40,
-              padding: [21, 0],
-            },
-          },
-        },
-        // labelLine: {
-        //   length: 30,
-        //   length2: 20,
-        //   maxSurfaceAngle: 80,
-        // },
-        itemStyle: {
-          borderWidth: 5,
-          borderColor: '#010825',
-        },
-      },
-    ];
-
     // 社会化服务组织
     this.shhfwzzOption.color = ['#003366', '#006699', '#4cabce', '#e5323e'];
     this.shhfwzzOption.legend.data = ['蒜头', '蒜薹', '蒜苗'];
@@ -1041,8 +1004,84 @@ export default {
         },
       },
     ];
+
+    // 面积与品种
+    this.mjypzOption.color = ['#003366', '#006699', '#4cabce', '#e5323e'];
+    this.mjypzOption.series = [
+      {
+        name: '面积与品种',
+        type: 'pie',
+        radius: '50%',
+        center: ['35%', '50%'],
+        color: ['#1AE1E5', '#00FFCF', '#4D81E7'],
+        data: sData.sort((a, b) => {
+          console.log(a, b);
+          return parseInt(a.value) - parseInt(b.value);
+        }),
+
+        label: {
+          formatter: function (params) {
+            return '{b|' + params.name + '}';
+          },
+          rich: {
+            b: {
+              color: '#ffffff',
+              fontSize: 14,
+              height: 40,
+              padding: [21, 0],
+            },
+          },
+        },
+        // labelLine: {
+        //   length: 30,
+        //   length2: 20,
+        //   maxSurfaceAngle: 80,
+        // },
+        itemStyle: {
+          borderWidth: 5,
+          borderColor: '#010825',
+        },
+      },
+    ];
   },
   methods: {
+    async mjypz(seriesData) {
+      console.log(seriesData);
+    },
+    async getApi() {
+      // 面积与品种
+      this.$api
+        .postBaseApi(
+          'cc/areaVariety/getChartData',
+          qs.stringify({
+            region: '',
+            level: '',
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            // 面积与品种
+            // this.mjypz(res.result.data);
+          }
+        })
+        .catch(() => {});
+
+      // 产值信息
+      this.$api
+        .postBaseApi(
+          'cc/outputValue/getChartData',
+          qs.stringify({
+            type: 1,
+            region: '',
+            level: '',
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+        })
+        .catch(() => {});
+    },
     czClick() {},
     dshqClick() {},
     sgyjgClick() {},

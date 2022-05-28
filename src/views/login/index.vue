@@ -111,7 +111,7 @@ export default {
                 // this.refreshCaptcha(true);
               });
             // this.$api
-            //   .postUserApi('form', qs.stringify(this.ruleForm))
+            //   .postUserApi('auth/form', qs.stringify(this.ruleForm))
             //   .then((res) => {
             //     console.log(res);
             //   })
@@ -135,7 +135,7 @@ export default {
         this.$store.commit('SET_TOKEN', '');
       } else {
         this.$api
-          .postBaseApi('code/image')
+          .postBaseApi('auth/code/image')
           .then((res) => {
             if (!res) return;
             if (res.code === 200) {

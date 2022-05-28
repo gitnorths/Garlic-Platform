@@ -21,7 +21,7 @@ const actions = {
     console.log(data);
     return new Promise((resolve, reject) => {
       // const { username, password, imageCode } = data;
-      API.postUserApi('form', qs.stringify(data))
+      API.postUserApi('auth/form', qs.stringify(data))
         .then(async (res) => {
           // access_token: 'mXSEER45HVf-BT3tbySye1xN8EY';
           // expires_in: 2590263;
@@ -44,7 +44,7 @@ const actions = {
   },
   userLogout({ commit }) {
     return new Promise((resolve) => {
-      API.postUserApi('logout')
+      API.postUserApi('auth/logout')
         .then(() => {
           // resolve();
         })
