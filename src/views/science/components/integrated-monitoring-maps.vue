@@ -126,8 +126,10 @@ export default {
               : require('../../../assets/images/icon/mark3.png'),
           title: mapDatas[i].address,
           zIndex: mapDatas.length - i,
+          cursor: 'pointer',
           position: [mapDatas[i].longitude, mapDatas[i].latitude],
         });
+        marker.setTitle(mapDatas[i].address);
         marker.extData = mapDatas[i];
 
         that.markers.push(

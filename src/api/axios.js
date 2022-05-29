@@ -32,10 +32,13 @@ request.interceptors.request.use(
 );
 request.interceptors.response.use(
   (response) => {
-    // console.log(response);
     const { data } = response;
+    console.log(data);
 
-    if (!data.success && data.detail) {
+    if (data.code === 401) {
+      store.dispatch('user/resetToken');
+      Message.error('登录过期, 请重新登录!');
+    } else if (!data.success && data.detail) {
       Message({
         type: 'error',
         message: data.detail,
