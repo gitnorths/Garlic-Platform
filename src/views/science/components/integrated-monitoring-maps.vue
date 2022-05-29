@@ -10,7 +10,18 @@ import AMap from 'AMap';
 // import { forEach } from 'lodash';
 
 export default {
-  name: 'CYXX',
+  name: 'IntegratedMonitoringMaps',
+  props: {
+    mapData: {
+      type: Array,
+      required: true,
+    },
+  },
+  watch: {
+    mapData(val) {
+      this.initAMap(val);
+    },
+  },
   data() {
     return {
       loading: true,
@@ -43,10 +54,11 @@ export default {
   },
   mounted() {
     //调用地图初始化方法
-    this.initAMap();
+    // this.initAMap();
   },
   methods: {
-    initAMap() {
+    initAMap(mData) {
+      console.log(mData);
       let that = this;
       //创建地图
       this.map = new AMap.Map('container', {

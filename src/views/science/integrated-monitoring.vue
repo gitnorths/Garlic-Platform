@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg gp-integrated">
-    <IntegratedMonitoringMaps />
+    <IntegratedMonitoringMaps :mapData="mapData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>农业遥感监测</span></div>
@@ -15,15 +15,15 @@
             </el-tab-pane>
             <el-tab-pane label="大蒜冻害分级" name="second">
               <el-carousel indicator-position="outside" :autoplay="false">
-                <el-carousel-item v-for="item in 8" :key="item">
-                  <img :src="`${require('@/assets/images/science/zsjc/0' + item + '.png')}`" alt="" />
+                <el-carousel-item v-for="item in 2" :key="item">
+                  <img :src="`${require('@/assets/images/science/dhfj/0' + item + '.png')}`" alt="" />
                 </el-carousel-item>
               </el-carousel>
             </el-tab-pane>
             <el-tab-pane label="大蒜长势监测" name="third">
               <el-carousel indicator-position="outside" :autoplay="false">
-                <el-carousel-item v-for="item in 2" :key="item">
-                  <img :src="`${require('@/assets/images/science/dhfj/0' + item + '.png')}`" alt="" />
+                <el-carousel-item v-for="item in 8" :key="item">
+                  <img :src="`${require('@/assets/images/science/zsjc/0' + item + '.png')}`" alt="" />
                 </el-carousel-item>
               </el-carousel>
             </el-tab-pane>
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import qs from 'qs';
 import IntegratedMonitoringMaps from './components/integrated-monitoring-maps';
 
 export default {
@@ -65,6 +66,7 @@ export default {
   },
   data() {
     return {
+      mapData: [],
       activeName: 'first',
       integratedData: [
         {
@@ -160,8 +162,27 @@ export default {
       ],
     };
   },
-  mounted() {},
+  created() {
+    this.getInfo();
+  },
   methods: {
+    getInfo() {
+      // 产值信息
+      this.$api
+        .postBaseApi(
+          'pes/encoderList',
+          qs.stringify({
+            level: '',
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            this.mapData = res.result;
+          }
+        })
+        .catch(() => {});
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
