@@ -19,6 +19,7 @@ const mutations = {
 const actions = {
   login({ commit }, data) {
     console.log(data);
+    commit('SET_TOKEN', '');
     return new Promise((resolve, reject) => {
       // const { username, password, imageCode } = data;
       API.postUserApi('auth/form', qs.stringify(data))

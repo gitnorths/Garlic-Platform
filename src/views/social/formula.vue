@@ -57,7 +57,26 @@ export default {
     return {};
   },
   mounted() {},
+  created() {
+    // this.getInfo();
+  },
   methods: {
+    getInfo() {
+      // 监控数据
+      this.$api
+        .getBaseApi('noni/sfengine/dasuan/', {
+          crop: 'suantai',
+          method: '0',
+          soiln: '20000',
+          soilap: '12000',
+          soilak: '30000',
+          soilsom: '12000000',
+        })
+        .then((res) => {
+          if (!res) return;
+        })
+        .catch(() => {});
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },

@@ -38,7 +38,9 @@ export default {
     };
   },
   mounted() {},
-  methods: {},
+  methods: {
+    load() {},
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg gp-integrated">
-    <IntegratedMonitoringMaps :mapData="mapData" />
+    <IntegratedMonitoringMaps :mapData="mapData" @ok="getData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>农业遥感监测</span></div>
@@ -33,19 +33,21 @@
     </div>
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>蒜田环境监控视频</span></div>
+        <div class="gp-title">
+          <span>蒜田环境监控视频</span>
+        </div>
         <div class="gp-group">
           <span>监测点</span>
-          <p>太仓市浏河镇飞凤路尽头西</p>
+          <p>{{ title }}</p>
         </div>
         <div class="gp-box">
           <div class="gp-box__video"></div>
           <ul class="gp-box__ul">
-            <li v-for="(item, index) in integratedData" :key="index">
+            <li v-for="(item, index) in sensorsData" :key="index">
               <img :src="item.src" alt="" />
               <p>
-                <b>{{ item.name }}</b>
-                <span>{{ item.value }}{{ item.unit }}</span>
+                <b>{{ item.FullName }}</b>
+                <span>{{ item.GuagedValue }}{{ item.Unit }}</span>
               </p>
             </li>
           </ul>
@@ -66,97 +68,99 @@ export default {
   },
   data() {
     return {
+      title: '',
       mapData: [],
       activeName: 'first',
+      sensorsData: [],
       integratedData: [
         {
-          name: '空气温度',
-          value: 14,
-          unit: '℃',
+          resource: 105,
+          FullName: '空气温度',
+          Unit: '℃',
           src: require('../../assets/images/icon/kqwd.png'),
         },
         {
-          name: '空气湿度',
-          value: 23,
-          unit: '%',
+          resource: 106,
+          FullName: '空气湿度',
+          Unit: '%',
           src: require('../../assets/images/icon/kqsd.png'),
         },
         {
-          name: '风速风向',
-          value: '西北偏西风',
-          unit: '',
+          resource: 108,
+          FullName: '风速',
+          Unit: 'm/s',
           src: require('../../assets/images/icon/fsfx.png'),
         },
         {
-          name: '降雨量',
-          value: 0,
-          unit: 'mm/min',
+          resource: 109,
+          FullName: '雨量',
+          Unit: 'mm/min',
           src: require('../../assets/images/icon/jyl.png'),
         },
         {
-          name: '光照强度',
-          value: 0.2,
-          unit: 'Klux',
+          resource: 113,
+          FullName: '光照强度',
+          Unit: 'Klux',
           src: require('../../assets/images/icon/gzqd.png'),
         },
         {
-          name: '土壤温度',
-          value: 26.2,
-          unit: '℃',
+          resource: 125,
+          FullName: '土壤温度',
+          Unit: '℃',
           src: require('../../assets/images/icon/trwd.png'),
         },
         {
-          name: '土壤湿度',
-          value: 42.3,
-          unit: '%',
+          resource: 126,
+          FullName: '土壤湿度',
+          Unit: '%',
           src: require('../../assets/images/icon/trsd.png'),
         },
         {
-          name: '土壤盐分',
-          value: 27.75,
-          unit: 'mg/L',
-          src: require('../../assets/images/icon/tryf.png'),
-        },
-        {
-          name: '土壤电导率',
-          value: 37,
-          unit: 'μS/cm',
-          src: require('../../assets/images/icon/trddl.png'),
-        },
-        {
-          name: '土壤PH值',
-          value: 5.59,
-          unit: 'PH',
+          resource: 127,
+          FullName: '土壤pH值',
+          Unit: '',
           src: require('../../assets/images/icon/ph.png'),
         },
         {
-          name: '有机质含量',
-          value: 15.2,
-          unit: 'g/kg',
+          resource: 128,
+          FullName: '土壤盐分',
+          Unit: 'mg/L',
+          src: require('../../assets/images/icon/tryf.png'),
+        },
+        {
+          resource: 129,
+          FullName: '土壤电导率',
+          Unit: 'mS/cm',
+          src: require('../../assets/images/icon/trddl.png'),
+        },
+        {
+          resource: 137,
+          FullName: '土壤有机质',
+          Unit: 'g/kg',
           src: require('../../assets/images/icon/yjzhl.png'),
         },
         {
-          name: '全氮',
-          value: 1.5,
-          unit: 'g/kg',
+          resource: 138,
+          FullName: '土壤全氮',
+          Unit: 'g/kg',
           src: require('../../assets/images/icon/qd.png'),
         },
         {
-          name: '有效磷',
-          value: 10.4,
-          unit: 'mg/kg',
+          resource: 139,
+          FullName: '土壤有效磷',
+          Unit: 'mg/kg',
           src: require('../../assets/images/icon/yxl.png'),
         },
         {
-          name: '速效钾',
-          value: 47,
-          unit: 'mg/kg',
+          resource: 140,
+          FullName: '土壤速效钾',
+          Unit: 'mg/kg',
           src: require('../../assets/images/icon/sxj.png'),
         },
         {
-          name: '土壤容重',
-          value: 1.47,
-          unit: 'g/cm',
+          resource: 141,
+          FullName: '土壤容重',
+          Unit: 'g/cm3',
           src: require('../../assets/images/icon/trrz.png'),
         },
       ],
@@ -167,7 +171,7 @@ export default {
   },
   methods: {
     getInfo() {
-      // 产值信息
+      // 监控数据
       this.$api
         .postBaseApi(
           'pes/encoderList',
@@ -177,11 +181,55 @@ export default {
         )
         .then((res) => {
           if (!res) return;
-          if (res.code === 200) {
+          if (res.code === 200 && res.result.length > 0) {
             this.mapData = res.result;
+            this.getIntegratedData(res.result[0]);
           }
         })
         .catch(() => {});
+    },
+    getData(res) {
+      this.getIntegratedData(res);
+    },
+    getIntegratedData(res) {
+      // address: "白口村"
+      // area: "850.0"
+      // contents: "监控：白口村长势监测点<br/>设备：诺丽网络摄像机<br/><br/>监控：白口村采集点<br/>设备：诺丽环境数据采集器（2 代）<br/><br/>监控：白口村监控点<br/>设备：诺丽网络摄像机<br/><br/>"
+      // encoderId: "127"
+      // latitude: "34.3623734"
+      // longitude: "117.768539"
+      // person: "刘贤松"
+      // phone: "13805223875"
+      this.$api
+        .postBaseApi(
+          'pes/getRealtimeDatasByEncoderId',
+          qs.stringify({
+            encoderId: res.encoderId,
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            this.title = res.result.Encoder.FullName + '，设备编码：' + res.result.Encoder.Deviceid;
+            if (res.result.Sensors.length != 0) {
+              let resList = res.result;
+              resList.Sensors.forEach((value) => {
+                value.src = this.getIcon(value.Resource, this.integratedData);
+              });
+              this.sensorsData = resList.Sensors;
+            } else {
+              this.sensorsData = this.integratedData;
+            }
+          }
+        })
+        .catch(() => {});
+    },
+    getIcon(value, options) {
+      let obj = options.find((item) => item.resource == value);
+      if (obj) {
+        return obj.src;
+      }
+      return '';
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -193,9 +241,22 @@ export default {
 <style lang="scss" scoped>
 .gp-integrated {
   .gp-group {
+    position: relative;
+    justify-content: flex-start;
     padding: 15px 0 15px 20px;
+    background-color: #000d1c;
     border-bottom: 1px dashed #004191;
-    background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 25%);
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 100%);
+    }
   }
 
   ::v-deep .el-carousel {

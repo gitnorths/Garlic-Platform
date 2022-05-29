@@ -9,7 +9,7 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <DsMaps />
+    <BasicInformationMaps />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -55,14 +55,14 @@
 
 <script>
 import qs from 'qs';
-import DsMaps from './components/maps';
+import BasicInformationMaps from './components/basic-information-maps';
 import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
 
 export default {
   name: 'BasicInformation',
   components: {
-    DsMaps,
+    BasicInformationMaps,
     BaseChart,
   },
   data() {
@@ -129,12 +129,12 @@ export default {
         },
         legend: {
           top: 10,
-          right: 0,
+          right: 15,
           itemWidth: 16,
           itemHeight: 8,
           textStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         tooltip: {
@@ -200,7 +200,7 @@ export default {
           },
           axisLabel: {
             color: '#476294',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
       },
@@ -216,12 +216,12 @@ export default {
         },
         legend: {
           top: 10,
-          right: 0,
+          right: 15,
           itemWidth: 16,
           itemHeight: 8,
           textStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         tooltip: {
@@ -265,7 +265,7 @@ export default {
           axisLabel: {
             inside: false,
             color: '#476294',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         yAxis: {
@@ -273,7 +273,7 @@ export default {
           name: '单位：吨',
           nameTextStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
           axisTick: {
             show: false,
@@ -292,7 +292,7 @@ export default {
           },
           axisLabel: {
             color: '#476294',
-            fontSize: '14',
+            fontSize: 12,
           },
         },
       },
@@ -308,12 +308,12 @@ export default {
         },
         legend: {
           top: 10,
-          right: 0,
+          right: 15,
           itemWidth: 16,
           itemHeight: 8,
           textStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         tooltip: {
@@ -347,7 +347,7 @@ export default {
           axisLabel: {
             inside: false,
             color: '#476294',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         yAxis: {
@@ -355,7 +355,7 @@ export default {
           name: '单位：吨',
           nameTextStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
           axisTick: {
             show: false,
@@ -374,7 +374,7 @@ export default {
           },
           axisLabel: {
             color: '#476294',
-            fontSize: '14',
+            fontSize: 12,
           },
         },
       },
@@ -390,7 +390,7 @@ export default {
         },
         legend: {
           top: 10,
-          right: 0,
+          right: 15,
           itemWidth: 16,
           itemHeight: 8,
           textStyle: {
@@ -456,7 +456,7 @@ export default {
           },
           axisLabel: {
             color: '#476294',
-            fontSize: '12',
+            fontSize: 12,
           },
         },
       },
@@ -492,12 +492,12 @@ export default {
         },
         legend: {
           top: 10,
-          right: 0,
+          right: 15,
           itemWidth: 16,
           itemHeight: 8,
           textStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         tooltip: {
@@ -531,7 +531,7 @@ export default {
           axisLabel: {
             inside: false,
             color: '#476294',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         yAxis: {
@@ -539,7 +539,7 @@ export default {
           name: '单位：吨',
           nameTextStyle: {
             color: '#7EC1FF',
-            fontSize: 14,
+            fontSize: 12,
           },
           axisTick: {
             show: false,
@@ -559,7 +559,7 @@ export default {
           axisLabel: {
             color: '#476294',
             fontWeight: 'normal',
-            fontSize: '14',
+            fontSize: 12,
           },
         },
       },
@@ -921,7 +921,7 @@ export default {
                 name: resData.data[j].name,
                 icon: 'circle',
                 textStyle: {
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: 'bold',
                   lineHeight: 20,
                   color: resColors[j],
@@ -977,7 +977,7 @@ export default {
                   rich: {
                     b: {
                       color: '#ffffff',
-                      fontSize: 14,
+                      fontSize: 12,
                       height: 40,
                       padding: [21, 0],
                     },

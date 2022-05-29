@@ -22,7 +22,6 @@ export default {
       polygons: [],
       zoom: 7.8,
       adcode: 320000,
-      // center: [117.283752, 34.204224],
       center: [117.283752, 32.704224],
       depth: 2,
       colors: {
@@ -38,11 +37,6 @@ export default {
         320382: 'rgba(83, 168, 217, 0.5)', // 邳州
       },
       markers: [
-        {
-          name: '',
-          position: [116.727222, 35.088222],
-          icon: ' ',
-        },
         {
           name: '沛县',
           position: [116.727222, 34.888222],
@@ -68,18 +62,13 @@ export default {
           position: [117.452222, 34.441222],
           icon: require('../../../assets/images/icon/mark3.png'),
         },
-        {
-          name: '',
-          position: [117.769698, 33.681162],
-          icon: ' ',
-        },
       ],
     };
   },
 
   mounted() {
     //调用地图初始化方法
-    this.initAMap(this.zoom, this.center, this.depth);
+    this.initAMap();
   },
   methods: {
     initAMap() {
@@ -91,12 +80,16 @@ export default {
         pitch: 0,
         viewMode: '3D',
       });
+
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
         setTimeout(() => {
           that.addMarker(); // 添加marker标记
-          that.map.setFitView();
+          // 第一个参数为空，表明用图上所有覆盖物 setFitview
+          // 第二个参数为false, 非立即执行
+          // 第三个参数设置上左下右的空白
+          that.map.setFitView(null, false, [150, 150, 150, 150]);
           // that.map.panBy(-400, 100);
         }, 3000);
       });
@@ -112,11 +105,6 @@ export default {
         depth: depths,
         styles: {
           fill: function (properties) {
-            // properties为可用于做样式映射的字段，包含
-            // NAME_CHN:中文名称
-            // adcode_pro
-            // adcode_cit
-            // adcode
             let adcode = properties.adcode;
             return that.getColorByAdcode(adcode);
           },
