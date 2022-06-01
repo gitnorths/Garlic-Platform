@@ -54,7 +54,7 @@ const actions = {
 
           commit('SET_TOKEN', '');
 
-          router.replace('/login');
+          router.replace('/dashboard/login');
 
           resolve();
         });
@@ -64,7 +64,7 @@ const actions = {
     return new Promise((resolve) => {
       commit('SET_TOKEN', '');
 
-      router.replace('/login');
+      router.replace('/dashboard/login');
 
       resolve();
     });
