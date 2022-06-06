@@ -101,7 +101,7 @@ export default {
               .dispatch('user/login', this.ruleForm)
               .then(() => {
                 console.log(1);
-                this.$router.push({ path: '/dashboard/home' }).catch(() => {
+                this.$router.push({ path: '/home' }).catch(() => {
                   // this.refreshCaptcha(true);
                 });
               })

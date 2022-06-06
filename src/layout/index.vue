@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push({ path: '/dashboard/home' });
+      this.$router.push({ path: '/home' });
     },
     layout() {
       this.$confirm('确认退出登录?', {
