@@ -9,7 +9,7 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <BasicInformationMaps />
+    <BasicInformationMaps :mapData="mapData" @ok="getData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -67,6 +67,7 @@ export default {
   },
   data() {
     return {
+      mapData: [],
       distributionOptions: [
         {
           value: '0',
@@ -101,7 +102,7 @@ export default {
           label: '大丰',
         },
       ],
-      distribution: '', // 分布
+      distribution: null, // 分布
       typeOptions: [
         {
           value: '蒜头',
@@ -1064,35 +1065,21 @@ export default {
         })
         .catch(() => {});
     },
+    getData() {
+      // this.getMapsInfo();
+    },
     // 地图坐标拾取
     getMapsInfo() {
-      console.log(this.distribution, this.type);
-      // let params = {};
-      // if (this.distribution && this.distribution != 0) {
-      //   params = {
-      //     keyword: this.type,
-      //     region: this.distribution,
-      //     level: this.distribution ? '3' : '',
-      //   };
-      // } else {
-      //   params = {
-      //     region: '',
-      //     level: '',
-      //   };
-      // }
       this.$api
-        .postBaseApi(
-          'gc/cropDistributed/getCropDistributeds',
-          qs.stringify({
-            keyword: this.type,
-            region: this.distribution,
-            level: this.distribution ? '3' : '',
-          })
-        )
+        .postBaseApi('gc/cropDistributed/getCropDistributeds', {
+          // keyword: this.type,
+          region: this.distribution,
+          level: this.distribution ? '3' : null,
+        })
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
-            // let resData = res.result;
+            this.mapData = res.result;
           }
         })
         .catch(() => {});

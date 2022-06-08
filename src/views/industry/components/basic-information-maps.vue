@@ -11,39 +11,52 @@ import AMap from 'AMap';
 
 export default {
   name: 'MapsView',
+  props: {
+    mapData: {
+      type: Array,
+      required: true,
+    },
+  },
+  watch: {
+    mapData() {
+      this.initAMap();
+    },
+  },
   data() {
     return {
       loading: true,
       map: null,
-      infoWindow: null,
-      mapStyle: 'darkblue', // darkblue, grey
+      zoom: 7.8,
       level: 'district',
-      district: '江苏省',
-      polygons: [],
-      zoom: 7.5,
-      adcode: 320000,
       depth: 2,
+      adcode: 320000,
+      center: [117.283752, 32.704224],
+      district: '江苏省',
+      mapStyle: 'darkblue', // darkblue, grey
+      markers: [],
+      polygons: [],
+      infoWindow: null,
       colors: {
         320114: 'rgba(83, 168, 217, 0.5)',
-        320117: 'rgba(83, 168, 217, 0.5)',
-        320115: 'rgba(83, 168, 217, 0.5)',
-        320111: 'rgba(83, 168, 217, 0.5)',
-        320118: 'rgba(83, 168, 217, 0.5)',
-        320116: 'rgba(83, 168, 217, 0.5)',
-        320105: 'rgba(83, 168, 217, 0.5)',
-        320106: 'rgba(83, 168, 217, 0.5)',
-        320104: 'rgba(83, 168, 217, 0.5)',
-        320102: 'rgba(83, 168, 217, 0.5)',
-        320113: 'rgba(83, 168, 217, 0.5)',
-        320322: 'rgba(83, 168, 217, 0.5)',
-        320303: 'rgba(83, 168, 217, 0.5)',
-        320582: 'rgba(83, 168, 217, 0.5)',
+        // 320117: 'rgba(83, 168, 217, 0.5)',
+        // 320115: 'rgba(83, 168, 217, 0.5)',
+        // 320111: 'rgba(83, 168, 217, 0.5)',
+        // 320118: 'rgba(83, 168, 217, 0.5)',
+        // 320116: 'rgba(83, 168, 217, 0.5)',
+        // 320105: 'rgba(83, 168, 217, 0.5)',
+        // 320106: 'rgba(83, 168, 217, 0.5)',
+        // 320104: 'rgba(83, 168, 217, 0.5)',
+        // 320102: 'rgba(83, 168, 217, 0.5)',
+        // 320113: 'rgba(83, 168, 217, 0.5)',
+        // 320322: 'rgba(83, 168, 217, 0.5)',
+        // 320303: 'rgba(83, 168, 217, 0.5)',
+        // 320582: 'rgba(83, 168, 217, 0.5)',
       },
     };
   },
   mounted() {
     //调用地图初始化方法
-    this.initAMap();
+    // this.initAMap();
   },
   methods: {
     initAMap() {
@@ -51,12 +64,21 @@ export default {
       //创建地图
       this.map = new AMap.Map('container', {
         zoom: that.zoom,
-        center: [118.767413, 32.941544],
+        center: that.center,
         pitch: 0,
         viewMode: '3D',
       });
 
-      that.initPro(that.adcode, that.depth);
+      this.map.on('complete', function () {
+        that.loading = false;
+
+        that.initPro(that.adcode, that.depth);
+
+        setTimeout(() => {
+          that.addMarker(); // 添加marker标记
+          // that.map.panBy(-400, 100); // 偏移位置
+        }, 3000);
+      });
     },
 
     // 创建省份图层
@@ -90,37 +112,37 @@ export default {
       let mapStyle = 'amap://styles/' + this.mapStyle;
       that.map.setMapStyle(mapStyle); // 设置主题颜色
 
-      that.map.on('complete', function () {
-        that.loading = false;
+      // that.map.on('complete', function () {
+      //   that.loading = false;
 
-        // that.addMarker(); // 添加marker标记
+      //   // that.addMarker(); // 添加marker标记
 
-        let content = [];
-        //实例化信息窗体
-        content.push(
-          '<div class="gp-map__marker">\n' +
-            ' <div class="gp-map__marker--header">\n' +
-            '   <span>基本信息</span>\n' +
-            '   <div id="closeX" class="gp-map__marker--close"></div>\n' +
-            ' </div>\n' +
-            ' <div class="gp-map__marker--body">\n' +
-            '   <p>品种：品种蒜头  </p>\n' +
-            '   <p>类型：蒜头</p>\n' +
-            '   <p>面积：130亩</p>\n' +
-            ' </div>\n' +
-            ' <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n' +
-            '</div>'
-        );
+      //   let content = [];
+      //   //实例化信息窗体
+      //   content.push(
+      //     '<div class="gp-map__marker">\n' +
+      //       ' <div class="gp-map__marker--header">\n' +
+      //       '   <span>基本信息</span>\n' +
+      //       '   <div id="closeX" class="gp-map__marker--close"></div>\n' +
+      //       ' </div>\n' +
+      //       ' <div class="gp-map__marker--body">\n' +
+      //       '   <p>品种: 品种蒜头  </p>\n' +
+      //       '   <p>类型: 蒜头</p>\n' +
+      //       '   <p>面积: 130亩</p>\n' +
+      //       ' </div>\n' +
+      //       ' <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n' +
+      //       '</div>'
+      //   );
 
-        that.infoWindow = new AMap.InfoWindow({
-          anchor: 'top-left',
-          isCustom: true, //使用自定义窗体
-          content: content, //调用创建信息窗体的方法--信息窗体的内容
-          offset: new AMap.Pixel(35, -10),
-        });
+      //   that.infoWindow = new AMap.InfoWindow({
+      //     anchor: 'top-left',
+      //     isCustom: true, //使用自定义窗体
+      //     content: content, //调用创建信息窗体的方法--信息窗体的内容
+      //     offset: new AMap.Pixel(35, -10),
+      //   });
 
-        that.infoWindow.on('open', that.showInfoOpen);
-      });
+      //   that.infoWindow.on('open', that.showInfoOpen);
+      // });
     },
 
     //打开信息窗体
@@ -134,26 +156,63 @@ export default {
 
     //添加marker标记
     addMarker() {
-      // 绑定点
-      let lnglats = [
-        [118.796911, 32.063653], // 南京
-        [118.276374, 33.960094], // 宿迁
-      ];
-
+      this.map.clearMap();
       let that = this;
-      that.map.clearMap();
+      let mapDatas = this.mapData;
+      console.log(mapDatas.length);
 
-      for (let i = 0; i < lnglats.length; i++) {
+      // 绑定点
+      for (let i = 0; i < mapDatas.length; i++) {
         let marker = new AMap.Marker({
           map: that.map,
-          icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
-          position: lnglats[i],
+          icon: require('../../../assets/images/icon/mark3.png'),
+          title: mapDatas[i].townName,
+          zIndex: mapDatas.length - i,
+          cursor: 'pointer',
+          position: [mapDatas[i].longitude, mapDatas[i].latitude],
         });
-        //鼠标点击marker弹出自定义的信息窗体
-        marker.on('click', function () {
-          that.infoWindow.open(that.map, marker.getPosition());
+        marker.setTitle(mapDatas[i].townName);
+        marker.extData = mapDatas[i];
+
+        that.markers.push(
+          new AMap.Marker({
+            icon: require('../../../assets/images/icon/mark3.png'),
+            position: [mapDatas[i].longitude, mapDatas[i].latitude],
+          })
+        );
+
+        //鼠标点击marker返回参数
+        marker.on('click', function (e) {
+          that.$emit('ok', e.target.extData);
+          // console.log(that.markers);
+          // setTimeout(() => {
+          //   that.map.remove(that.markers);
+          // }, 1000);
         });
       }
+
+      that.map.setFitView(null, false, [250, 150, 600, 60], 15);
+      // console.log(this.mapData);
+      // // 绑定点
+      // let lnglats = [
+      //   [118.796911, 32.063653], // 南京
+      //   [118.276374, 33.960094], // 宿迁
+      // ];
+
+      // let that = this;
+      // that.map.clearMap();
+
+      // for (let i = 0; i < lnglats.length; i++) {
+      //   let marker = new AMap.Marker({
+      //     map: that.map,
+      //     icon: require('../../../assets/images/icon/mark3.png'),
+      //     position: lnglats[i],
+      //   });
+      //   //鼠标点击marker弹出自定义的信息窗体
+      //   marker.on('click', function () {
+      //     that.infoWindow.open(that.map, marker.getPosition());
+      //   });
+      // }
     },
 
     //关闭信息窗体

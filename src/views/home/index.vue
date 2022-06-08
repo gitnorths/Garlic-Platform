@@ -28,7 +28,7 @@
         <div class="gp-flex">
           <div class="gp-number left">
             <ul>
-              <li v-for="(item, index) in numberData.slice(0, 2)" :key="index">
+              <li v-for="(item, index) in numberLeftData" :key="index">
                 <p>{{ item.name }}({{ item.unit }})</p>
                 <countTo
                   :start-val="Number(item.sVal)"
@@ -59,7 +59,7 @@
           </div>
           <div class="gp-number right">
             <ul>
-              <li v-for="(item, index) in numberData.slice(2, 6)" :key="index">
+              <li v-for="(item, index) in numberRightData" :key="index">
                 <p>{{ item.name }}({{ item.unit }})</p>
                 <countTo
                   :start-val="Number(item.sVal)"
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import qs from 'qs';
 import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
 import JSMap from '@/components/maps/JiangSu.vue';
@@ -107,7 +108,11 @@ export default {
       startVal: 0,
       endVal: 0,
       suspend: [],
-      numberData: [],
+      numberLeftData: [
+        { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
+        { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
+      ],
+      numberRightData: [],
       cdata: [
         {
           name: '盐城',
@@ -121,6 +126,7 @@ export default {
     };
   },
   mounted() {
+    this.getInfo();
     this.timeId = setInterval(() => {
       this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
     }, 1000);
@@ -130,18 +136,38 @@ export default {
       { name: '产业信息', className: '__cyxx', path: '/basic-information' },
       { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
     ];
-    this.numberData = [
-      { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
-      { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
-      { name: '蒜头种植面积', unit: 'km²', cName: 'color3', sVal: 0, eVal: 12560.2 },
-      { name: '蒜苗种植面积', unit: 'km²', cName: 'color4', sVal: 0, eVal: 12560.2 },
-      { name: '蒜薹种植面积', unit: 'km²', cName: 'color5', sVal: 0, eVal: 12560.2 },
-    ];
   },
   beforeDestroy() {
     clearInterval(this.timing);
   },
   methods: {
+    async getInfo() {
+      // 面积与品种
+      this.$api
+        .postBaseApi(
+          'cc/areaVariety/getChartData',
+          qs.stringify({
+            region: '',
+            level: '',
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            let resData = res.result;
+            for (let i = 0; i < resData.area.length; i++) {
+              this.numberRightData.push({
+                name: `${resData.area[i].name}种植面积`,
+                unit: 'km²',
+                cName: `color${i + 3}`,
+                sVal: 0,
+                eVal: resData.area[i].value,
+              });
+            }
+          }
+        })
+        .catch(() => {});
+    },
     cancelLoading() {
       setTimeout(() => {
         this.loading = false;

@@ -15,12 +15,17 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
+    // console.log('config', config);
     config.headers['deviceId'] = 'bXV3dS1jbGllbnQtYXV0aDptdXd1Q2xpZW50U2VjcmV0';
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     config.headers['Authorization'] = `Basic bXV3dS1jbGllbnQtYXV0aDptdXd1Q2xpZW50U2VjcmV0`;
 
+    if (config.url === '/garlic-web-api/gc/cropDistributed/getCropDistributeds') {
+      config.headers['Content-Type'] = 'application/json;charset=UTF-8';
+    } else {
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+
     const token = store.getters.token;
-    console.log(token);
     if (token) {
       config.headers['Authorization'] = `bearer ${token}`; // bXV3dS1jbGllbnQtYXV0aDptdXd1Q2xpZW50U2VjcmV0
     }
@@ -33,8 +38,6 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     const { data } = response;
-    console.log(data);
-
     if (data.code === 401) {
       store.dispatch('user/resetToken');
       Message.error('登录过期, 请重新登录!');
