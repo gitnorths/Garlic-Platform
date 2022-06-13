@@ -9,7 +9,7 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <BasicInformationMaps :mapData="mapData" @ok="getData" />
+    <BasicInformationMaps :mapData="mapData" :mapColor="mapColor" @ok="getData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -67,7 +67,8 @@ export default {
   },
   data() {
     return {
-      mapData: [],
+      mapData: [], // 地图数据
+      mapColor: {}, //
       distributionOptions: [
         {
           value: '0',
@@ -1080,6 +1081,9 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             this.mapData = res.result;
+            for (let i = 0; i < res.result.length; i++) {
+              this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';
+            }
           }
         })
         .catch(() => {});

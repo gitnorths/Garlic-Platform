@@ -16,6 +16,10 @@ export default {
       type: Array,
       required: true,
     },
+    mapColor: {
+      type: Object,
+      require: true,
+    },
   },
   watch: {
     mapData() {
@@ -37,7 +41,7 @@ export default {
       polygons: [],
       infoWindow: null,
       colors: {
-        320114: 'rgba(83, 168, 217, 0.5)',
+        // 320114: 'rgba(83, 168, 217, 0.5)',
         // 320117: 'rgba(83, 168, 217, 0.5)',
         // 320115: 'rgba(83, 168, 217, 0.5)',
         // 320111: 'rgba(83, 168, 217, 0.5)',
@@ -57,6 +61,7 @@ export default {
   mounted() {
     //调用地图初始化方法
     // this.initAMap();
+    console.log(this.mapColor);
   },
   methods: {
     initAMap() {
@@ -159,7 +164,7 @@ export default {
       this.map.clearMap();
       let that = this;
       let mapDatas = this.mapData;
-      console.log(mapDatas.length);
+      console.log(mapDatas);
 
       // 绑定点
       for (let i = 0; i < mapDatas.length; i++) {
@@ -222,8 +227,8 @@ export default {
 
     // 颜色辅助方法
     getColorByAdcode(adcode) {
-      if (this.colors[adcode]) {
-        return this.colors[adcode];
+      if (this.mapColor[adcode]) {
+        return this.mapColor[adcode];
       } else {
         return 'rgba(0, 39, 97, 0.5)';
       }

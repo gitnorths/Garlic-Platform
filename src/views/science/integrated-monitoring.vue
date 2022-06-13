@@ -240,22 +240,136 @@ export default {
 
 <style lang="scss" scoped>
 .gp-integrated {
-  .gp-group {
-    position: relative;
-    justify-content: flex-start;
-    padding: 15px 0 15px 20px;
-    background-color: #000d1c;
-    border-bottom: 1px dashed #004191;
+  .gp-left,
+  .gp-right {
+    .gp-box {
+      background-color: rgba(0, 13, 28, 0.8);
+    }
+  }
 
-    &::after {
-      display: block;
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 16px;
-      background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 100%);
+  .gp-left {
+    width: 420px;
+    bottom: auto;
+
+    .gp-box {
+      .el-tabs {
+        padding-top: 17px;
+
+        &__nav {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          padding: 0 8px;
+
+          &-wrap::after {
+            background: initial;
+            border-bottom: 1px dashed #004191;
+          }
+        }
+
+        &__item {
+          flex: 1;
+          background: rgba(0, 56, 129, 0.5);
+          border-radius: 8px 8px 0px 0px;
+          color: #84aeff;
+          margin: 0 3px;
+          padding: 0;
+          height: 42px;
+          font-size: 16px;
+          font-weight: bold;
+          text-align: center;
+
+          &.is-active {
+            background: linear-gradient(180deg, #1c63c4 0%, rgba(28, 99, 196, 0) 100%);
+          }
+        }
+
+        &__active-bar {
+          display: none;
+        }
+
+        &__content {
+          padding: 0 15px 15px;
+        }
+      }
+
+      .el-carousel {
+        &__container {
+          height: 570px;
+        }
+
+        &__item {
+          background-color: #000000;
+        }
+
+        &__indicator {
+          &.is-active {
+            .el-carousel__button {
+              background-color: #20fbff;
+            }
+          }
+        }
+
+        &__button {
+          width: 14px;
+          height: 6px;
+          border-radius: 3px;
+          background-color: rgba(#ffffff, 0.5);
+        }
+      }
+    }
+  }
+
+  .gp-right {
+    width: 560px;
+
+    .gp-box {
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+
+      &__video {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        background: #000d1c;
+        border: 2px solid #004191;
+        border-radius: 8px;
+      }
+
+      &__ul {
+        flex: 1;
+        display: flex;
+        flex-flow: wrap;
+
+        li {
+          display: flex;
+          align-items: center;
+          flex: 0 0 33.33%;
+
+          img {
+            display: block;
+            width: 45px;
+            height: 45px;
+          }
+
+          p {
+            padding-left: 10px;
+
+            b {
+              display: block;
+              color: #0b95f0;
+              font-size: 12px;
+            }
+
+            span {
+              color: #ffffff;
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
     }
   }
 

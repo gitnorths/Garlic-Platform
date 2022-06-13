@@ -16,4 +16,10 @@ function postBaseApi(action, data = {}) {
   return axios.post(`/garlic-web-api/${action}`, data);
 }
 
-export { postUserApi, getBaseApi, postBaseApi };
+// 配方接口
+// https://garlic.chinanoni.com/suan-api/noni/gongmi/suan
+function getSuanApi(action, params = {}) {
+  return axios.get(`/suan-api/${action}`, { params });
+}
+
+export { getSuanApi, getBaseApi, postUserApi, postBaseApi };

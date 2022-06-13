@@ -552,7 +552,7 @@ input::placeholder {
   }
 
   p {
-    color: #73AFFF;
+    color: #73afff;
     font-size: 16px;
     font-weight: 500;
   }
@@ -704,6 +704,25 @@ input::placeholder {
         }
       }
     }
+  }
+}
+
+.gp-group {
+  position: relative;
+  justify-content: space-between;
+  padding: 15px 15px 15px 25px;
+  background-color: #000d1c;
+  border-bottom: 1px dashed #004191;
+
+  &::after {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(0deg, rgba(0, 65, 145, 0.3) 0%, rgba(0, 65, 145, 0) 100%);
   }
 }
 
