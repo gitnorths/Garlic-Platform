@@ -11,6 +11,31 @@ input::placeholder {
   }
 }
 
+.el-select {
+  &-dropdown {
+    border-color: #004191;
+    background-color: #00224c;
+
+    &__item {
+      color: #f5f7fa;
+
+      &.hover,
+      &:hover {
+        background-color: #003980;
+      }
+    }
+
+    &.el-popper .popper__arrow {
+      border-bottom-color: #004191;
+
+      &::after {
+        top: 0;
+        border-bottom-color: #004191;
+      }
+    }
+  }
+}
+
 .zIndex100 {
   z-index: 1000;
 }

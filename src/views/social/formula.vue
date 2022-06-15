@@ -21,9 +21,8 @@
           </div>
           <el-descriptions title="配方一" :column="1" border>
             <el-descriptions-item v-for="(item, index) in flList_lz" :key="index" :label="item.time_fei_name">
-              {{ item.type_fei_name }}{{ item.volumn }}公斤 + 氮{{ item.n }}(mg/t) + 磷{{ item.p }}(mg/t) + 钾{{
-                item.k
-              }}(mg/t)
+              {{ item.type_fei_name }} {{ item.volumn }} 公斤 + 氮 {{ item.n }} (mg/t) + 磷 {{ item.p }} (mg/t) + 钾
+              {{ item.k }} (mg/t)
             </el-descriptions-item>
           </el-descriptions>
           <div class="gp-formula-title">
@@ -31,9 +30,8 @@
           </div>
           <el-descriptions title="配方一" :column="1" border>
             <el-descriptions-item v-for="(item, index) in flList_tz" :key="index" :label="item.time_fei_name">
-              {{ item.type_fei_name }}{{ item.volumn }}公斤 + 氮{{ item.n }}(mg/t) + 磷{{ item.p }}(mg/t) + 钾{{
-                item.k
-              }}(mg/t)
+              {{ item.type_fei_name }} {{ item.volumn }} 公斤 + 氮 {{ item.n }} (mg/t) + 磷 {{ item.p }} (mg/t) + 钾
+              {{ item.k }} (mg/t)
             </el-descriptions-item>
           </el-descriptions>
         </div>

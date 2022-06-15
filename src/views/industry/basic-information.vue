@@ -1,15 +1,15 @@
 <template>
   <div class="gp-bg">
     <div class="DsMap_anchor">
-      <el-select v-model="distribution" clearable placeholder="分布" @change="getMapsInfo">
+      <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
         <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="type" clearable placeholder="类型" @change="getMapsInfo">
+      <el-select v-model="keyword" clearable placeholder="类型" @change="getKeyword">
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <BasicInformationMaps :mapData="mapData" :mapColor="mapColor" @ok="getData" />
+    <BasicInformationMaps :mapData="mapData" :lonLatData="lonLatData" :mapColor="mapColor" @ok="getData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -68,10 +68,12 @@ export default {
   data() {
     return {
       mapData: [], // 地图数据
-      mapColor: {}, //
+      lonLatData: [], // 坐标数据
+      mapColor: {},
+      keyword: '', // 类型
       distributionOptions: [
         {
-          value: '0',
+          value: ' ',
           label: '全省',
         },
         {
@@ -118,7 +120,6 @@ export default {
           label: '蒜苗',
         },
       ],
-      type: '', // 类型
       // 产值信息
       czId: 'czChart',
       czOption: {
@@ -572,7 +573,10 @@ export default {
     this.getMapsInfo();
   },
   methods: {
-    async getInfo() {
+    async getInfo(regions, levels, types) {
+      regions = regions ? regions : '';
+      levels = levels ? levels : '';
+      types = types ? types : '';
       let barWidth = 30;
       let colors = [
         {
@@ -686,9 +690,9 @@ export default {
         .postBaseApi(
           'cc/outputValue/getChartData',
           qs.stringify({
-            type: 1,
-            region: '',
-            level: '',
+            type: types,
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -736,8 +740,8 @@ export default {
         .postBaseApi(
           'cc/garlicPrice/getChartData',
           qs.stringify({
-            region: '',
-            level: '',
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -784,8 +788,8 @@ export default {
         .postBaseApi(
           'cc/acquisitionProcessing/getChartData',
           qs.stringify({
-            region: '',
-            level: '',
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -853,9 +857,9 @@ export default {
         .postBaseApi(
           'cc/outputValue/getChartData',
           qs.stringify({
-            type: 0,
-            region: '',
-            level: '',
+            type: types,
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -907,8 +911,8 @@ export default {
         .postBaseApi(
           'cc/areaVariety/getChartData',
           qs.stringify({
-            region: '',
-            level: '',
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -1001,8 +1005,8 @@ export default {
         .postBaseApi(
           'cc/socialService/getChartData',
           qs.stringify({
-            region: '',
-            level: '',
+            region: regions,
+            level: levels,
           })
         )
         .then((res) => {
@@ -1069,21 +1073,37 @@ export default {
     getData() {
       // this.getMapsInfo();
     },
+    // 类型分布
+    getDistribution() {
+      this.getInfo(this.distribution, this.keyword, this.type);
+      this.getMapsInfo('distribution');
+    },
+    // 类型change
+    getKeyword() {
+      this.getMapsInfo('keyword');
+    },
     // 地图坐标拾取
-    getMapsInfo() {
+    getMapsInfo(type) {
+      let params = {
+        region: this.distribution,
+        level: this.distribution ? '3' : null,
+      };
+      if (type === 'keyword') {
+        params.keyword = this.keyword;
+      }
       this.$api
-        .postBaseApi('gc/cropDistributed/getCropDistributeds', {
-          // keyword: this.type,
-          region: this.distribution,
-          level: this.distribution ? '3' : null,
-        })
+        .postBaseApi('gc/cropDistributed/getCropDistributeds', params)
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
-            this.mapData = res.result;
-            for (let i = 0; i < res.result.length; i++) {
-              this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';
+            if (type === 'keyword' || type === 'distribution') {
+              this.lonLatData = res.result;
+            } else {
+              this.mapData = res.result;
             }
+            // for (let i = 0; i < res.result.length; i++) {
+            //   this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';
+            // }
           }
         })
         .catch(() => {});
@@ -1125,24 +1145,6 @@ export default {
       &::placeholder {
         color: #e4f3ff;
         font-size: 14px;
-      }
-    }
-
-    &-dropdown {
-      border-color: #4d81e7;
-      background-color: #003980;
-
-      &__item {
-        color: #f5f7fa;
-
-        &.hover,
-        &:hover {
-          background-color: #4d81e7;
-        }
-      }
-
-      .el-popper .popper__arrow::after {
-        border-bottom-color: #4d81e7;
       }
     }
   }

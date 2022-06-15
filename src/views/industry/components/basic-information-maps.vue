@@ -20,10 +20,17 @@ export default {
       type: Object,
       require: true,
     },
+    lonLatData: {
+      type: Array,
+      required: true,
+    },
   },
   watch: {
     mapData() {
       this.initAMap();
+    },
+    lonLatData() {
+      this.addMarker(this.lonLatData);
     },
   },
   data() {
@@ -80,7 +87,7 @@ export default {
         that.initPro(that.adcode, that.depth);
 
         setTimeout(() => {
-          that.addMarker(); // 添加marker标记
+          that.addMarker(that.mapData); // 添加marker标记
           // that.map.panBy(-400, 100); // 偏移位置
         }, 3000);
       });
@@ -149,22 +156,11 @@ export default {
       //   that.infoWindow.on('open', that.showInfoOpen);
       // });
     },
-
-    //打开信息窗体
-    showInfoOpen() {
-      let closeX = document.getElementById('closeX');
-      //方法一: 为dom元素绑定js事件
-      closeX.onclick = this.closeInfoWindow;
-      //方法二: 为dom元素绑定js事件
-      //.addEventListener("click", this.closeInfoWindow)
-    },
-
     //添加marker标记
-    addMarker() {
+    addMarker(mapDatas) {
       this.map.clearMap();
       let that = this;
-      let mapDatas = this.mapData;
-      console.log(mapDatas);
+      console.log('mapDatas', mapDatas);
 
       // 绑定点
       for (let i = 0; i < mapDatas.length; i++) {
@@ -197,32 +193,6 @@ export default {
       }
 
       that.map.setFitView(null, false, [250, 150, 600, 60], 15);
-      // console.log(this.mapData);
-      // // 绑定点
-      // let lnglats = [
-      //   [118.796911, 32.063653], // 南京
-      //   [118.276374, 33.960094], // 宿迁
-      // ];
-
-      // let that = this;
-      // that.map.clearMap();
-
-      // for (let i = 0; i < lnglats.length; i++) {
-      //   let marker = new AMap.Marker({
-      //     map: that.map,
-      //     icon: require('../../../assets/images/icon/mark3.png'),
-      //     position: lnglats[i],
-      //   });
-      //   //鼠标点击marker弹出自定义的信息窗体
-      //   marker.on('click', function () {
-      //     that.infoWindow.open(that.map, marker.getPosition());
-      //   });
-      // }
-    },
-
-    //关闭信息窗体
-    closeInfoWindow() {
-      this.map.clearInfoWindow();
     },
 
     // 颜色辅助方法
