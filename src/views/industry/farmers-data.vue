@@ -1,6 +1,16 @@
 <template>
   <div class="gp-bg gp-industry">
-    <DsMaps />
+    <div class="gp-anchor">
+      <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
+        <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="userTypes" clearable @change="getUserTypes">
+        <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+    <FarmersMaps />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
@@ -28,18 +38,69 @@
 </template>
 
 <script>
-import DsMaps from './components/farmers-maps';
+import qs from 'qs';
+import FarmersMaps from './components/farmers-maps';
 import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
 
 export default {
   name: 'BasicInformation',
   components: {
-    DsMaps,
+    FarmersMaps,
     BaseChart,
   },
   data() {
     return {
+      distribution: null, // 分布
+      distributionOptions: [
+        {
+          value: '全省',
+          label: '全省',
+        },
+        {
+          value: '320382000000',
+          label: '邳州',
+        },
+        {
+          value: '320321000000',
+          label: '丰县',
+        },
+        {
+          value: '320322000000',
+          label: '沛县',
+        },
+        {
+          value: '320305000000',
+          label: '贾汪',
+        },
+        {
+          value: '320312000000',
+          label: '铜山',
+        },
+        {
+          value: '320924000000',
+          label: '射阳',
+        },
+        {
+          value: '320904000000',
+          label: '大丰',
+        },
+      ],
+      userTypes: '4', // 类型
+      userTypesOptions: [
+        {
+          value: '4',
+          label: '基地',
+        },
+        {
+          value: '5',
+          label: '企业',
+        },
+        {
+          value: '8',
+          label: '农场',
+        },
+      ],
       baseId: 'baseChart',
       baseOption: {
         title: {
@@ -331,6 +392,28 @@ export default {
         })
         .catch(() => {});
     },
+    getUserTypes() {
+      this.$api
+        .postBaseApi(
+          'uc/user/querAllInviteUser',
+          qs.stringify({
+            countyCode: this.distribution,
+            userTypes: ['8'],
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          // if (res.code === 200) {
+          // }
+        })
+        .catch(() => {});
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.gp-anchor {
+  right: 580px;
+}
+</style>

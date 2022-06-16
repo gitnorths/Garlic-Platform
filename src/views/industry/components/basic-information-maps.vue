@@ -192,7 +192,8 @@ export default {
         });
       }
 
-      that.map.setFitView(null, false, [250, 150, 600, 60], 15);
+      // that.map.setFitView(null, false, [250, 150, 600, 60], 15);
+      that.map.setFitView(null, false, [50, 50, 550, 550], 15);
     },
 
     // 颜色辅助方法

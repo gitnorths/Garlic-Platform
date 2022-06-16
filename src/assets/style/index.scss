@@ -751,6 +751,43 @@ input::placeholder {
   }
 }
 
+.gp-anchor {
+  position: absolute;
+  top: 95px;
+  right: 500px;
+  z-index: 201;
+  border-radius: 4px;
+
+  .el-select {
+    width: 90px;
+
+    &:first-child {
+      .el-input__inner {
+        border-radius: 4px 0 0 4px;
+      }
+    }
+
+    &:last-child {
+      .el-input__inner {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+
+    .el-input__inner {
+      border: 1px solid #004191;
+      background-color: #003980;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+
+      &::placeholder {
+        color: #e4f3ff;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
 .gp-integrated {
   .gp-left,
   .gp-right {

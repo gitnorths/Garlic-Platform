@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg">
-    <div class="DsMap_anchor">
+    <div class="gp-anchor">
       <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
         <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
@@ -73,7 +73,7 @@ export default {
       keyword: '', // 类型
       distributionOptions: [
         {
-          value: ' ',
+          value: '全省',
           label: '全省',
         },
         {
@@ -573,10 +573,12 @@ export default {
     this.getMapsInfo();
   },
   methods: {
-    async getInfo(regions, levels, types) {
+    async getInfo(regions, levels) {
       regions = regions ? regions : '';
       levels = levels ? levels : '';
-      types = types ? types : '';
+
+      console.log(regions, levels);
+
       let barWidth = 30;
       let colors = [
         {
@@ -690,47 +692,53 @@ export default {
         .postBaseApi(
           'cc/outputValue/getChartData',
           qs.stringify({
-            type: types,
+            type: 1, // 0 产量 1 产值
             region: regions,
             level: levels,
           })
         )
         .then((res) => {
+          console.log(res);
           if (!res) return;
+          console.log(123);
           if (res.code === 200) {
             let resData = res.result;
             let resArr = [];
-
             // 产值信息
-            this.czOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
-            this.czOption.legend.data = resData.legend;
-            this.czOption.xAxis.data = resData.category;
-            for (let i = 0; i < resData.data.length; i++) {
-              resArr.push({
-                name: resData.data[i].name,
-                type: resData.data[i].type,
-                itemStyle: {
-                  show: true,
-                  color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                      offset: 0,
-                      color: resColor[i][0],
-                    },
-                    {
-                      offset: 1,
-                      color: resColor[i][1],
-                    },
-                  ]),
-                  borderRadius: [6, 6, 0, 0],
-                  borderWidth: 0,
-                },
-                barWidth: '12px',
-                barGap: '100%',
-                data: resData.data[i].data,
-              });
+            if (!resData.data) {
+              this.czOption.series = [];
+              this.$refs.czChart.refresh(this.czOption);
+            } else {
+              this.czOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
+              this.czOption.legend.data = resData.legend;
+              this.czOption.xAxis.data = resData.category;
+              for (let i = 0; i < resData.data.length; i++) {
+                resArr.push({
+                  name: resData.data[i].name,
+                  type: resData.data[i].type,
+                  itemStyle: {
+                    show: true,
+                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                      {
+                        offset: 0,
+                        color: resColor[i][0],
+                      },
+                      {
+                        offset: 1,
+                        color: resColor[i][1],
+                      },
+                    ]),
+                    borderRadius: [6, 6, 0, 0],
+                    borderWidth: 0,
+                  },
+                  barWidth: '12px',
+                  barGap: '100%',
+                  data: resData.data[i].data,
+                });
+              }
+              this.czOption.series = resArr;
+              this.$refs.czChart.refresh(this.czOption);
             }
-            this.czOption.series = resArr;
-            this.$refs.czChart.refresh(this.czOption);
           }
         })
         .catch(() => {});
@@ -750,35 +758,40 @@ export default {
             let resData = res.result;
             let resArr = [];
             // 大蒜价格行情
-            this.dshqOption.legend.data = resData.legend;
-            this.dshqOption.xAxis.data = resData.category;
+            if (!resData.data) {
+              this.dshqOption.series = [];
+              this.$refs.dshqChart.refresh(this.czOption);
+            } else {
+              this.dshqOption.legend.data = resData.legend;
+              this.dshqOption.xAxis.data = resData.category;
 
-            for (let i = 0; i < resData.data.length; i++) {
-              resArr.push({
-                name: resData.data[i].name,
-                type: resData.data[i].type,
-                itemStyle: {
-                  show: true,
-                  color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                      offset: 0,
-                      color: resColor[i][0],
-                    },
-                    {
-                      offset: 1,
-                      color: resColor[i][1],
-                    },
-                  ]),
-                  borderRadius: [6, 6, 0, 0],
-                  borderWidth: 0,
-                },
-                barWidth: '12px',
-                barGap: '100%',
-                data: resData.data[i].data,
-              });
+              for (let i = 0; i < resData.data.length; i++) {
+                resArr.push({
+                  name: resData.data[i].name,
+                  type: resData.data[i].type,
+                  itemStyle: {
+                    show: true,
+                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                      {
+                        offset: 0,
+                        color: resColor[i][0],
+                      },
+                      {
+                        offset: 1,
+                        color: resColor[i][1],
+                      },
+                    ]),
+                    borderRadius: [6, 6, 0, 0],
+                    borderWidth: 0,
+                  },
+                  barWidth: '12px',
+                  barGap: '100%',
+                  data: resData.data[i].data,
+                });
+              }
+              this.dshqOption.series = resArr;
+              this.$refs.dshqChart.refresh(this.dshqOption);
             }
-            this.dshqOption.series = resArr;
-            this.$refs.dshqChart.refresh(this.dshqOption);
           }
         })
         .catch(() => {});
@@ -797,57 +810,62 @@ export default {
           if (res.code === 200) {
             let resData = res.result;
 
-            this.sgyjgOption.legend.data = resData.category;
-            this.sgyjgOption.xAxis.data = resData.category;
-            this.sgyjgOption.series = [
-              {
-                type: 'bar',
-                barWidth: barWidth,
-                itemStyle: {
-                  color: function (params) {
-                    return colors[params.dataIndex % 7];
+            if (!resData.data) {
+              this.sgyjgOption.series = [];
+              this.$refs.sgyjgChart.refresh(this.czOption);
+            } else {
+              this.sgyjgOption.legend.data = resData.category;
+              this.sgyjgOption.xAxis.data = resData.category;
+              this.sgyjgOption.series = [
+                {
+                  type: 'bar',
+                  barWidth: barWidth,
+                  itemStyle: {
+                    color: function (params) {
+                      return colors[params.dataIndex % 7];
+                    },
+                  },
+                  label: {
+                    show: true,
+                    position: [barWidth / 2, -barWidth],
+                    color: '#ffffff',
+                    fontSize: 12,
+                    fontStyle: 'bold',
+                    align: 'center',
+                  },
+                  data: resData.data,
+                },
+                {
+                  z: 2,
+                  type: 'pictorialBar',
+                  data: resData.data,
+                  symbol: 'diamond',
+                  symbolOffset: [0, '50%'],
+                  symbolSize: [barWidth, barWidth * 0.5],
+                  itemStyle: {
+                    color: function (params) {
+                      return colors[params.dataIndex % 7];
+                    },
                   },
                 },
-                label: {
-                  show: true,
-                  position: [barWidth / 2, -barWidth],
-                  color: '#ffffff',
-                  fontSize: 12,
-                  fontStyle: 'bold',
-                  align: 'center',
-                },
-                data: resData.data,
-              },
-              {
-                z: 2,
-                type: 'pictorialBar',
-                data: resData.data,
-                symbol: 'diamond',
-                symbolOffset: [0, '50%'],
-                symbolSize: [barWidth, barWidth * 0.5],
-                itemStyle: {
-                  color: function (params) {
-                    return colors[params.dataIndex % 7];
+                {
+                  z: 3,
+                  type: 'pictorialBar',
+                  symbolPosition: 'end',
+                  data: resData.data,
+                  symbol: 'diamond',
+                  symbolOffset: [0, '-50%'],
+                  symbolSize: [barWidth, barWidth * 0.5],
+                  itemStyle: {
+                    borderWidth: 0,
+                    color: function (params) {
+                      return colors[params.dataIndex % 7].colorStops[0].color;
+                    },
                   },
                 },
-              },
-              {
-                z: 3,
-                type: 'pictorialBar',
-                symbolPosition: 'end',
-                data: resData.data,
-                symbol: 'diamond',
-                symbolOffset: [0, '-50%'],
-                symbolSize: [barWidth, barWidth * 0.5],
-                itemStyle: {
-                  borderWidth: 0,
-                  color: function (params) {
-                    return colors[params.dataIndex % 7].colorStops[0].color;
-                  },
-                },
-              },
-            ];
-            this.$refs.sgyjgChart.refresh(this.sgyjgOption);
+              ];
+              this.$refs.sgyjgChart.refresh(this.sgyjgOption);
+            }
           }
         })
         .catch(() => {});
@@ -857,7 +875,7 @@ export default {
         .postBaseApi(
           'cc/outputValue/getChartData',
           qs.stringify({
-            type: types,
+            type: 0, // 0 产量 1 产值
             region: regions,
             level: levels,
           })
@@ -873,35 +891,40 @@ export default {
             ];
             let resArr = [];
 
-            this.clxxOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
-            this.clxxOption.legend.data = resData.legend;
-            this.clxxOption.xAxis.data = resData.category;
-            for (let i = 0; i < resData.data.length; i++) {
-              resArr.push({
-                name: resData.data[i].name,
-                type: 'line',
-                itemStyle: {
-                  show: true,
-                  color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                      offset: 0,
-                      color: resColor[i][0],
-                    },
-                    {
-                      offset: 1,
-                      color: resColor[i][1],
-                    },
-                  ]),
-                  borderRadius: [6, 6, 0, 0],
-                  borderWidth: 0,
-                },
-                barWidth: '12px',
-                barGap: '100%',
-                data: resData.data[i].data,
-              });
+            if (!resData.data) {
+              this.clxxOption.series = [];
+              this.$refs.clxxChart.refresh(this.czOption);
+            } else {
+              this.clxxOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
+              this.clxxOption.legend.data = resData.legend;
+              this.clxxOption.xAxis.data = resData.category;
+              for (let i = 0; i < resData.data.length; i++) {
+                resArr.push({
+                  name: resData.data[i].name,
+                  type: 'line',
+                  itemStyle: {
+                    show: true,
+                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                      {
+                        offset: 0,
+                        color: resColor[i][0],
+                      },
+                      {
+                        offset: 1,
+                        color: resColor[i][1],
+                      },
+                    ]),
+                    borderRadius: [6, 6, 0, 0],
+                    borderWidth: 0,
+                  },
+                  barWidth: '12px',
+                  barGap: '100%',
+                  data: resData.data[i].data,
+                });
+              }
+              this.clxxOption.series = resArr;
+              this.$refs.clxxChart.refresh(this.clxxOption);
             }
-            this.clxxOption.series = resArr;
-            this.$refs.clxxChart.refresh(this.clxxOption);
           }
         })
         .catch(() => {});
@@ -922,80 +945,86 @@ export default {
             // 面积与品种
             let resColors = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
             let legendData = [];
-            for (var j = 0; j < resData.data.length; j++) {
-              var data = {
-                name: resData.data[j].name,
-                icon: 'circle',
-                textStyle: {
-                  fontSize: 12,
-                  fontWeight: 'bold',
-                  lineHeight: 20,
-                  color: resColors[j],
-                },
-              };
-              legendData.push(data);
-            }
 
-            this.mjypzOption.legend = {
-              orient: 'vertical',
-              right: '10',
-              y: 'center',
-              padding: 10,
-              icon: 'circle',
-              itemGap: 10,
-              itemWidth: 10,
-              itemHeight: 10,
-              data: legendData,
-              formatter: function (name) {
-                let sum = sumBy(resData.data, function (o) {
-                  return parseInt(o.value);
-                });
-                for (let i = 0; i < resData.data.length; i++) {
-                  if (name == resData.data[i].name) {
-                    return `${name} ${((parseInt(resData.data[i].value) / sum) * 100).toFixed(
-                      2
-                    )}% \n {value|面积：} {value|${resData.data[i].value} } {value|k㎡}`;
-                  }
-                }
-              },
-              textStyle: {
-                rich: {
-                  value: {
-                    color: '#ffffff',
+            if (!resData.data) {
+              this.mjypzOption.series = [];
+              this.$refs.mjypzChart.refresh(this.czOption);
+            } else {
+              for (var j = 0; j < resData.data.length; j++) {
+                var data = {
+                  name: resData.data[j].name,
+                  icon: 'circle',
+                  textStyle: {
                     fontSize: 12,
+                    fontWeight: 'bold',
+                    lineHeight: 20,
+                    color: resColors[j],
                   },
-                },
-              },
-            };
-            this.mjypzOption.series = [
-              {
-                name: '面积与品种',
-                type: 'pie',
-                radius: '50%',
-                center: ['35%', '50%'],
-                color: resColors,
-                data: resData.data,
+                };
+                legendData.push(data);
+              }
 
-                label: {
-                  formatter: function (params) {
-                    return '{b|' + params.name + '}';
-                  },
+              this.mjypzOption.legend = {
+                orient: 'vertical',
+                right: '10',
+                y: 'center',
+                padding: 10,
+                icon: 'circle',
+                itemGap: 10,
+                itemWidth: 10,
+                itemHeight: 10,
+                data: legendData,
+                formatter: function (name) {
+                  let sum = sumBy(resData.data, function (o) {
+                    return parseInt(o.value);
+                  });
+                  for (let i = 0; i < resData.data.length; i++) {
+                    if (name == resData.data[i].name) {
+                      return `${name} ${((parseInt(resData.data[i].value) / sum) * 100).toFixed(
+                        2
+                      )}% \n {value|面积：} {value|${resData.data[i].value} } {value|k㎡}`;
+                    }
+                  }
+                },
+                textStyle: {
                   rich: {
-                    b: {
+                    value: {
                       color: '#ffffff',
                       fontSize: 12,
-                      height: 40,
-                      padding: [21, 0],
                     },
                   },
                 },
-                itemStyle: {
-                  borderWidth: 5,
-                  borderColor: '#010825',
+              };
+              this.mjypzOption.series = [
+                {
+                  name: '面积与品种',
+                  type: 'pie',
+                  radius: '50%',
+                  center: ['35%', '50%'],
+                  color: resColors,
+                  data: resData.data,
+
+                  label: {
+                    formatter: function (params) {
+                      return '{b|' + params.name + '}';
+                    },
+                    rich: {
+                      b: {
+                        color: '#ffffff',
+                        fontSize: 12,
+                        height: 40,
+                        padding: [21, 0],
+                      },
+                    },
+                  },
+                  itemStyle: {
+                    borderWidth: 5,
+                    borderColor: '#010825',
+                  },
                 },
-              },
-            ];
-            this.$refs.mjypzChart.refresh(this.mjypzOption);
+              ];
+              this.$refs.mjypzChart.refresh(this.mjypzOption);
+            }
           }
         })
         .catch(() => {});
@@ -1015,57 +1044,62 @@ export default {
             let resData = res.result;
 
             // 社会化服务组织
-            this.shhfwzzOption.legend.data = resData.category;
-            this.shhfwzzOption.xAxis.data = resData.category;
-            this.shhfwzzOption.series = [
-              {
-                type: 'bar',
-                barWidth: barWidth,
-                itemStyle: {
-                  color: function (params) {
-                    return colors[params.dataIndex % 7];
+            if (!resData.data) {
+              this.shhfwzzOption.series = [];
+              this.$refs.shhfwzzChart.refresh(this.shhfwzzOption);
+            } else {
+              this.shhfwzzOption.legend.data = resData.category;
+              this.shhfwzzOption.xAxis.data = resData.category;
+              this.shhfwzzOption.series = [
+                {
+                  type: 'bar',
+                  barWidth: barWidth,
+                  itemStyle: {
+                    color: function (params) {
+                      return colors[params.dataIndex % 7];
+                    },
+                  },
+                  label: {
+                    show: true,
+                    position: [barWidth / 2, -barWidth],
+                    color: '#ffffff',
+                    fontSize: 12,
+                    fontStyle: 'bold',
+                    align: 'center',
+                  },
+                  data: resData.data,
+                },
+                {
+                  z: 2,
+                  type: 'pictorialBar',
+                  data: resData.data,
+                  symbol: 'diamond',
+                  symbolOffset: [0, '50%'],
+                  symbolSize: [barWidth, barWidth * 0.5],
+                  itemStyle: {
+                    color: function (params) {
+                      return colors[params.dataIndex % 7];
+                    },
                   },
                 },
-                label: {
-                  show: true,
-                  position: [barWidth / 2, -barWidth],
-                  color: '#ffffff',
-                  fontSize: 12,
-                  fontStyle: 'bold',
-                  align: 'center',
-                },
-                data: resData.data,
-              },
-              {
-                z: 2,
-                type: 'pictorialBar',
-                data: resData.data,
-                symbol: 'diamond',
-                symbolOffset: [0, '50%'],
-                symbolSize: [barWidth, barWidth * 0.5],
-                itemStyle: {
-                  color: function (params) {
-                    return colors[params.dataIndex % 7];
+                {
+                  z: 3,
+                  type: 'pictorialBar',
+                  symbolPosition: 'end',
+                  data: resData.data,
+                  symbol: 'diamond',
+                  symbolOffset: [0, '-50%'],
+                  symbolSize: [barWidth, barWidth * 0.5],
+                  itemStyle: {
+                    borderWidth: 0,
+                    color: function (params) {
+                      return colors[params.dataIndex % 7].colorStops[0].color;
+                    },
                   },
                 },
-              },
-              {
-                z: 3,
-                type: 'pictorialBar',
-                symbolPosition: 'end',
-                data: resData.data,
-                symbol: 'diamond',
-                symbolOffset: [0, '-50%'],
-                symbolSize: [barWidth, barWidth * 0.5],
-                itemStyle: {
-                  borderWidth: 0,
-                  color: function (params) {
-                    return colors[params.dataIndex % 7].colorStops[0].color;
-                  },
-                },
-              },
-            ];
-            this.$refs.shhfwzzChart.refresh(this.shhfwzzOption);
+              ];
+              this.$refs.shhfwzzChart.refresh(this.shhfwzzOption);
+            }
           }
         })
         .catch(() => {});
@@ -1074,8 +1108,11 @@ export default {
       // this.getMapsInfo();
     },
     // 类型分布
-    getDistribution() {
-      this.getInfo(this.distribution, this.keyword, this.type);
+    getDistribution(val) {
+      if (val === '全省') {
+        this.distribution = '';
+      }
+      this.getInfo(this.distribution, 3);
       this.getMapsInfo('distribution');
     },
     // 类型change
@@ -1111,42 +1148,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.DsMap_anchor {
-  position: absolute;
-  top: 95px;
-  right: 500px;
-  z-index: 201;
-  border-radius: 4px;
-
-  ::v-deep .el-select {
-    width: 90px;
-
-    &:first-child {
-      .el-input__inner {
-        border-radius: 4px 0 0 4px;
-      }
-    }
-
-    &:last-child {
-      .el-input__inner {
-        border-radius: 0 4px 4px 0;
-      }
-    }
-
-    .el-input__inner {
-      border: 1px solid #004191;
-      background-color: #003980;
-      font-size: 14px;
-      font-weight: 500;
-      color: #ffffff;
-
-      &::placeholder {
-        color: #e4f3ff;
-        font-size: 14px;
-      }
-    }
-  }
-}
-</style>
