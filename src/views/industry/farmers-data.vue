@@ -1,7 +1,7 @@
 <template>
   <div class="gp-bg gp-industry">
     <div class="gp-anchor">
-      <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
+      <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
         <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import qs from 'qs';
+// import qs from 'qs';
 import FarmersMaps from './components/farmers-maps';
 import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
@@ -54,7 +54,7 @@ export default {
       distribution: null, // 分布
       distributionOptions: [
         {
-          value: '全省',
+          value: '320000',
           label: '全省',
         },
         {
@@ -300,7 +300,8 @@ export default {
   },
   methods: {
     getInfo() {
-      // 产值信息
+      this.getUserTypes(); // 地图坐标数据
+      // 农户数据详情
       this.$api
         .postBaseApi('farmland/statUserAndArea')
         .then((res) => {
@@ -392,14 +393,22 @@ export default {
         })
         .catch(() => {});
     },
+    // 分布change
+    distributionChange(val) {
+      if (val === '320000') {
+        this.distribution = null;
+      }
+      this.getUserTypes('distribution');
+    },
     getUserTypes() {
       this.$api
         .postBaseApi(
           'uc/user/querAllInviteUser',
-          qs.stringify({
+          // qs.stringify()
+          {
             countyCode: this.distribution,
-            userTypes: ['8'],
-          })
+            userTypes: [this.userTypes],
+          }
         )
         .then((res) => {
           if (!res) return;

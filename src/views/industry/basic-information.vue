@@ -73,7 +73,7 @@ export default {
       keyword: '', // 类型
       distributionOptions: [
         {
-          value: '全省',
+          value: '320000',
           label: '全省',
         },
         {
@@ -1107,9 +1107,9 @@ export default {
     getData() {
       // this.getMapsInfo();
     },
-    // 类型分布
+    // 分布change
     getDistribution(val) {
-      if (val === '全省') {
+      if (val === '320000') {
         this.distribution = '';
       }
       this.getInfo(this.distribution, 3);

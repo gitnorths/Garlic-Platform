@@ -19,7 +19,10 @@ request.interceptors.request.use(
     config.headers['deviceId'] = 'bXV3dS1jbGllbnQtYXV0aDptdXd1Q2xpZW50U2VjcmV0';
     config.headers['Authorization'] = `Basic bXV3dS1jbGllbnQtYXV0aDptdXd1Q2xpZW50U2VjcmV0`;
 
-    if (config.url === '/garlic-web-api/gc/cropDistributed/getCropDistributeds') {
+    if (
+      config.url === '/garlic-web-api/gc/cropDistributed/getCropDistributeds' ||
+      config.url === '/garlic-web-api/uc/user/querAllInviteUser'
+    ) {
       config.headers['Content-Type'] = 'application/json;charset=UTF-8';
     } else {
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded';

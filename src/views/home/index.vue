@@ -80,7 +80,7 @@
 
 <script>
 import qs from 'qs';
-import { toNumber } from 'lodash';
+// import { toNumber } from 'lodash';
 import countTo from 'vue-count-to';
 import JSMap from '@/components/maps/JiangSu.vue';
 import { arrToMap } from '@/utils';
@@ -109,8 +109,8 @@ export default {
       endVal: 0,
       suspend: [],
       numberLeftData: [
-        { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
-        { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
+        // { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
+        // { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
       ],
       numberRightData: [],
       cdata: [
@@ -142,7 +142,33 @@ export default {
   },
   methods: {
     async getInfo() {
-      // 面积与品种
+      // 左侧数据
+      this.$api
+        .postBaseApi(
+          'cc/outputValue/statistics',
+          qs.stringify({
+            region: '',
+            level: '',
+          })
+        )
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            let resData = res.result;
+
+            for (let i = 0; i < resData.data.length; i++) {
+              this.numberLeftData.push({
+                name: `${resData.data[i].name}产量`,
+                unit: '吨',
+                cName: `color${i + 1}`,
+                sVal: 0,
+                eVal: resData.data[i].value,
+              });
+            }
+          }
+        })
+        .catch(() => {});
+      // 右侧数据
       this.$api
         .postBaseApi(
           'cc/areaVariety/getChartData',
