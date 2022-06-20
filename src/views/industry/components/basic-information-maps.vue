@@ -49,27 +49,10 @@ export default {
       infoWindow: null,
       colors: {
         // 320114: 'rgba(83, 168, 217, 0.5)',
-        // 320117: 'rgba(83, 168, 217, 0.5)',
-        // 320115: 'rgba(83, 168, 217, 0.5)',
-        // 320111: 'rgba(83, 168, 217, 0.5)',
-        // 320118: 'rgba(83, 168, 217, 0.5)',
-        // 320116: 'rgba(83, 168, 217, 0.5)',
-        // 320105: 'rgba(83, 168, 217, 0.5)',
-        // 320106: 'rgba(83, 168, 217, 0.5)',
-        // 320104: 'rgba(83, 168, 217, 0.5)',
-        // 320102: 'rgba(83, 168, 217, 0.5)',
-        // 320113: 'rgba(83, 168, 217, 0.5)',
-        // 320322: 'rgba(83, 168, 217, 0.5)',
-        // 320303: 'rgba(83, 168, 217, 0.5)',
-        // 320582: 'rgba(83, 168, 217, 0.5)',
       },
     };
   },
-  mounted() {
-    //调用地图初始化方法
-    // this.initAMap();
-    console.log(this.mapColor);
-  },
+  mounted() {},
   methods: {
     initAMap() {
       let that = this;
@@ -123,38 +106,6 @@ export default {
       that.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
       that.map.setMapStyle(mapStyle); // 设置主题颜色
-
-      // that.map.on('complete', function () {
-      //   that.loading = false;
-
-      //   // that.addMarker(); // 添加marker标记
-
-      //   let content = [];
-      //   //实例化信息窗体
-      //   content.push(
-      //     '<div class="gp-map__marker">\n' +
-      //       ' <div class="gp-map__marker--header">\n' +
-      //       '   <span>基本信息</span>\n' +
-      //       '   <div id="closeX" class="gp-map__marker--close"></div>\n' +
-      //       ' </div>\n' +
-      //       ' <div class="gp-map__marker--body">\n' +
-      //       '   <p>品种: 品种蒜头  </p>\n' +
-      //       '   <p>类型: 蒜头</p>\n' +
-      //       '   <p>面积: 130亩</p>\n' +
-      //       ' </div>\n' +
-      //       ' <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n' +
-      //       '</div>'
-      //   );
-
-      //   that.infoWindow = new AMap.InfoWindow({
-      //     anchor: 'top-left',
-      //     isCustom: true, //使用自定义窗体
-      //     content: content, //调用创建信息窗体的方法--信息窗体的内容
-      //     offset: new AMap.Pixel(35, -10),
-      //   });
-
-      //   that.infoWindow.on('open', that.showInfoOpen);
-      // });
     },
     //添加marker标记
     addMarker(mapDatas) {
@@ -185,14 +136,9 @@ export default {
         //鼠标点击marker返回参数
         marker.on('click', function (e) {
           that.$emit('ok', e.target.extData);
-          // console.log(that.markers);
-          // setTimeout(() => {
-          //   that.map.remove(that.markers);
-          // }, 1000);
         });
       }
 
-      // that.map.setFitView(null, false, [250, 150, 600, 60], 15);
       that.map.setFitView(null, false, [50, 50, 550, 550], 15);
     },
 

@@ -5,12 +5,12 @@
         <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="userTypes" clearable @change="getUserTypes">
+      <el-select v-model="userTypes" @change="getUserTypes">
         <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </div>
-    <FarmersMaps />
+    <FarmersMaps :mapData="mapData" :lonLatData="lonLatData" />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
@@ -51,6 +51,8 @@ export default {
   },
   data() {
     return {
+      mapData: [], // 地图数据
+      lonLatData: [], // 坐标数据
       distribution: null, // 分布
       distributionOptions: [
         {
@@ -402,18 +404,17 @@ export default {
     },
     getUserTypes() {
       this.$api
-        .postBaseApi(
-          'uc/user/querAllInviteUser',
-          // qs.stringify()
-          {
-            countyCode: this.distribution,
-            userTypes: [this.userTypes],
-          }
-        )
+        .postBaseApi('uc/user/querAllInviteUser', {
+          countyCode: this.distribution,
+          userTypes: [this.userTypes],
+        })
         .then((res) => {
           if (!res) return;
-          // if (res.code === 200) {
-          // }
+          if (res.code === 200) {
+            const resData = res.result;
+            // this.mapData = resData;
+            this.lonLatData = resData;
+          }
         })
         .catch(() => {});
     },
