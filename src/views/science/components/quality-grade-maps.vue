@@ -20,21 +20,21 @@ export default {
       level: 'district',
       district: '江苏省',
       polygons: [],
-      zoom: 7.8,
+      zoom: 9,
       adcode: 320000,
       center: [117.283752, 32.704224],
       depth: 2,
       colors: {
-        320302: 'rgba(83, 168, 217, 0.5)', // 鼓楼区
-        320303: 'rgba(83, 168, 217, 0.5)', // 云龙区
-        320305: 'rgba(83, 168, 217, 0.5)', // 贾汪区
-        320311: 'rgba(83, 168, 217, 0.5)', // 泉山区
-        320312: 'rgba(83, 168, 217, 0.5)', // 铜山区
-        320321: 'rgba(83, 168, 217, 0.5)', // 丰县
+        320302: 'rgba(79, 255, 245, 0.5)', // 鼓楼区
+        320303: 'rgba(79, 255, 245, 0.5)', // 云龙区
+        320305: 'rgba(79, 255, 245, 0.5)', // 贾汪区
+        320311: 'rgba(79, 255, 245, 0.5)', // 泉山区
+        320312: 'rgba(79, 255, 245, 0.5)', // 铜山区
+        320321: 'rgba(79, 255, 245, 0.5)', // 丰县
         320322: 'rgba(79, 255, 245, 0.5)', // 沛县
-        320324: 'rgba(83, 168, 217, 0.5)', // 睢宁县
-        320381: 'rgba(83, 168, 217, 0.5)', // 新沂市
-        320382: 'rgba(83, 168, 217, 0.5)', // 邳州
+        320324: 'rgba(79, 255, 245, 0.5)', // 睢宁县
+        320381: 'rgba(79, 255, 245, 0.5)', // 新沂市
+        320382: 'rgba(79, 255, 245, 0.5)', // 邳州
       },
       markers: [
         {
@@ -75,7 +75,7 @@ export default {
       //创建地图
       let that = this;
       this.map = new AMap.Map('container', {
-        zoom: 7.8,
+        zoom: 10,
         center: [117.283752, 32.704224],
         pitch: 0,
         viewMode: '3D',
@@ -84,14 +84,14 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
+        that.addMarker(); // 添加marker标记
         setTimeout(() => {
-          that.addMarker(); // 添加marker标记
           // 第一个参数为空，表明用图上所有覆盖物 setFitview
           // 第二个参数为false, 非立即执行
           // 第三个参数设置上左下右的空白
-          that.map.setFitView(null, false, [150, 150, 150, 150]);
-          // that.map.panBy(-400, 100);
-        }, 3000);
+          that.map.setFitView(null, false, [200, 350, 100, 500]);
+          // that.map.panBy(-100, 1000); // 偏移位置
+        }, 1000);
       });
     },
 

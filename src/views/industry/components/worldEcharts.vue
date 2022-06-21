@@ -28,25 +28,21 @@ export default {
       handler() {
         let allData = {
           citys: [
-            { name: '美国', value: [-118.24311, 34.052713, 100] },
-            { name: '澳大利亚', value: [149.08, -35.15, 2] },
-            { name: '以色列', value: [35.12, 31.47, 4] },
-            { name: '巴西', value: [-48.678945, -10.493623, 4] },
+            { name: '印度尼西亚', value: [119.891683, -4.342114, 100] },
+            { name: '澳大利亚', value: [135.052972, -24.578233, 2] },
+            { name: '越南', value: [108.462627, 14.495199, 4] },
+            { name: '巴基斯坦', value: [68.528346, 29.125743, 4] },
             { name: '泰国', value: [100.35, 13.45, 4] },
-            { name: '沙特阿拉伯', value: [46.42, 24.41, 4] },
+            { name: '斯里兰卡', value: [80.596973, 7.642284, 4] },
             { name: '新加坡', value: [103.51, 1.18, 4] },
-            { name: '新西兰', value: [174.46, -41.19, 4] },
-            { name: '阿根廷', value: [-60.0, -36.3, 4] },
-            { name: '埃塞俄比亚', value: [38.42, 9.02, 4] },
-            { name: '哥伦比亚', value: [-74.0, 4.34, 4] },
           ],
           moveLines: [
             {
               fromName: '徐州',
-              toName: '美国',
+              toName: '印度尼西亚',
               coords: [
                 [117.584811, 34.261792],
-                [-118.24311, 34.052713],
+                [119.891683, -4.342114],
               ],
             },
             {
@@ -54,23 +50,23 @@ export default {
               toName: '澳大利亚',
               coords: [
                 [117.584811, 34.261792],
-                [149.08, -35.15],
+                [135.052972, -24.578233],
               ],
             },
             {
               fromName: '徐州',
-              toName: '以色列',
+              toName: '越南',
               coords: [
                 [117.584811, 34.261792],
-                [35.12, 31.47],
+                [108.462627, 14.495199],
               ],
             },
             {
               fromName: '徐州',
-              toName: '巴西',
+              toName: '巴基斯坦',
               coords: [
                 [117.584811, 34.261792],
-                [-48.678945, -10.493623],
+                [68.528346, 29.125743],
               ],
             },
             {
@@ -83,10 +79,10 @@ export default {
             },
             {
               fromName: '徐州',
-              toName: '沙特阿拉伯',
+              toName: '斯里兰卡',
               coords: [
                 [117.584811, 34.261792],
-                [46.42, 24.41],
+                [80.596973, 7.642284],
               ],
             },
             {
@@ -95,38 +91,6 @@ export default {
               coords: [
                 [117.584811, 34.261792],
                 [103.51, 1.18],
-              ],
-            },
-            {
-              fromName: '徐州',
-              toName: '新西兰',
-              coords: [
-                [117.584811, 34.261792],
-                [174.46, -41.19],
-              ],
-            },
-            {
-              fromName: '徐州',
-              toName: '阿根廷',
-              coords: [
-                [117.584811, 34.261792],
-                [-60.0, -36.3],
-              ],
-            },
-            {
-              fromName: '徐州',
-              toName: '埃塞俄比亚',
-              coords: [
-                [117.584811, 34.261792],
-                [38.42, 9.02],
-              ],
-            },
-            {
-              fromName: '徐州',
-              toName: '哥伦比亚',
-              coords: [
-                [117.584811, 34.261792],
-                [-74.0, 4.34],
               ],
             },
           ],
@@ -147,77 +111,73 @@ export default {
             },
           },
           grid: {
-            right: '8%',
-            // top:'5%'
+            right: '150',
           },
           geo: {
             map: 'world',
-            aspectScale: 0.65, //长宽比
-            zoom: 1.12,
+            aspectScale: 1, //长宽比
+            zoom: 2,
+            left: '-35%',
             tooltip: {
-              show: !1,
+              show: false,
             },
             scaleLimit: {
               min: 1,
               max: 5,
             },
             label: {
-              show: !1,
+              show: false,
             },
             roam: false,
             itemStyle: {
-              normal: {
-                shadowColor: '#164A7C',
-                shadowOffsetX: 5,
-                shadowOffsetY: 5,
-              },
+              shadowColor: '#164A7C',
+              shadowOffsetX: 5,
+              shadowOffsetY: 5,
             },
           },
           series: [
             {
               type: 'map',
+              left: '-35%',
               roam: false,
               label: {
-                show: !1,
+                show: false,
               },
               tooltip: {
-                show: !1,
+                show: false,
               },
               itemStyle: {
-                normal: {
-                  borderColor: '#FFC74F',
-                  borderWidth: 0.2,
-                  areaColor: {
-                    type: 'radial',
-                    x: 0.5,
-                    y: 0.5,
-                    r: 0.8,
-                    colorStops: [
-                      {
-                        offset: 0,
-                        color: '#1867B5', // 0% 处的颜色
-                      },
-                      {
-                        offset: 1,
-                        color: '#1867B5', // 100% 处的颜色
-                      },
-                    ],
-                    globalCoord: true, // 缺省为 false
-                  },
+                borderColor: '#FFC74F',
+                borderWidth: 0.2,
+                areaColor: {
+                  type: 'radial',
+                  x: 0.5,
+                  y: 0.5,
+                  r: 0.8,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: '#1867B5', // 0% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: '#1867B5', // 100% 处的颜色
+                    },
+                  ],
+                  globalCoord: true, // 缺省为 false
                 },
                 emphasis: {
+                  show: false,
                   label: {
-                    // show: !1,
-                    color: '#fff',
+                    show: false,
                   },
                   areaColor: '#0E83B7',
-                  //    shadowColor: 'rgb(12,25,50)',
                   borderWidth: 0.2,
                 },
               },
-              aspectScale: 0.65, //长宽比
-              zoom: 1.12,
-              //     roam: false,
+              aspectScale: 1, //长宽比
+              zoom: 2,
+              // roam: false,
               map: 'world', //使用
               // data: this.difficultData //热力图数据   不同区域 不同的底色
             },
@@ -226,6 +186,7 @@ export default {
               type: 'scatter',
               coordinateSystem: 'geo',
               zlevel: 2,
+              left: '-35%',
               rippleEffect: {
                 period: 1,
                 brushType: 'stroke',
@@ -244,7 +205,7 @@ export default {
                 },
               },
               symbol: 'pin',
-              symbolSize: 20,
+              symbolSize: 50,
               itemStyle: {
                 show: true,
                 color: {
@@ -271,6 +232,7 @@ export default {
               type: 'effectScatter',
               coordinateSystem: 'geo',
               zlevel: 2,
+              left: '-35%',
               rippleEffect: {
                 //涟漪特效
                 period: 15, //动画时间，值越小速度越快
@@ -288,9 +250,8 @@ export default {
               },
               emphasis: {
                 show: true,
-                scale: !0,
                 label: {
-                  show: true,
+                  show: false,
                   backgroundColor: '#000',
                   padding: 2,
                   borderRadius: 2,
@@ -299,12 +260,8 @@ export default {
               },
               symbol: 'circle',
               symbolSize: '15',
-
               itemStyle: {
-                normal: {
-                  show: false,
-                  color: '#FFC74F',
-                },
+                color: '#FFC74F',
               },
               data: allData.citys,
             },
@@ -313,6 +270,7 @@ export default {
               type: 'lines',
               coordinateSystem: 'geo',
               zlevel: 2,
+              left: '-35%',
               large: true,
               effect: {
                 show: true,
@@ -322,20 +280,19 @@ export default {
                 symbolSize: 7, //图标大小
               },
               lineStyle: {
-                normal: {
-                  color: '#FFC74F',
-                  // 线条宽度
-                  width: 2,
-                  opacity: 1,
-                  curveness: 0.3,
-                },
+                color: '#FFC74F',
+                // 线条宽度
+                width: 2,
+                opacity: 1,
+                curveness: 0.3,
               },
               label: {
-                normal: {
-                  show: false,
-                  position: 'middle',
-                  formatter: '{b}',
-                },
+                // show: false,
+                position: 'middle',
+                formatter: '{b}',
+              },
+              itemStyle: {
+                show: true,
               },
               data: allData.moveLines,
             },

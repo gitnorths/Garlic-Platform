@@ -21,7 +21,8 @@ request.interceptors.request.use(
 
     if (
       config.url === '/garlic-web-api/gc/cropDistributed/getCropDistributeds' ||
-      config.url === '/garlic-web-api/uc/user/querAllInviteUser'
+      config.url === '/garlic-web-api/uc/user/querAllInviteUser' ||
+      config.url === '/garlic-web-api/uc/user/queryInviteUsersPage'
     ) {
       config.headers['Content-Type'] = 'application/json;charset=UTF-8';
     } else {

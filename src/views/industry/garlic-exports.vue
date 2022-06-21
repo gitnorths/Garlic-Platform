@@ -17,7 +17,7 @@
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>大蒜交易量及总额</span></div>
         <div class="gp-box height">
-          <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" @chartClick="baseClick" />
+          <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
         </div>
       </div>
       <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
@@ -27,8 +27,8 @@
             <li v-for="(item, index) in list" :key="index" class="gp-list__item">
               <b>{{ item.index }}</b>
               <p>{{ item.name }}</p>
-              <span>{{ item.type }}</span>
-              <span>{{ item.value }}{{ item.unit }}</span>
+              <!-- <span>{{ item.type }}</span> -->
+              <span>{{ item.value }} {{ item.unit }}</span>
             </li>
           </ul>
         </div>
@@ -44,7 +44,7 @@ import BaseChart from '@/components/echarts/baseChart';
 let units = ['吨', '万美元'];
 
 export default {
-  name: 'BasicInformation',
+  name: 'FarlicExports',
   components: {
     WorldEcharts,
     BaseChart,
@@ -54,18 +54,12 @@ export default {
       totalVolume: '125606',
       turnover: '105260',
       list: [
-        { index: 1, name: '美国', type: '蒜头', value: 239, unit: '万吨' },
-        { index: 2, name: '法国', type: '蒜苗', value: 239, unit: '万吨' },
-        { index: 3, name: '澳大利亚', type: '蒜薹', value: 239, unit: '万吨' },
-        { index: 4, name: '日本', type: '蒜头', value: 239, unit: '万吨' },
-        { index: 5, name: '韩国', type: '蒜薹', value: 239, unit: '万吨' },
-        { index: 6, name: '印度', type: '蒜头', value: 239, unit: '万吨' },
-        { index: 7, name: '泰国', type: '蒜苗', value: 239, unit: '万吨' },
-        { index: 8, name: '吉利尼亚', type: '蒜薹', value: 239, unit: '万吨' },
-        { index: 9, name: '德国', type: '蒜头', value: 239, unit: '万吨' },
-        { index: 10, name: '英国', type: '蒜苗', value: 239, unit: '万吨' },
-        { index: 11, name: '俄罗斯', type: '蒜苗', value: 239, unit: '万吨' },
-        { index: 12, name: '加拿大', type: '蒜苗', value: 239, unit: '万吨' },
+        { index: 1, name: '印度尼西亚', type: '蒜头', value: 23539, unit: '吨' },
+        { index: 2, name: '泰国', type: '蒜苗', value: 18682, unit: '吨' },
+        { index: 3, name: '越南', type: '蒜薹', value: 12365, unit: '吨' },
+        { index: 4, name: '新加坡', type: '蒜头', value: 9684, unit: '吨' },
+        { index: 5, name: '巴基斯坦', type: '蒜薹', value: 6532, unit: '吨' },
+        { index: 6, name: '斯里兰卡', type: '蒜头', value: 3806, unit: '吨' },
       ],
       baseId: 'baseChart', // 面积与品种
       baseOption: {
@@ -256,10 +250,7 @@ export default {
     ];
   },
   methods: {
-    baseClick() {},
-    load() {
-      this.count += 2;
-    },
+    load() {},
   },
 };
 </script>

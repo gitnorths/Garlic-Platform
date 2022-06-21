@@ -21,15 +21,15 @@
       <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
         <div class="gp-box gp-table">
           <el-table :data="tableData" :height="height">
-            <el-table-column prop="name" label="农户" align="center" show-overflow-tooltip width="100">
+            <el-table-column prop="nickname" label="昵称" align="center" show-overflow-tooltip width="120">
             </el-table-column>
-            <el-table-column prop="type" label="类型" align="center" show-overflow-tooltip width="100">
+            <el-table-column prop="typeName" label="用户类型" align="center" show-overflow-tooltip width="100">
             </el-table-column>
-            <el-table-column prop="varieties" label="品种" align="center" show-overflow-tooltip width="120">
+            <!-- <el-table-column prop="varieties" label="单位名称" align="center" show-overflow-tooltip width="120">
+            </el-table-column> -->
+            <el-table-column prop="area" label="种植面积" align="center" show-overflow-tooltip width="100">
             </el-table-column>
-            <el-table-column prop="area" label="面积" align="center" show-overflow-tooltip width="100">
-            </el-table-column>
-            <el-table-column prop="address" label="地址" align="center" show-overflow-tooltip> </el-table-column>
+            <el-table-column prop="fullAddress" label="地址" align="center" show-overflow-tooltip> </el-table-column>
           </el-table>
         </div>
       </div>
@@ -139,166 +139,12 @@ export default {
         },
       },
       height: '42vh',
-      tableData: [
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-        {
-          name: '李大田',
-          type: '蒜头',
-          varieties: '蒜头001号',
-          area: '23亩',
-          address: '徐州市铜山县大庄镇18组',
-        },
-      ],
+      tableData: [],
     };
   },
   mounted() {
     this.getInfo();
+    this.queryInviteUsersPage(); // 用户数据
   },
   methods: {
     getInfo() {
@@ -414,6 +260,25 @@ export default {
             const resData = res.result;
             // this.mapData = resData;
             this.lonLatData = resData;
+          }
+        })
+        .catch(() => {});
+    },
+    // 用户数据
+    queryInviteUsersPage() {
+      this.$api
+        .postBaseApi('uc/user/queryInviteUsersPage', {
+          farmerUserType: -100,
+          pageNum: 1,
+          pageSize: 100,
+        })
+        .then((res) => {
+          console.log(res);
+
+          if (!res) return;
+          if (res.code === 200) {
+            const resData = res.result;
+            this.tableData = resData.data;
           }
         })
         .catch(() => {});

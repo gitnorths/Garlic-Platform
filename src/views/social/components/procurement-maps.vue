@@ -42,7 +42,7 @@ export default {
     return {
       loading: true,
       map: null,
-      zoom: 7.8,
+      zoom: 9,
       level: 'district',
       depth: 2,
       adcode: 320000,
@@ -52,7 +52,18 @@ export default {
       markers: [],
       polygons: [],
       infoWindow: null,
-      colors: {},
+      colors: {
+        320303: 'rgba(83, 168, 217, 0.5)', // 云龙区
+        320305: 'rgba(83, 168, 217, 0.5)', // 贾汪区
+        320321: 'rgba(83, 168, 217, 0.5)', // 丰县
+        320302: 'rgba(83, 168, 217, 0.5)', // 鼓楼区
+        320322: 'rgba(83, 168, 217, 0.5)', // 沛县
+        320312: 'rgba(83, 168, 217, 0.5)', // 铜山区
+        320311: 'rgba(83, 168, 217, 0.5)', // 泉山区
+        320382: 'rgba(83, 168, 217, 0.5)', // 邳州市
+        320324: 'rgba(83, 168, 217, 0.5)', // 睢宁县
+        320381: 'rgba(83, 168, 217, 0.5)', // 新沂市
+      },
     };
   },
   mounted() {
@@ -73,10 +84,10 @@ export default {
         that.loading = false;
 
         that.initPro(that.adcode, that.depth);
+        that.map.panBy(-100, 700); // 偏移位置
 
         // setTimeout(() => {
         // that.addMarker(that.mapData); // 添加marker标记
-        // that.map.panBy(-400, 100); // 偏移位置
         // }, 3000);
       });
     },
@@ -171,7 +182,7 @@ export default {
         });
       });
 
-      that.map.setFitView(null, false, [50, 50, 350, 750], 15);
+      // that.map.setFitView(null, false, [50, 50, 350, 750], 15);
     },
 
     //打开信息窗体
