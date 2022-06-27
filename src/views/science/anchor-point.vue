@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg gp-science">
-    <AnchorPointMaps :mapData="mapData" :lonLatData="lonLatData" />
+    <AnchorPointMaps :mapData="mapData" :lonLatData="lonLatData" @getHandleData="getHandleData" />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>测土配方施肥长期定位点监测</span></div>
@@ -8,33 +8,33 @@
           <div class="gp-flex gp-flex-direction-column gp-flex1">
             <div class="gp-title"><span>历年数据</span></div>
             <div class="gp-group">
-              <span>pH1</span>
-              <el-radio-group size="mini" v-model="tabPosition">
-                <el-radio-button label="pH1">pH1</el-radio-button>
-                <el-radio-button label="有机质1">有机质1</el-radio-button>
-                <el-radio-button label="全氮1">全氮1</el-radio-button>
-                <el-radio-button label="有效磷1">有效磷1</el-radio-button>
-                <el-radio-button label="速效钾1">速效钾1</el-radio-button>
-                <el-radio-button label="容重1">容重1</el-radio-button>
-                <el-radio-button label="盐分1">盐分1</el-radio-button>
-                <el-radio-button label="CEC1">CEC1</el-radio-button>
-                <el-radio-button label="有效铁1">有效铁1</el-radio-button>
-                <el-radio-button label="有效锰1">有效锰1</el-radio-button>
-                <el-radio-button label="有效铜1">有效铜1</el-radio-button>
-                <el-radio-button label="有效锌1">有效锌1</el-radio-button>
-                <el-radio-button label="水溶态硼1">水溶态硼1</el-radio-button>
-                <el-radio-button label="有效钼1">有效钼1</el-radio-button>
-                <el-radio-button label="镉1">镉1</el-radio-button>
-                <el-radio-button label="汞1">汞1</el-radio-button>
-                <el-radio-button label="砷1">砷1</el-radio-button>
-                <el-radio-button label="铅1">铅1</el-radio-button>
-                <el-radio-button label="铬1">铬1</el-radio-button>
-                <el-radio-button label="镍1">镍1</el-radio-button>
-                <el-radio-button label="锌1">锌1</el-radio-button>
+              <span>{{ tabName }}</span>
+              <el-radio-group size="mini" v-model="tabPosition" @change="tabHandle">
+                <el-radio-button label="ph">pH1</el-radio-button>
+                <el-radio-button label="organicMatter">有机质1</el-radio-button>
+                <el-radio-button label="totalNitrogen">全氮1</el-radio-button>
+                <el-radio-button label="availablePhosphorus">有效磷1</el-radio-button>
+                <el-radio-button label="fastActingPotassium">速效钾1</el-radio-button>
+                <el-radio-button label="testWeight">容重1</el-radio-button>
+                <el-radio-button label="salt">盐分1</el-radio-button>
+                <el-radio-button label="cec">CEC1</el-radio-button>
+                <el-radio-button label="availableIron">有效铁1</el-radio-button>
+                <el-radio-button label="availableManganese">有效锰1</el-radio-button>
+                <el-radio-button label="effectiveCopper">有效铜1</el-radio-button>
+                <el-radio-button label="availableZinc">有效锌1</el-radio-button>
+                <el-radio-button label="waterSolubleBoron">水溶态硼1</el-radio-button>
+                <el-radio-button label="effectiveMolybdenum">有效钼1</el-radio-button>
+                <el-radio-button label="cadmium">镉1</el-radio-button>
+                <el-radio-button label="hg">汞1</el-radio-button>
+                <el-radio-button label="arsenic">砷1</el-radio-button>
+                <el-radio-button label="lead">铅1</el-radio-button>
+                <el-radio-button label="chromium">铬1</el-radio-button>
+                <el-radio-button label="nickel">镍1</el-radio-button>
+                <el-radio-button label="zinc">锌1</el-radio-button>
               </el-radio-group>
             </div>
             <div class="gp-box">
-              <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" @chartClick="baseClick" />
+              <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
             </div>
           </div>
         </div>
@@ -57,18 +57,21 @@ export default {
     return {
       mapData: [], // 地图数据
       lonLatData: [], // 坐标数据
-      tabPosition: 'pH1',
+      tabName: '',
+      tabPosition: 'ph',
+      cacheData: [],
       monitorStations: [
         { name: '区级监测点', value: 126, className: 'area' },
         { name: '市级监测点', value: 89, className: 'city' },
         { name: '省级监测点', value: 16, className: 'province' },
         { name: '国家级监测点', value: 3, className: 'countries' },
       ],
-      baseId: 'baseChart', // 面积与品种
+      baseId: 'baseChart',
       baseOption: {
+        color: ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'],
         grid: {
           top: '45',
-          left: '10',
+          left: '20',
           right: '0',
           bottom: '10',
           containLabel: true,
@@ -132,8 +135,6 @@ export default {
         yAxis: {
           type: 'value',
           name: '单位：mg/L',
-          min: 0,
-          max: 10,
           nameTextStyle: {
             color: '#7EC1FF',
             fontSize: 12,
@@ -158,117 +159,69 @@ export default {
             fontSize: 12,
           },
         },
+        series: [
+          {
+            type: 'line',
+            symbol: 'circle',
+            symbolSize: 10,
+            showAllSymbol: true,
+            lineStyle: {
+              normal: {
+                color: '#1AE1E5',
+                shadowColor: 'rgba(0, 0, 0, .3)',
+                shadowBlur: 0,
+                shadowOffsetY: 5,
+                shadowOffsetX: 5,
+              },
+            },
+            label: {
+              show: true,
+              position: 'top',
+              textStyle: {
+                color: '#1AE1E5',
+              },
+            },
+            itemStyle: {
+              color: '#1AE1E5',
+              borderColor: '#fff',
+              borderWidth: 3,
+              shadowColor: 'rgba(0, 0, 0, .3)',
+              shadowBlur: 0,
+              shadowOffsetY: 2,
+              shadowOffsetX: 2,
+            },
+            tooltip: {
+              show: false,
+            },
+            areaStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: 'rgba(26, 225, 229,0.3)',
+                    },
+                    {
+                      offset: 1,
+                      color: 'rgba(26, 225, 229,0)',
+                    },
+                  ],
+                  false
+                ),
+                shadowColor: 'rgba(26, 225, 229, 0.9)',
+                shadowBlur: 20,
+              },
+            },
+          },
+        ],
       },
     };
   },
   mounted() {
-    this.lonLatData = [
-      {
-        latitude: '34.30153',
-        longitude: '116.38074',
-        code: 'JST248',
-      },
-      {
-        latitude: '34.37532',
-        longitude: '116.39549',
-        code: 'JST249',
-      },
-      {
-        latitude: '34.46182',
-        longitude: '116.35294',
-        code: 'JSW250',
-      },
-      {
-        latitude: '34.39135',
-        longitude: '116.41285',
-        code: 'JSW251',
-      },
-      {
-        latitude: '34.36403',
-        longitude: '116.43148',
-        code: 'JSE252',
-      },
-      {
-        latitude: '34.3048',
-        longitude: '116.5654',
-        code: 'JSE253',
-      },
-      {
-        latitude: '34.4212',
-        longitude: '116.5605',
-        code: 'JSV254',
-      },
-      {
-        latitude: '34.3048',
-        longitude: '116.5654',
-        code: 'JSW255',
-      },
-      {
-        latitude: '34.4024',
-        longitude: '170.0124',
-        code: 'JSW256',
-      },
-      {
-        latitude: '34.22517',
-        longitude: '117.08313',
-        code: 'JSE257',
-      },
-      {
-        latitude: '34.2461',
-        longitude: '117.0151',
-        code: 'jsf258',
-      },
-      {
-        latitude: '34.30128',
-        longitude: '117.04472',
-        code: 'jsf259',
-      },
-      {
-        latitude: '34.0635',
-        longitude: '117.1536',
-        code: 'JSV260',
-      },
-      {
-        latitude: '34.2131',
-        longitude: '117.1247',
-        code: 'jsw262',
-      },
-      {
-        latitude: '34.1353',
-        longitude: '117.55185',
-        code: 'JSF263',
-      },
-      {
-        latitude: '34.1353',
-        longitude: '117.55185',
-        code: 'JSF264',
-      },
-      {
-        latitude: '34.2538',
-        longitude: '117.56235',
-        code: 'JSE265',
-      },
-      {
-        latitude: '34.51101',
-        longitude: '117.47145',
-        code: 'JSV266',
-      },
-      {
-        latitude: '34.26159',
-        longitude: '118.7495',
-        code: 'JSW267',
-      },
-      {
-        latitude: '34.37456',
-        longitude: '117.54377',
-        code: 'JSW268',
-      },
-      {
-        latitude: '34.25289',
-        longitude: '117.34183',
-        code: 'JSF279',
-      },
-    ];
     this.mapData = [
       {
         time: '2021',
@@ -990,7 +943,7 @@ export default {
         ],
       },
       {
-        time: '2021',
+        time: '2020',
         data: [
           {
             latitude: '34.30153',
@@ -1707,73 +1660,36 @@ export default {
         ],
       },
     ];
-    this.baseOption.color = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
-    this.baseOption.legend.data = ['蒜头', '蒜薹', '蒜苗'];
-    this.baseOption.xAxis.data = ['2016', '2017', '2018', '2019', '2020', '2021'];
-    this.baseOption.series = [
-      {
-        name: '蒜薹',
-        type: 'line',
-        symbol: 'circle',
-        symbolSize: 10,
-        showAllSymbol: true,
-        lineStyle: {
-          normal: {
-            color: '#1AE1E5',
-            shadowColor: 'rgba(0, 0, 0, .3)',
-            shadowBlur: 0,
-            shadowOffsetY: 5,
-            shadowOffsetX: 5,
-          },
-        },
-        label: {
-          show: true,
-          position: 'top',
-          textStyle: {
-            color: '#1AE1E5',
-          },
-        },
-        itemStyle: {
-          color: '#1AE1E5',
-          borderColor: '#fff',
-          borderWidth: 3,
-          shadowColor: 'rgba(0, 0, 0, .3)',
-          shadowBlur: 0,
-          shadowOffsetY: 2,
-          shadowOffsetX: 2,
-        },
-        tooltip: {
-          show: false,
-        },
-        areaStyle: {
-          normal: {
-            color: new this.$echarts.graphic.LinearGradient(
-              0,
-              0,
-              0,
-              1,
-              [
-                {
-                  offset: 0,
-                  color: 'rgba(26, 225, 229,0.3)',
-                },
-                {
-                  offset: 1,
-                  color: 'rgba(26, 225, 229,0)',
-                },
-              ],
-              false
-            ),
-            shadowColor: 'rgba(26, 225, 229, 0.9)',
-            shadowBlur: 20,
-          },
-        },
-        data: [6, 7.5, 7, 6, 7.8, 7],
-      },
-    ];
+    this.lonLatData = this.mapData[0].data;
+    this.getHandleData(this.mapData[0].data[0]);
+    this.cacheData = this.mapData[0].data[0];
   },
   methods: {
-    baseClick() {},
+    tabHandle(value) {
+      console.log(value);
+      this.getHandleData(this.cacheData);
+    },
+    getHandleData(data) {
+      this.cacheData = data;
+      let xData = [];
+      let sdata = [];
+      this.mapData.forEach((item) => {
+        xData.push(item.time);
+        item.data.forEach((element) => {
+          if (element.code === data.code) {
+            sdata.push(parseInt(element[this.tabPosition]));
+            this.tabName = `${element.city + element.county} (${element.agriculturalArea})  代码：${element.code}`;
+          }
+        });
+      });
+
+      console.log(xData, sdata);
+      this.baseOption.legend.data = [this.tabPosition];
+      this.baseOption.xAxis.data = xData;
+      this.baseOption.series[0].name = this.tabPosition;
+      this.baseOption.series[0].data = sdata;
+      this.$refs.baseChart.refresh(this.baseOption);
+    },
   },
 };
 </script>

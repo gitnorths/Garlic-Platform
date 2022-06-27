@@ -128,7 +128,6 @@ export default {
     addMarker(lonLatData) {
       this.map.clearMap();
       let that = this;
-      console.log('addMarker', lonLatData);
 
       // 绑定点
       lonLatData.forEach((item, i) => {
@@ -152,7 +151,7 @@ export default {
 
         //鼠标点击marker弹出自定义的信息窗体
         marker.on('click', function () {
-          console.log(item);
+          that.$emit('getHandleData', item);
           let content = [];
           //实例化信息窗体
           content.push(
