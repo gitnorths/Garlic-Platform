@@ -166,20 +166,16 @@ export default {
             symbolSize: 10,
             showAllSymbol: true,
             lineStyle: {
-              normal: {
-                color: '#1AE1E5',
-                shadowColor: 'rgba(0, 0, 0, .3)',
-                shadowBlur: 0,
-                shadowOffsetY: 5,
-                shadowOffsetX: 5,
-              },
+              color: '#1AE1E5',
+              shadowColor: 'rgba(0, 0, 0, .3)',
+              shadowBlur: 0,
+              shadowOffsetY: 5,
+              shadowOffsetX: 5,
             },
             label: {
               show: true,
               position: 'top',
-              textStyle: {
-                color: '#1AE1E5',
-              },
+              color: '#1AE1E5',
             },
             itemStyle: {
               color: '#1AE1E5',
@@ -194,27 +190,25 @@ export default {
               show: false,
             },
             areaStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(
-                  0,
-                  0,
-                  0,
-                  1,
-                  [
-                    {
-                      offset: 0,
-                      color: 'rgba(26, 225, 229,0.3)',
-                    },
-                    {
-                      offset: 1,
-                      color: 'rgba(26, 225, 229,0)',
-                    },
-                  ],
-                  false
-                ),
-                shadowColor: 'rgba(26, 225, 229, 0.9)',
-                shadowBlur: 20,
-              },
+              color: new this.$echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: 'rgba(26, 225, 229,0.3)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(26, 225, 229,0)',
+                  },
+                ],
+                false
+              ),
+              shadowColor: 'rgba(26, 225, 229, 0.9)',
+              shadowBlur: 20,
             },
           },
         ],
@@ -1665,8 +1659,7 @@ export default {
     this.cacheData = this.mapData[0].data[0];
   },
   methods: {
-    tabHandle(value) {
-      console.log(value);
+    tabHandle() {
       this.getHandleData(this.cacheData);
     },
     getHandleData(data) {
@@ -1683,7 +1676,6 @@ export default {
         });
       });
 
-      console.log(xData, sdata);
       this.baseOption.legend.data = [this.tabPosition];
       this.baseOption.xAxis.data = xData;
       this.baseOption.series[0].name = this.tabPosition;

@@ -29,8 +29,7 @@ const actions = {
           // refresh_token: '3ZbQD5SLU__lXF0FkqSq6NowXus';
           // scope: 'all';
           // token_type: 'bearer';
-          console.log(res?.code);
-          if (res?.code) {
+          if (res.code === 200) {
             const { access_token } = res.result;
             commit('SET_TOKEN', access_token);
             resolve();
