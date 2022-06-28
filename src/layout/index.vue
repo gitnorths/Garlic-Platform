@@ -10,14 +10,14 @@
           </el-menu-item>
         </el-menu>
         <div class="gp-flex gp-header__form">
-          <div>
+          <!-- <div>
             <el-avatar :size="30" :src="settings"></el-avatar>
           </div>
           <div>
             <el-badge is-dot type="success">
               <el-avatar :size="30" :src="messages"></el-avatar>
             </el-badge>
-          </div>
+          </div> -->
           <div>
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">
@@ -26,7 +26,7 @@
                   src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                 ></el-avatar>
 
-                <b>李永明</b> 管理员 <i class="el-icon-caret-bottom el-icon--right"></i>
+                <b>{{ nickname }}</b> <i class="el-icon-caret-bottom el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix"> <span @click="layout">退出</span> </el-dropdown-item>
@@ -52,6 +52,8 @@ export default {
   data() {
     return {
       title: '',
+      nickname: '',
+      username: '',
       activeIndex: '1',
       menuRoutes: [],
       settings: require('../assets/images/icon/setting2.png'),
@@ -70,6 +72,12 @@ export default {
         return industryRoutes;
       }
     },
+  },
+  mounted() {
+    if (sessionStorage.getItem('UserData')) {
+      const userData = JSON.parse(sessionStorage.getItem('UserData'));
+      this.nickname = userData.nickname;
+    }
   },
   methods: {
     goHome() {

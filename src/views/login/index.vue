@@ -105,22 +105,7 @@ export default {
                   // this.refreshCaptcha(true);
                 });
               })
-              .catch(() => {
-                console.log(2);
-                // this.loading = false;
-                // this.refreshCaptcha(true);
-              });
-            // this.$api
-            //   .postUserApi('auth/form', qs.stringify(this.ruleForm))
-            //   .then((res) => {
-            //     console.log(res);
-            //   })
-            //   .catch(() => {
-            //     this.$message({
-            //       type: 'warning',
-            //       message: '接口调用失败!',
-            //     });
-            //   });
+              .catch(() => {});
           } else {
             localStorage.removeItem('username');
           }
