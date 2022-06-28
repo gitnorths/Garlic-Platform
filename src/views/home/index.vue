@@ -9,17 +9,17 @@
             <span>{{ toDay }}</span>
           </div>
           <div class="right">
-            <el-link :underline="false">
+            <!-- <el-link :underline="false">
               <el-avatar :size="42" :src="setting"></el-avatar>
               设置
             </el-link>
             <el-link :underline="false">
               <el-avatar :size="42" :src="message"></el-avatar>
               消息
-            </el-link>
+            </el-link> -->
             <el-link :underline="false">
               <el-avatar :size="42" :src="user"></el-avatar>
-              操作员
+              {{ username }}
             </el-link>
           </div>
         </div>
@@ -108,6 +108,7 @@ export default {
       startVal: 0,
       endVal: 0,
       suspend: [],
+      username: '',
       numberLeftData: [
         // { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
         // { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
@@ -136,6 +137,12 @@ export default {
       { name: '产业信息', className: '__cyxx', path: '/basic-information' },
       { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
     ];
+
+    if (sessionStorage.getItem('UserData')) {
+      const userData = JSON.parse(sessionStorage.getItem('UserData'));
+      console.log('userData', userData);
+      this.username = userData.nickname;
+    }
   },
   beforeDestroy() {
     clearInterval(this.timing);
@@ -155,6 +162,7 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             let resData = res.result;
+            this.numberLeftData = [];
 
             for (let i = 0; i < resData.data.length; i++) {
               this.numberLeftData.push({
@@ -181,6 +189,8 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             let resData = res.result;
+            this.numberRightData = [];
+
             for (let i = 0; i < resData.area.length; i++) {
               this.numberRightData.push({
                 name: `${resData.area[i].name}种植面积`,

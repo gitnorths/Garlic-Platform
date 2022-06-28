@@ -20,6 +20,7 @@ const actions = {
   login({ commit }, data) {
     console.log(data);
     commit('SET_TOKEN', '');
+    sessionStorage.removeItem('UserData');
     return new Promise((resolve, reject) => {
       // const { username, password, imageCode } = data;
       API.postUserApi('auth/form', qs.stringify(data))
@@ -29,10 +30,17 @@ const actions = {
           // refresh_token: '3ZbQD5SLU__lXF0FkqSq6NowXus';
           // scope: 'all';
           // token_type: 'bearer';
-          console.log(res?.code);
           if (res?.code) {
             const { access_token } = res.result;
             commit('SET_TOKEN', access_token);
+
+            API.postUserApi('user/getUserInfo')
+              .then((resData) => {
+                if (resData.code === 200) {
+                  sessionStorage.setItem('UserData', JSON.stringify(resData.result)); // 存储用户信息
+                }
+              })
+              .catch(() => {});
             resolve();
           } else {
             reject(res.message);
@@ -53,6 +61,7 @@ const actions = {
           // 清空用户状态
 
           commit('SET_TOKEN', '');
+          sessionStorage.removeItem('UserData'); // 存储用户信息
 
           router.replace('/login');
 
