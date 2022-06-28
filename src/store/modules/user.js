@@ -38,10 +38,10 @@ const actions = {
               .then((resData) => {
                 if (resData.code === 200) {
                   sessionStorage.setItem('UserData', JSON.stringify(resData.result)); // 存储用户信息
+                  resolve();
                 }
               })
               .catch(() => {});
-            resolve();
           } else {
             reject(res.message);
           }
