@@ -30,14 +30,14 @@ export default {
       this.initAMap();
     },
     lonLatData() {
-      this.addMarker(this.lonLatData);
+      this.addMarker();
     },
   },
   data() {
     return {
       loading: true,
       map: null,
-      zoom: 7.8,
+      zoom: 9,
       level: 'district',
       depth: 2,
       adcode: 320000,
@@ -55,7 +55,7 @@ export default {
   mounted() {},
   methods: {
     initAMap() {
-      let that = this;
+      const that = this;
       //创建地图
       this.map = new AMap.Map('container', {
         zoom: that.zoom,
@@ -66,21 +66,16 @@ export default {
 
       this.map.on('complete', function () {
         that.loading = false;
-
         that.initPro(that.adcode, that.depth);
-
-        setTimeout(() => {
-          that.addMarker(that.mapData); // 添加marker标记
-          // that.map.panBy(-400, 100); // 偏移位置
-        }, 3000);
+        that.map.panBy(-50, 750); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
       let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
+      this.disProvince && that.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [adcodes],
         depth: depths,
@@ -100,23 +95,26 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(this.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
+
+      // setTimeout(() => {
+      // this.addMarker(this.mapData); // 添加marker标记
+      // }, 3000);
     },
     //添加marker标记
-    addMarker(mapDatas) {
+    addMarker() {
+      const mapDatas = this.lonLatData;
       this.map.clearMap();
-      let that = this;
-      console.log('mapDatas', mapDatas);
 
       // 绑定点
       for (let i = 0; i < mapDatas.length; i++) {
         let marker = new AMap.Marker({
-          map: that.map,
+          map: this.map,
           icon: require('../../../assets/images/icon/mark3.png'),
           title: mapDatas[i].townName,
           zIndex: mapDatas.length - i,
@@ -126,7 +124,7 @@ export default {
         marker.setTitle(mapDatas[i].townName);
         marker.extData = mapDatas[i];
 
-        that.markers.push(
+        this.markers.push(
           new AMap.Marker({
             icon: require('../../../assets/images/icon/mark3.png'),
             position: [mapDatas[i].longitude, mapDatas[i].latitude],
@@ -135,11 +133,11 @@ export default {
 
         //鼠标点击marker返回参数
         marker.on('click', function (e) {
-          that.$emit('ok', e.target.extData);
+          this.$emit('ok', e.target.extData);
         });
       }
 
-      that.map.setFitView(null, false, [50, 50, 550, 550], 15);
+      // this.map.setFitView(null, false, [50, 50, 950, 150], 12);
     },
 
     // 颜色辅助方法

@@ -1133,11 +1133,11 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
-            if (type === 'keyword' || type === 'distribution') {
-              this.lonLatData = res.result;
-            } else {
-              this.mapData = res.result;
-            }
+            this.lonLatData = res.result;
+            this.mapData = res.result;
+            // if (type === 'keyword' || type === 'distribution') {
+            // } else {
+            // }
             // for (let i = 0; i < res.result.length; i++) {
             //   this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';
             // }
