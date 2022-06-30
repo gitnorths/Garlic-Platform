@@ -52,9 +52,7 @@ export default {
       },
     };
   },
-  mounted() {
-    this.initAMap();
-  },
+  mounted() {},
   methods: {
     initAMap() {
       let that = this;
@@ -71,10 +69,10 @@ export default {
 
         that.initPro(that.adcode, that.depth);
 
-        // setTimeout(() => {
-        //   that.addMarker(that.mapData); // 添加marker标记
-        //   // that.map.panBy(-400, 100); // 偏移位置
-        // }, 3000);
+        setTimeout(() => {
+          that.addMarker(that.mapData); // 添加marker标记
+          // that.map.panBy(-400, 100); // 偏移位置
+        }, 3000);
       });
     },
 
