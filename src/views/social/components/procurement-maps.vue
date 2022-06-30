@@ -32,7 +32,7 @@ export default {
     lonLatData() {
       console.log(this.lonLatData);
       if (this.lonLatData.length != 0) {
-        this.addMarker(this.lonLatData);
+        this.addMarker();
       } else {
         this.map.clearMap();
       }
@@ -71,32 +71,27 @@ export default {
   },
   methods: {
     initAMap() {
-      let that = this;
+      const that = this;
       //创建地图
-      that.map = new AMap.Map('container', {
+      this.map = new AMap.Map('container', {
         zoom: that.zoom,
         center: that.center,
         pitch: 0,
         viewMode: '3D',
       });
 
-      that.map.on('complete', function () {
+      this.map.on('complete', function () {
         that.loading = false;
-
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-100, 700); // 偏移位置
-
-        // setTimeout(() => {
-        // that.addMarker(that.mapData); // 添加marker标记
-        // }, 3000);
+        that.map.panBy(-100, 750); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
-      let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
+      const that = this;
+      this.disProvince && this.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [adcodes],
         depth: depths,
@@ -116,24 +111,24 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(this.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     //添加marker标记
-    addMarker(lonLatData) {
-      this.map.clearMap();
+    addMarker() {
       let that = this;
-      console.log('addMarker', lonLatData);
+      const lonLatData = this.lonLatData;
+      this.map.clearMap();
 
       // 绑定点
       lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
-          map: that.map,
+          map: this.map,
           icon: require('../../../assets/images/icon/mark3.png'),
           title: item.nickname,
           zIndex: i,
@@ -143,7 +138,7 @@ export default {
         marker.setTitle(item.nickname);
         marker.extData = item;
 
-        that.markers.push(
+        this.markers.push(
           new AMap.Marker({
             icon: require('../../../assets/images/icon/mark3.png'),
             position: [item.longitude, item.latitude],
@@ -152,7 +147,6 @@ export default {
 
         //鼠标点击marker弹出自定义的信息窗体
         marker.on('click', function () {
-          console.log(item);
           let content = [];
           //实例化信息窗体
           content.push(

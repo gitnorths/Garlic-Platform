@@ -23,18 +23,7 @@ export default {
       zoom: 7.5,
       adcode: 320000,
       depth: 2,
-      colors: {
-        // 320302: 'rgba(83, 168, 217, 0.5)', // 鼓楼区
-        // 320303: 'rgba(83, 168, 217, 0.5)', // 云龙区
-        // 320305: 'rgba(79, 255, 245, 0.5)', // 贾汪区
-        // 320311: 'rgba(83, 168, 217, 0.5)', // 泉山区
-        // 320312: 'rgba(83, 168, 217, 0.5)', // 铜山区
-        // 320321: 'rgba(83, 168, 217, 0.5)', // 丰县
-        // 320322: 'rgba(83, 168, 217, 0.5)', // 沛县
-        // 320324: 'rgba(83, 168, 217, 0.5)', // 睢宁县
-        // 320381: 'rgba(83, 168, 217, 0.5)', // 新沂市
-        // 320382: 'rgba(83, 168, 217, 0.5)', // 邳州
-      },
+      colors: {},
     };
   },
   mounted() {
@@ -43,7 +32,7 @@ export default {
   },
   methods: {
     initAMap() {
-      let that = this;
+      const that = this;
       //创建地图
       this.map = new AMap.Map('container', {
         zoom: that.zoom,
@@ -51,17 +40,20 @@ export default {
         pitch: 0,
         viewMode: '3D',
       });
-      this.map.panBy(-450, -100);
 
-      that.initPro(that.adcode, that.depth);
+      this.map.on('complete', function () {
+        that.loading = false;
+        that.initPro(that.adcode, that.depth);
+        that.map.panBy(-450, -150); // 偏移位置
+      });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
-      let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
-        zIndex: 1,
+      const that = this;
+      this.disProvince && this.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
+        zIndex: 12,
         adcode: [adcodes],
         depth: depths,
         styles: {
@@ -80,16 +72,12 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(this.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
-
-      that.map.on('complete', function () {
-        that.loading = false;
-      });
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     // 颜色辅助方法

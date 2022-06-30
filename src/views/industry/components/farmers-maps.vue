@@ -31,9 +31,8 @@ export default {
       this.initAMap();
     },
     lonLatData() {
-      console.log(this.lonLatData);
       if (this.lonLatData.length != 0) {
-        this.addMarker(this.lonLatData);
+        this.addMarker();
       } else {
         this.map.clearMap();
       }
@@ -43,7 +42,7 @@ export default {
     return {
       loading: true,
       map: null,
-      zoom: 7.8,
+      zoom: 9,
       level: 'district',
       depth: 2,
       adcode: 320000,
@@ -63,30 +62,25 @@ export default {
     initAMap() {
       let that = this;
       //创建地图
-      that.map = new AMap.Map('container', {
+      this.map = new AMap.Map('container', {
         zoom: that.zoom,
         center: that.center,
         pitch: 0,
         viewMode: '3D',
       });
 
-      that.map.on('complete', function () {
+      this.map.on('complete', function () {
         that.loading = false;
-
         that.initPro(that.adcode, that.depth);
-
-        // setTimeout(() => {
-        // that.addMarker(that.mapData); // 添加marker标记
-        // that.map.panBy(-400, 100); // 偏移位置
-        // }, 3000);
+        that.map.panBy(-200, 750); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
       let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
+      this.disProvince && this.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [adcodes],
         depth: depths,
@@ -106,19 +100,19 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(that.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     //添加marker标记
-    addMarker(lonLatData) {
+    addMarker() {
+      const lonLatData = this.lonLatData;
       this.map.clearMap();
       let that = this;
-      console.log('addMarker', lonLatData);
 
       // 绑定点
       lonLatData.forEach((item, i) => {
@@ -142,7 +136,6 @@ export default {
 
         //鼠标点击marker弹出自定义的信息窗体
         marker.on('click', function () {
-          console.log(item);
           let content = [];
           //实例化信息窗体
           content.push(
@@ -172,7 +165,7 @@ export default {
         });
       });
 
-      that.map.setFitView(null, false, [50, 50, 350, 750], 15);
+      // that.map.setFitView(null, false, [50, 50, 350, 750], 15);
     },
 
     //打开信息窗体

@@ -20,6 +20,7 @@ export default {
   watch: {
     mapData() {
       this.initAMap();
+      this.addMarker();
     },
   },
   data() {
@@ -56,7 +57,7 @@ export default {
   },
   methods: {
     initAMap() {
-      let that = this;
+      const that = this;
 
       //创建地图
       this.map = new AMap.Map('container', {
@@ -68,21 +69,16 @@ export default {
 
       this.map.on('complete', function () {
         that.loading = false;
-
         that.initPro(that.adcode, that.depth);
-
-        setTimeout(() => {
-          that.addMarker(); // 添加marker标记
-          that.map.panBy(-120, 700); // 偏移位置
-        }, 3000);
+        that.map.panBy(-50, 750); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
-      let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
+      const that = this;
+      this.disProvince && this.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [adcodes],
         depth: depths,
@@ -97,56 +93,51 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(that.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     //添加marker标记
     addMarker() {
-      console.log(this.mapData);
+      const that = this;
+      const lonLatData = this.mapData;
       this.map.clearMap();
-      let that = this;
-      let mapDatas = this.mapData;
 
       // 绑定点
-      for (let i = 0; i < mapDatas.length; i++) {
+      lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
           map: that.map,
           icon:
             i === 0
               ? require('../../../assets/images/icon/mark-green.png')
               : require('../../../assets/images/icon/mark3.png'),
-          title: mapDatas[i].address,
-          zIndex: mapDatas.length - i,
+          title: item.address,
+          zIndex: lonLatData.length - i,
           cursor: 'pointer',
-          position: [mapDatas[i].longitude, mapDatas[i].latitude],
+          position: [item.longitude, item.latitude],
         });
-        marker.setTitle(mapDatas[i].address);
-        marker.extData = mapDatas[i];
+        marker.setTitle(item.address);
+        marker.extData = item;
 
-        that.markers.push(
+        this.markers.push(
           new AMap.Marker({
             icon:
               i === 0
                 ? require('../../../assets/images/icon/mark-green.png')
                 : require('../../../assets/images/icon/mark3.png'),
-            position: [mapDatas[i].longitude, mapDatas[i].latitude],
+            position: [item.longitude, item.latitude],
           })
         );
 
         //鼠标点击marker返回参数
         marker.on('click', function (e) {
           that.$emit('ok', e.target.extData);
-          // console.log(that.markers);
-          // setTimeout(() => {
-          //   that.map.remove(that.markers);
-          // }, 1000);
         });
-      }
+      });
 
       // that.map.setFitView(overlays, immediately, avoid, maxZoom); // 无参数时，自动自适应所有覆盖物
       // overlays (Array<Overlay>) 覆盖物

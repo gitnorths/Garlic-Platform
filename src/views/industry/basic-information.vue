@@ -1136,6 +1136,7 @@ export default {
             if (type === 'keyword' || type === 'distribution') {
               this.lonLatData = res.result;
             } else {
+              this.lonLatData = res.result;
               this.mapData = res.result;
             }
             // for (let i = 0; i < res.result.length; i++) {

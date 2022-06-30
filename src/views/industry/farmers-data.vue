@@ -273,8 +273,6 @@ export default {
           pageSize: 100,
         })
         .then((res) => {
-          console.log(res);
-
           if (!res) return;
           if (res.code === 200) {
             const resData = res.result;

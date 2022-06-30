@@ -15,15 +15,15 @@ export default {
     return {
       loading: true,
       map: null,
-      infoWindow: null,
-      mapStyle: 'darkblue', // darkblue, grey
-      level: 'district',
-      district: '江苏省',
-      polygons: [],
       zoom: 9,
+      level: 'district',
+      depth: 2,
       adcode: 320000,
       center: [117.283752, 32.704224],
-      depth: 2,
+      district: '江苏省',
+      mapStyle: 'darkblue', // darkblue, grey
+      polygons: [],
+      infoWindow: null,
       colors: {
         320302: 'rgba(79, 255, 245, 0.5)', // 鼓楼区
         320303: 'rgba(79, 255, 245, 0.5)', // 云龙区
@@ -69,14 +69,15 @@ export default {
   mounted() {
     //调用地图初始化方法
     this.initAMap();
+    this.addMarker(); // 添加marker标记
   },
   methods: {
     initAMap() {
       //创建地图
-      let that = this;
+      const that = this;
       this.map = new AMap.Map('container', {
-        zoom: 10,
-        center: [117.283752, 32.704224],
+        zoom: that.zoom,
+        center: that.center,
         pitch: 0,
         viewMode: '3D',
       });
@@ -84,22 +85,15 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.addMarker(); // 添加marker标记
-        setTimeout(() => {
-          // 第一个参数为空，表明用图上所有覆盖物 setFitview
-          // 第二个参数为false, 非立即执行
-          // 第三个参数设置上左下右的空白
-          that.map.setFitView(null, false, [200, 350, 100, 500]);
-          // that.map.panBy(-100, 1000); // 偏移位置
-        }, 1000);
+        that.map.panBy(-200, 750); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro(adcodes, depths) {
-      let that = this;
-      that.disProvince && that.disProvince.setMap(null);
-      that.disProvince = new AMap.DistrictLayer.Province({
+      const that = this;
+      this.disProvince && this.disProvince.setMap(null);
+      this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [adcodes],
         depth: depths,
@@ -114,39 +108,37 @@ export default {
         },
       });
 
-      that.disProvince.setMap(that.map);
+      this.disProvince.setMap(this.map);
 
       // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
+      this.map.setDefaultCursor('pointer');
       let mapStyle = 'amap://styles/' + this.mapStyle;
-      that.map.setMapStyle(mapStyle); // 设置主题颜色
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     //添加marker标记
     addMarker() {
-      let that = this;
-      that.map.clearMap();
+      const that = this;
+      const lonLatData = this.markers;
+      this.map.clearMap();
 
-      for (let i = 0; i < that.markers.length; i++) {
-        that.map.add(that.markers[i]);
+      lonLatData.forEach((item, i) => {
+        // that.map.add(that.markers[i]);
         let marker = new AMap.Marker({
-          map: that.map,
-          // icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
-          icon: that.markers[i].icon,
-          position: that.markers[i].position,
+          map: this.map,
+          icon: require('../../../assets/images/icon/mark3.png'),
+          title: item.townName,
+          cursor: 'pointer',
+          zIndex: lonLatData.length - i,
+          position: item.position,
         });
-        marker.content = that.markers[i].name;
+        marker.content = item.name;
+
         //鼠标点击marker弹出自定义的信息窗体
         marker.on('click', function (e) {
-          // console.log(e.target.content);
-
           that.$emit('ok', e.target.content);
-
-          that.colors = {
-            320302: 'rgba(79, 255, 245, 0.5)', // 鼓楼区
-          };
         });
-      }
+      });
     },
 
     // 颜色辅助方法
