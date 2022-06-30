@@ -70,7 +70,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-50, 750); // 偏移位置
+        that.map.panBy(-150, 450); // 偏移位置
       });
     },
 
@@ -107,36 +107,19 @@ export default {
       const lonLatData = this.mapData;
       this.map.clearMap();
 
+      this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
       // 绑定点
-      lonLatData.forEach((item, i) => {
+      lonLatData.forEach((item) => {
         let marker = new AMap.Marker({
           map: that.map,
-          icon:
-            i === 0
-              ? require('../../../assets/images/icon/mark-green.png')
-              : require('../../../assets/images/icon/mark3.png'),
           title: item.address,
-          zIndex: lonLatData.length - i,
-          cursor: 'pointer',
+          icon: require('../../../assets/images/icon/mark3.png'),
           position: [item.longitude, item.latitude],
+          encoderId: item.encoderId,
         });
-        marker.setTitle(item.address);
-        marker.extData = item;
-
-        this.markers.push(
-          new AMap.Marker({
-            icon:
-              i === 0
-                ? require('../../../assets/images/icon/mark-green.png')
-                : require('../../../assets/images/icon/mark3.png'),
-            position: [item.longitude, item.latitude],
-          })
-        );
-
-        //鼠标点击marker返回参数
-        marker.on('click', function (e) {
-          that.$emit('ok', e.target.extData);
-        });
+        marker.content = item.address;
+        marker.on('click', this.markerClick);
+        marker.emit('click', { target: marker });
       });
 
       // that.map.setFitView(overlays, immediately, avoid, maxZoom); // 无参数时，自动自适应所有覆盖物
@@ -146,6 +129,11 @@ export default {
       // maxZoom (Number = zooms[1]) 最大 zoom 级别
 
       // that.map.setFitView(null, false, [50, 150, 50, 600], 15);
+    },
+    markerClick(e) {
+      this.$emit('ok', e.target._originOpts.encoderId);
+      this.infoWindow.setContent(e.target.content);
+      this.infoWindow.open(this.map, e.target.getPosition());
     },
 
     // 颜色辅助方法

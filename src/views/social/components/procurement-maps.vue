@@ -49,7 +49,6 @@ export default {
       center: [117.283752, 32.704224],
       district: '江苏省',
       mapStyle: 'darkblue', // darkblue, grey
-      markers: [],
       polygons: [],
       infoWindow: null,
       colors: {
@@ -83,7 +82,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-100, 750); // 偏移位置
+        that.map.panBy(-100, 600); // 偏移位置
       });
     },
 
@@ -121,11 +120,12 @@ export default {
 
     //添加marker标记
     addMarker() {
-      let that = this;
       const lonLatData = this.lonLatData;
       this.map.clearMap();
 
       // 绑定点
+      this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
+
       lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
           map: this.map,
@@ -135,48 +135,48 @@ export default {
           cursor: 'pointer',
           position: [item.longitude, item.latitude],
         });
-        marker.setTitle(item.nickname);
+        // marker.setTitle(item.nickname);
         marker.extData = item;
-
-        this.markers.push(
-          new AMap.Marker({
-            icon: require('../../../assets/images/icon/mark3.png'),
-            position: [item.longitude, item.latitude],
-          })
-        );
-
-        //鼠标点击marker弹出自定义的信息窗体
-        marker.on('click', function () {
-          let content = [];
-          //实例化信息窗体
-          content.push(
-            `<div class="gp-map__marker">\n
-              <div class="gp-map__marker--header">\n
-              <span>${item.typeName}基本信息</span>\n
-              <div id="closeX" class="gp-map__marker--close"></div>\n
-              </div>\n
-              <div class="gp-map__marker--body">\n
-              <p>用户类型：${item.typeName}</p>\n
-              <p>用户名称：${item.nickname}</p>\n
-              <p>地址：${item.fullAddress}</p>\n
-              </div>\n
-              </div>`
-          );
-          // <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n
-
-          that.infoWindow = new AMap.InfoWindow({
-            anchor: 'top-left',
-            isCustom: true, //使用自定义窗体
-            content: content, //调用创建信息窗体的方法--信息窗体的内容
-            offset: new AMap.Pixel(50, -10),
-          });
-
-          that.infoWindow.open(that.map, marker.getPosition());
-          that.infoWindow.on('open', that.showInfoWindow);
-        });
+        marker.content = item.nickname;
+        marker.on('click', this.markerClick);
+        marker.emit('click', { target: marker });
       });
 
       // that.map.setFitView(null, false, [50, 50, 350, 750], 15);
+    },
+
+    markerClick(e) {
+      const item = e.target.extData;
+      console.log(item);
+      this.$emit('getHandleData', item);
+      // this.infoWindow.setContent(e.target.content);
+      // this.infoWindow.open(this.map, e.target.getPosition());
+      let content = [];
+      //实例化信息窗体 <div id="closeX" class="gp-map__marker--close"></div>\n
+
+      content.push(
+        `<div class="gp-map__marker">\n
+        <div class="gp-map__marker--header">\n
+        <span>${item.typeName}基本信息</span>\n
+        </div>\n
+        <div class="gp-map__marker--body">\n
+        <p>用户类型：${item.typeName}</p>\n
+        <p>用户名称：${item.nickname}</p>\n
+        <p>地址：${item.fullAddress}</p>\n
+        </div>\n
+        </div>`
+      );
+      // <div class="gp-map__marker--footer"><a> 查看详情 > </a></div>\n
+
+      this.infoWindow = new AMap.InfoWindow({
+        anchor: 'top-left',
+        isCustom: true, //使用自定义窗体
+        content: content, //调用创建信息窗体的方法--信息窗体的内容
+        offset: new AMap.Pixel(45, -25),
+      });
+
+      this.infoWindow.open(this.map, e.target.getPosition());
+      this.infoWindow.on('open', this.showInfoWindow);
     },
 
     //打开信息窗体

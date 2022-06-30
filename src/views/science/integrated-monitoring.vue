@@ -183,28 +183,20 @@ export default {
           if (!res) return;
           if (res.code === 200 && res.result.length > 0) {
             this.mapData = res.result;
-            this.getIntegratedData(res.result[0]);
+            this.getIntegratedData(res.result[res.result.length - 1]);
           }
         })
         .catch(() => {});
     },
-    getData(res) {
-      this.getIntegratedData(res);
+    getData(ids) {
+      this.getIntegratedData(ids);
     },
-    getIntegratedData(res) {
-      // address: "白口村"
-      // area: "850.0"
-      // contents: "监控：白口村长势监测点<br/>设备：诺丽网络摄像机<br/><br/>监控：白口村采集点<br/>设备：诺丽环境数据采集器（2 代）<br/><br/>监控：白口村监控点<br/>设备：诺丽网络摄像机<br/><br/>"
-      // encoderId: "127"
-      // latitude: "34.3623734"
-      // longitude: "117.768539"
-      // person: "刘贤松"
-      // phone: "13805223875"
+    getIntegratedData(ids) {
       this.$api
         .postBaseApi(
           'pes/getRealtimeDatasByEncoderId',
           qs.stringify({
-            encoderId: res.encoderId,
+            encoderId: ids,
           })
         )
         .then((res) => {
@@ -322,6 +314,10 @@ export default {
 
   .gp-right {
     width: 560px;
+
+    .gp-group {
+      background: #000d1c;
+    }
 
     .gp-box {
       display: flex;

@@ -85,7 +85,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-200, 750); // 偏移位置
+        that.map.panBy(-200, 450); // 偏移位置
       });
     },
 
@@ -118,27 +118,29 @@ export default {
 
     //添加marker标记
     addMarker() {
-      const that = this;
       const lonLatData = this.markers;
       this.map.clearMap();
 
+      this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
+
       lonLatData.forEach((item, i) => {
-        // that.map.add(that.markers[i]);
         let marker = new AMap.Marker({
           map: this.map,
           icon: require('../../../assets/images/icon/mark3.png'),
-          title: item.townName,
+          title: item.name,
           cursor: 'pointer',
           zIndex: lonLatData.length - i,
           position: item.position,
         });
         marker.content = item.name;
-
-        //鼠标点击marker弹出自定义的信息窗体
-        marker.on('click', function (e) {
-          that.$emit('ok', e.target.content);
-        });
+        marker.on('click', this.markerClick);
+        marker.emit('click', { target: marker });
       });
+    },
+    markerClick(e) {
+      this.$emit('ok', e.target.content);
+      this.infoWindow.setContent(e.target.content);
+      this.infoWindow.open(this.map, e.target.getPosition());
     },
 
     // 颜色辅助方法
