@@ -10,7 +10,30 @@ import AMap from 'AMap';
 // import { forEach } from 'lodash';
 
 export default {
-  name: 'quality-grade-maps',
+  name: 'QualityGradeMaps',
+  props: {
+    mapData: {
+      type: Array,
+      required: true,
+    },
+    mapColor: {
+      type: Object,
+      require: true,
+    },
+    lonLatData: {
+      type: Array,
+      required: true,
+    },
+  },
+  watch: {
+    lonLatData() {
+      if (this.lonLatData.length != 0) {
+        this.addMarker();
+      } else {
+        this.map.clearMap();
+      }
+    },
+  },
   data() {
     return {
       loading: true,
@@ -36,40 +59,12 @@ export default {
         320381: 'rgba(79, 255, 245, 0.5)', // 新沂市
         320382: 'rgba(79, 255, 245, 0.5)', // 邳州
       },
-      markers: [
-        {
-          name: '沛县',
-          position: [116.727222, 34.888222],
-          icon: require('../../../assets/images/icon/mark-green.png'),
-        },
-        {
-          name: '丰县',
-          position: [116.658111, 34.697232],
-          icon: require('../../../assets/images/icon/mark3.png'),
-        },
-        {
-          name: '铜山区',
-          position: [117.169698, 34.181162],
-          icon: require('../../../assets/images/icon/mark3.png'),
-        },
-        {
-          name: '邳州市',
-          position: [118.012511, 34.339208],
-          icon: require('../../../assets/images/icon/mark3.png'),
-        },
-        {
-          name: '贾汪区',
-          position: [117.452222, 34.441222],
-          icon: require('../../../assets/images/icon/mark3.png'),
-        },
-      ],
     };
   },
 
   mounted() {
     //调用地图初始化方法
     this.initAMap();
-    this.addMarker(); // 添加marker标记
   },
   methods: {
     initAMap() {
@@ -85,7 +80,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-200, 450); // 偏移位置
+        that.map.panBy(-200, 700); // 偏移位置
       });
     },
 
@@ -118,7 +113,7 @@ export default {
 
     //添加marker标记
     addMarker() {
-      const lonLatData = this.markers;
+      const lonLatData = this.lonLatData;
       this.map.clearMap();
 
       this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });

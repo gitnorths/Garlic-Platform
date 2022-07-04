@@ -259,7 +259,9 @@ export default {
           if (res.code === 200) {
             const resData = res.result;
             // this.mapData = resData;
-            this.lonLatData = resData;
+            setTimeout(() => {
+              this.lonLatData = resData;
+            }, 5000);
           }
         })
         .catch(() => {});

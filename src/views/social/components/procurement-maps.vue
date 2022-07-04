@@ -30,7 +30,6 @@ export default {
       this.initAMap();
     },
     lonLatData() {
-      console.log(this.lonLatData);
       if (this.lonLatData.length != 0) {
         this.addMarker();
       } else {

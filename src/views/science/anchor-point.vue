@@ -247,9 +247,12 @@ export default {
   },
   mounted() {
     this.mapData = anchorPointJSON.list;
-    this.lonLatData = this.mapData[0].data;
     this.getHandleData(this.mapData[0].data[0]);
     this.cacheData = this.mapData[0].data[0];
+
+    setTimeout(() => {
+      this.lonLatData = this.mapData[0].data;
+    }, 5000);
   },
   methods: {
     tabHandle() {

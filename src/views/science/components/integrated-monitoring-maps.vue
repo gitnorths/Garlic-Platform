@@ -19,7 +19,6 @@ export default {
   },
   watch: {
     mapData() {
-      this.initAMap();
       this.addMarker();
     },
   },
@@ -53,7 +52,7 @@ export default {
   },
   mounted() {
     //调用地图初始化方法
-    // this.initAMap();
+    this.initAMap();
   },
   methods: {
     initAMap() {
@@ -70,7 +69,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-150, 450); // 偏移位置
+        that.map.panBy(-150, 700); // 偏移位置
       });
     },
 

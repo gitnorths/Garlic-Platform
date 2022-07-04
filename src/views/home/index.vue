@@ -4,7 +4,7 @@
     <el-container v-else class="gp gp-home">
       <el-header>
         <div class="gp-flex">
-          <dv-decoration-10 style="width: 347px; height: 2px; position: absolute; top: 14px; left: 92px" />
+          <!-- <dv-decoration-10 style="width: 347px; height: 2px; position: absolute; top: 14px; left: 92px" /> -->
           <div class="left">
             <span>{{ toDay }}</span>
           </div>
@@ -45,7 +45,14 @@
             <div class="gp-map">
               <div class="gp-map__information">
                 <JSMap class="jsmap" :cdata="cdata" />
-                <div class="gp-map__orbits"></div>
+                <div class="gp-map__orbits">
+                  <div class="pulse">
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                  </div>
+                </div>
               </div>
 
               <!-- <div class="__bg"></div> -->
@@ -57,6 +64,7 @@
               </div>
             </div>
           </div>
+          <div class="gp-bottom"></div>
           <div class="gp-number right">
             <ul>
               <li v-for="(item, index) in numberRightData" :key="index">
@@ -237,6 +245,7 @@ export default {
   }
 
   &::before {
+    z-index: 201;
     height: 10px;
     bottom: 20px;
     background-image: url('@/assets/images/home/footer.png');
@@ -285,8 +294,9 @@ export default {
 
   .el-main {
     position: relative;
-    padding: 0 30px;
-    z-index: 1001;
+    padding: 0;
+    z-index: 101;
+    overflow: hidden;
 
     .gp-flex {
       position: relative;
@@ -296,12 +306,12 @@ export default {
       &::after {
         position: absolute;
         top: 0;
+        bottom: 135px;
         display: block;
         content: '';
         width: 172px;
-        height: 100%;
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: 100%;
         background-position: center center;
       }
 
@@ -320,7 +330,7 @@ export default {
         align-items: center;
         position: absolute;
         top: 0;
-        height: 100%;
+        bottom: 135px;
 
         ul {
           li {
@@ -366,13 +376,6 @@ export default {
           right: 155px;
         }
       }
-
-      .gp-center {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-      }
     }
 
     .gp-map {
@@ -386,32 +389,8 @@ export default {
         position: absolute;
         left: 0;
         top: 0;
-        bottom: 35px;
-        z-index: 10;
-        display: block;
-        content: '';
-        width: 100%;
-        background-image: url('@/assets/images/home/disc.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center bottom;
-        // transform: rotateX(-70deg) scaleY(2);
-        transform-style: preserve-3d; //子元素是位于 3D 空间中
-
-        &::after {
-          display: block;
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 90%;
-          background-image: url('@/assets/images/home/map.png');
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-          transform-style: preserve-3d; //子元素是位于 3D 空间中
-        }
+        right: 0;
+        bottom: 0;
       }
 
       .__bg {
@@ -431,27 +410,72 @@ export default {
 
       &__orbits {
         position: absolute;
-        left: 0;
         bottom: 0;
-        z-index: 11;
+        z-index: 10;
         width: 100%;
-        height: 350px;
-        border: 3px solid #a0daff;
-        border-radius: 50%;
-        // transform: scaleY(1) rotateX(-30deg);
+        height: 401px;
+        // transform: rotateX(-70deg) scaleY(2);
+        transform-style: preserve-3d; //子元素是位于 3D 空间中
 
-        animation-name: operation; //动画名称
-        animation-duration: 6s; //持续时间
-        animation-delay: 1s; //一秒后执行
-        animation-iteration-count: infinite; //无限次播放
-        animation-timing-function: linear; //均速
+        &::after {
+          position: absolute;
+          display: block;
+          content: '';
+          left: 0;
+          z-index: 11;
+          width: 100%;
+          height: 100%;
+          background-image: url('@/assets/images/home/disc.png');
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-position: center bottom;
+
+          // animation-name: operation; //动画名称
+          // animation-duration: 6s; //持续时间
+          // animation-delay: 1s; //一秒后执行
+          // animation-iteration-count: infinite; //无限次播放
+          // animation-timing-function: linear; //均速
+        }
+
+        .pulse {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          z-index: -1;
+          width: 100%;
+          height: 246px;
+          background-color: #011f3b;
+          border-radius: 50%;
+          .ring {
+            position: absolute;
+            background-color: inherit;
+            height: 100%;
+            width: 100%;
+            border-radius: 100%;
+            opacity: 0.8;
+            animation: pulsing 4s ease-out infinite;
+
+            &:nth-of-type(1) {
+              animation-delay: -1.5s;
+            }
+
+            &:nth-of-type(2) {
+              animation-delay: -3s;
+            }
+
+            &:nth-of-type(3) {
+              animation-delay: -5.5s;
+            }
+          }
+        }
       }
 
       &__suspend {
         position: absolute;
         width: 114px;
         height: 114px;
-        z-index: 20;
+        z-index: 201;
+
         p {
           position: absolute;
           top: -45px;
@@ -500,8 +524,8 @@ export default {
         &.__shhfw {
           top: 50%;
           left: 50%;
-          margin-top: -57px;
-          margin-left: -300px;
+          margin-top: -85px;
+          margin-left: -350px;
           p {
             right: -23px;
             background-image: url('@/assets/images/home/suspend-shhfw.png');
@@ -514,9 +538,9 @@ export default {
         }
 
         &.__cyxx {
-          top: 150px;
+          top: 120px;
           right: 50%;
-          margin-right: -300px;
+          margin-right: -330px;
           p {
             left: -20px;
             background-image: url('@/assets/images/home/suspend-cyxx.png');
@@ -532,7 +556,7 @@ export default {
           top: 50%;
           right: 50%;
           margin-top: -100px;
-          margin-right: -450px;
+          margin-right: -460px;
           p {
             left: -20px;
             background-image: url('@/assets/images/home/suspend-kxjc.png');
@@ -550,8 +574,14 @@ export default {
 
 .gp {
   .jsmap {
+    z-index: 101;
     position: relative;
-    z-index: 10;
+    height: 75vh;
+    background-image: url('@/assets/images/home/map.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform-style: preserve-3d; //子元素是位于 3D 空间中
   }
   &-marker {
     position: absolute;
@@ -620,6 +650,42 @@ export default {
         background-color: #ff5757;
         transform: rotateY(0deg) translateZ(9px);
       }
+    }
+  }
+
+  &-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url('@/assets/images/home/bot1.png');
+
+    &::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      content: '';
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    &::before {
+      background-image: url('@/assets/images/home/bot2.png');
     }
   }
 }

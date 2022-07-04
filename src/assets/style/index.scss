@@ -1125,14 +1125,21 @@ input::placeholder {
 
 @keyframes operation {
   0% {
-    transform: scaleY(1) rotateX(0deg) rotateZ(0deg);
+    transform: scaleY(1) rotateX(0deg) rotateY(0deg) rotateZ(-10deg);
   }
 
   50% {
-    transform: scaleY(1) rotateX(90deg) rotateZ(10deg);
+    transform: scaleY(1) rotateX(0deg) rotateY(45deg) rotateZ(10deg);
   }
 
   100% {
-    transform: scaleY(1) rotateX(0deg) rotateZ(0deg);
+    transform: scaleY(1) rotateX(0deg) rotateY(0deg) rotateZ(-10deg);
+  }
+}
+
+@keyframes pulsing {
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
   }
 }

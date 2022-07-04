@@ -1136,8 +1136,10 @@ export default {
             if (type === 'keyword' || type === 'distribution') {
               this.lonLatData = res.result;
             } else {
-              this.lonLatData = res.result;
               this.mapData = res.result;
+              setTimeout(() => {
+                this.lonLatData = res.result;
+              }, 5000);
             }
             // for (let i = 0; i < res.result.length; i++) {
             //   this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';

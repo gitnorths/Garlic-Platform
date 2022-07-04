@@ -41,7 +41,7 @@
           <p>{{ title }}</p>
         </div>
         <div class="gp-box">
-          <div class="gp-box__video"></div>
+          <!-- <div class="gp-box__video"></div> -->
           <ul class="gp-box__ul">
             <li v-for="(item, index) in sensorsData" :key="index">
               <img :src="item.src" alt="" />
@@ -182,7 +182,9 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200 && res.result.length > 0) {
-            this.mapData = res.result;
+            setTimeout(() => {
+              this.mapData = res.result;
+            }, 5000);
             this.getIntegratedData(res.result[res.result.length - 1]);
           }
         })

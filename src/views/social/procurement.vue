@@ -314,7 +314,7 @@ export default {
             this.mapData = resData;
             setTimeout(() => {
               this.lonLatData = resData;
-            }, 10000);
+            }, 5000);
           }
         })
         .catch(() => {});
@@ -330,7 +330,6 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             const resData = res.result;
-            console.log(resData);
             this.listLeft = [];
             resData.forEach((item) => {
               this.listLeft.push({

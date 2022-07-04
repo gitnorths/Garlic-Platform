@@ -82,7 +82,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-150, 450); // 偏移位置
+        that.map.panBy(-320, 700); // 偏移位置
       });
     },
 
@@ -142,7 +142,7 @@ export default {
         marker.emit('click', { target: marker });
       });
 
-      // that.map.setFitView(null, false, [50, 50, 350, 750], 15);
+      // this.map.setFitView(null, false, [50, 50, 350, 750], 15);
     },
 
     markerClick(e) {
