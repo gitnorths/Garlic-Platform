@@ -48,7 +48,7 @@
                 <div class="gp-map__orbits"></div>
               </div>
 
-              <div class="__bg"></div>
+              <!-- <div class="__bg"></div> -->
               <div v-for="(item, index) in suspend" :key="index" :class="`gp-map__suspend ${item.className}`">
                 <router-link :to="`${item.path}`">
                   <p>{{ item.name }}</p>
@@ -436,9 +436,9 @@ export default {
         z-index: 11;
         width: 100%;
         height: 350px;
-        border: 2px solid #a0daff;
+        border: 3px solid #a0daff;
         border-radius: 50%;
-        transform: scaleY(0.5) rotateX(45deg);
+        // transform: scaleY(1) rotateX(-30deg);
 
         animation-name: operation; //动画名称
         animation-duration: 6s; //持续时间

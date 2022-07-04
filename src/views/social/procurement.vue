@@ -1,6 +1,6 @@
 <template>
   <div class="gp-bg gp-procurement">
-    <div class="gp-anchor">
+    <!-- <div class="gp-anchor">
       <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
         <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
@@ -9,7 +9,7 @@
         <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
-    </div>
+    </div> -->
     <ProcurementMaps :mapData="mapData" :lonLatData="lonLatData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
@@ -19,16 +19,16 @@
             <li v-for="(item, index) in listLeftHeader" :key="index" class="gp-list__item">
               <b>{{ item.type }}</b>
               <p>{{ item.name }}</p>
-              <span>{{ item.phone }}</span>
+              <span>{{ item.mobile }}</span>
               <span>{{ item.address }}</span>
             </li>
           </ul>
           <ul class="gp-list __body" v-infinite-scroll="load">
             <li v-for="(item, index) in listLeft" :key="index" class="gp-list__item">
-              <b :class="item.type === '加工企业' ? 'green' : 'blue'">{{ item.type }}</b>
-              <p>{{ item.name }}</p>
-              <span>{{ item.phone }}</span>
-              <span><img :src="item.address" alt="" /></span>
+              <b :class="item.type === '6' ? 'green' : 'blue'">{{ item.type === 6 ? '收购网点' : '加工企业' }}</b>
+              <p>{{ item.nickname }}</p>
+              <span>{{ item.mobile }}</span>
+              <span><img :src="item.addressIcon" :title="item.address" /></span>
             </li>
           </ul>
         </div>
@@ -118,114 +118,11 @@ export default {
         {
           type: '类型',
           name: '企业名称',
-          phone: '电话',
+          mobile: '电话',
           address: '地址',
         },
       ],
-      listLeft: [
-        {
-          name: '徐州蜀河食品',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '彭州中信蒜业食品',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '邳州市三友食品',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '欧美食品有限公司',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '东方黎明股份有限公司',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '绿之源食品有限公司',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '徐州蜀河食品',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '彭州中信蒜业食品',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '邳州市三友食品',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '欧美食品有限公司',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '东方黎明股份有限公司',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '绿之源食品有限公司',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '徐州蜀河食品',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '彭州中信蒜业食品',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-        {
-          name: '邳州市三友食品',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '欧美食品有限公司',
-          type: '加工企业',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-green-small.png'),
-        },
-        {
-          name: '东方黎明股份有限公司',
-          type: '收购网点',
-          phone: '13813800011',
-          address: require('../../assets/images/icon/mark-blue-small.png'),
-        },
-      ],
+      listLeft: [],
       listRightHeader: [
         {
           type: '',
@@ -235,174 +132,175 @@ export default {
         },
       ],
       listRight: [
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '2',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 红皮蒜',
-          number: '500',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 独头蒜',
-          number: '10000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 白皮蒜',
-          number: '120000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 红皮蒜',
-          number: '20000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 紫皮蒜',
-          number: '2000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 白皮蒜',
-          number: '10000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '200',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 紫皮蒜',
-          number: '1',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '5',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '2',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '2',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 红皮蒜',
-          number: '500',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 独头蒜',
-          number: '10000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 白皮蒜',
-          number: '120000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 红皮蒜',
-          number: '20000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 紫皮蒜',
-          number: '2000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 白皮蒜',
-          number: '10000',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '200',
-          unit: '斤',
-          time: '03/6 10:49',
-        },
-        {
-          type: '销售',
-          variety: '大蒜 紫皮蒜',
-          number: '1',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '5',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
-        {
-          type: '收购',
-          variety: '大蒜 紫皮蒜',
-          number: '2',
-          unit: '吨',
-          time: '03/6 10:49',
-        },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 红皮蒜',
+        //   number: '500',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 独头蒜',
+        //   number: '10000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 白皮蒜',
+        //   number: '120000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 红皮蒜',
+        //   number: '20000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 白皮蒜',
+        //   number: '10000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '200',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '1',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '5',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 红皮蒜',
+        //   number: '500',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 独头蒜',
+        //   number: '10000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 白皮蒜',
+        //   number: '120000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 红皮蒜',
+        //   number: '20000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 白皮蒜',
+        //   number: '10000',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '200',
+        //   unit: '斤',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '销售',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '1',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '5',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
+        // {
+        //   type: '收购',
+        //   variety: '大蒜 紫皮蒜',
+        //   number: '2',
+        //   unit: '吨',
+        //   time: '03/6 10:49',
+        // },
       ],
     };
   },
   mounted() {
     this.getUserTypes(); // 地图坐标数据
+    this.getUserTypesLeft(); // 收购网点信息
   },
   methods: {
     // 分布change
-    distributionChange(val) {
-      if (val === '320000') {
-        this.distribution = null;
-      }
-      this.getUserTypes('distribution');
-    },
+    // distributionChange(val) {
+    //   if (val === '320000') {
+    //     this.distribution = null;
+    //   }
+    //   this.getUserTypes('distribution');
+    // },
     getUserTypes() {
       this.$api
         .postBaseApi('uc/user/querAllInviteUser', {
@@ -413,8 +311,33 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             const resData = res.result;
-            // this.mapData = resData;
-            this.lonLatData = resData;
+            this.mapData = resData;
+            setTimeout(() => {
+              this.lonLatData = resData;
+            }, 10000);
+          }
+        })
+        .catch(() => {});
+    },
+    // 收购网点信息
+    getUserTypesLeft() {
+      this.$api
+        .postBaseApi('uc/user/querAllInviteUser', {
+          countyCode: this.distribution,
+          userTypes: [6],
+        })
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            const resData = res.result;
+            console.log(resData);
+            this.listLeft = [];
+            resData.forEach((item) => {
+              this.listLeft.push({
+                ...item,
+                addressIcon: require('../../assets/images/icon/mark-green-small.png'),
+              });
+            });
           }
         })
         .catch(() => {});

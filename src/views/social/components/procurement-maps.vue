@@ -82,7 +82,7 @@ export default {
       this.map.on('complete', function () {
         that.loading = false;
         that.initPro(that.adcode, that.depth);
-        that.map.panBy(-100, 600); // 偏移位置
+        that.map.panBy(-100, 700); // 偏移位置
       });
     },
 
