@@ -25,6 +25,8 @@ request.interceptors.request.use(
       config.url === '/garlic-web-api/uc/user/queryInviteUsersPage'
     ) {
       config.headers['Content-Type'] = 'application/json;charset=UTF-8';
+    } else if (config.url === 'https://pesapi.chinanoni.com/Api/pes/capture/day/') {
+      config.headers['Content-Type'] = 'multipart/form-data';
     } else {
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }

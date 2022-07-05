@@ -41,7 +41,9 @@
           <p>{{ title }}</p>
         </div>
         <div class="gp-box">
-          <!-- <div class="gp-box__video"></div> -->
+          <div class="gp-box__video">
+            <a :href="nonidtHref">{{ nonidtName }}</a>
+          </div>
           <ul class="gp-box__ul">
             <li v-for="(item, index) in sensorsData" :key="index">
               <img :src="item.src" alt="" />
@@ -69,6 +71,8 @@ export default {
   data() {
     return {
       title: '',
+      nonidtHref: '',
+      nonidtName: '',
       mapData: [],
       activeName: 'first',
       sensorsData: [],
@@ -168,6 +172,7 @@ export default {
   },
   created() {
     this.getInfo();
+    // this.getImage();
   },
   methods: {
     getInfo() {
@@ -185,7 +190,7 @@ export default {
             setTimeout(() => {
               this.mapData = res.result;
             }, 5000);
-            this.getIntegratedData(res.result[res.result.length - 1]);
+            // this.getIntegratedData(res.result[0].encoderId);
           }
         })
         .catch(() => {});
@@ -193,6 +198,7 @@ export default {
     getData(ids) {
       this.getIntegratedData(ids);
     },
+    // 获取坐标数据
     getIntegratedData(ids) {
       this.$api
         .postBaseApi(
@@ -204,6 +210,13 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
+            // nonidt://title,nodeId,streamMode
+            // title：项目的名称，示例中：“绿色化生产模式监控点”
+            // nodeId：视频节点编号，示例中127
+            // streamMode：码流类型：1为主码流，2：辅码流，示例中2辅码流
+            this.nonidtHref = 'nonidt://' + res.result.Encoder.FullName + ',' + res.result.Encoder.Deviceid + ',2';
+            this.nonidtName = '视频监控：' + res.result.Encoder.FullName;
+
             this.title = res.result.Encoder.FullName + '，设备编码：' + res.result.Encoder.Deviceid;
             if (res.result.Sensors.length != 0) {
               let resList = res.result;
@@ -224,6 +237,22 @@ export default {
         return obj.src;
       }
       return '';
+    },
+    // 获取图片
+    getImage() {
+      this.$api
+        .getCaptureApi({
+          BeginDate: '2021-11-01',
+          EndDate: '2021-11-08',
+          ows: 20,
+          page: 1,
+          encoderId: 17,
+          landid: '',
+        })
+        .then((res) => {
+          if (!res) return;
+        })
+        .catch(() => {});
     },
     handleClick(tab, event) {
       console.log(tab, event);
@@ -329,10 +358,21 @@ export default {
       &__video {
         position: relative;
         width: 100%;
-        height: 300px;
+        height: 150px;
         background: #000d1c;
         border: 2px solid #004191;
         border-radius: 8px;
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          font-size: 16px;
+          color: #abf7ff;
+          cursor: pointer;
+        }
       }
 
       &__ul {

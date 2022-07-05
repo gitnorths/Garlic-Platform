@@ -22,4 +22,10 @@ function getSuanApi(action, params = {}) {
   return axios.get(`/suan-api/${action}`, { params });
 }
 
-export { getSuanApi, getBaseApi, postUserApi, postBaseApi };
+// 图片接口
+// https://pesapi.chinanoni.com/Api/pes/capture/day?BeginDate=2021-11-01&EndDate=2021-11-08&rows=20&page=1&encoderId=17&landid=
+function getCaptureApi(params = {}) {
+  return axios.get(`https://pesapi.chinanoni.com/Api/pes/capture/day/`, { params });
+}
+
+export { getSuanApi, getBaseApi, postUserApi, postBaseApi, getCaptureApi };
