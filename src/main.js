@@ -33,6 +33,9 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 Vue.prototype.$VideoJs = videojs;
 
+import Axios from 'axios';
+Vue.prototype.$axios = Axios;
+
 Vue.config.productionTip = false;
 
 Vue.use(dataV);
