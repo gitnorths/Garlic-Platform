@@ -108,7 +108,7 @@ export default {
 
       this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
       // 绑定点
-      lonLatData.forEach((item) => {
+      lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
           map: that.map,
           title: item.address,
@@ -117,8 +117,14 @@ export default {
           encoderId: item.encoderId,
         });
         marker.content = item.address;
-        marker.on('click', this.markerClick);
-        marker.emit('click', { target: marker });
+        if (i === 0) {
+          marker.on('click', that.markerClick);
+          marker.emit('click', { target: marker });
+        }
+
+        marker.on('click', function (e) {
+          that.markerClick(e);
+        });
       });
 
       // that.map.setFitView(overlays, immediately, avoid, maxZoom); // 无参数时，自动自适应所有覆盖物
