@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <Echart ref="mapChartRef" class="gp-echarts" :options="options"></Echart>
   </div>
 </template>
@@ -311,6 +311,6 @@ export default {
 <style lang="scss" scoped>
 .gp-echarts {
   width: 100% !important;
-  height: 75vh !important;
+  height: 100% !important;
 }
 </style>

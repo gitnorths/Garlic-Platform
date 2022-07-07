@@ -442,27 +442,6 @@ input::placeholder {
   }
 }
 
-.gp-industry {
-  .gp-right {
-    width: 540px;
-  }
-  .gp-title {
-    margin-bottom: 10px;
-  }
-  .gp-box {
-    background-color: rgba(#000d1c, 0.7);
-
-    .gp-list {
-      height: 36vh;
-    }
-
-    &.height {
-      flex: auto;
-      height: 35vh;
-    }
-  }
-}
-
 .gp-table {
   .el-table {
     color: #ffffff;

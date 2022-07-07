@@ -254,3 +254,37 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.gp-industry {
+  .gp-eports {
+    padding-right: 540px;
+
+    &__header {
+      position: absolute;
+      left: 0;
+      top: 100px;
+      right: 0;
+      padding-right: 540px;
+      z-index: 10;
+    }
+  }
+  .gp-right {
+    width: 540px;
+  }
+  .gp-title {
+    margin-bottom: 10px;
+  }
+  .gp-box {
+    background-color: rgba(#000d1c, 0.7);
+
+    .gp-list {
+      height: 36vh;
+    }
+
+    &.height {
+      flex: auto;
+      height: 35vh;
+    }
+  }
+}
+</style>
