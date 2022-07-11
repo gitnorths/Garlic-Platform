@@ -34,10 +34,23 @@
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title">
-          <span>蒜田环境监控视频</span>
+          <span> 蒜田环境监控视频 </span>
+          <el-popover placement="top-start" title="视频无法播放？" width="200" trigger="hover">
+            <span>
+              请联系相关人员或者参考<el-link
+                type="primary"
+                href="https://garlic.chinanoni.com/dashboard/%E8%A7%86%E9%A2%91%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B.pdf"
+                target="_blank"
+              >
+                插件安装教程
+              </el-link>
+              。
+            </span>
+            <i slot="reference" class="el-icon-question"></i>
+          </el-popover>
         </div>
         <div class="gp-group">
-          <span>监测点</span>
+          <span> 监测点 </span>
           <p>{{ title }}</p>
         </div>
         <div class="gp-box">
@@ -345,6 +358,12 @@ export default {
 
   .gp-right {
     width: 560px;
+
+    .gp-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .gp-group {
       background: #000d1c;

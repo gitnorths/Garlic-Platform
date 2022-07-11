@@ -40,18 +40,18 @@
         <div class="gp-box">
           <ul class="gp-list __header">
             <li v-for="(item, index) in listRightHeader" :key="index" class="gp-list__item">
-              <b>{{ item.type }}</b>
-              <p>{{ item.variety }}</p>
-              <span>{{ item.number }}</span>
-              <span>{{ item.time }}</span>
+              <b>{{ item.goodsType }}</b>
+              <p>{{ item.name }}</p>
+              <span>{{ item.specs }}</span>
+              <span>{{ item.createTime }}</span>
             </li>
           </ul>
           <ul class="gp-list __body" v-infinite-scroll="load">
             <li v-for="(item, index) in listRight" :key="index" class="gp-list__item">
-              <b :class="item.type === '收购' ? 'bgGreen' : 'bgOrange'">{{ item.type }}</b>
-              <p>{{ item.variety }}</p>
-              <span>{{ item.number + item.unit }}</span>
-              <span>{{ item.time }}</span>
+              <b :class="item.goodsType === 1 ? 'bgGreen' : 'bgOrange'">{{ item.goodsType === 1 ? '销售' : '收购' }}</b>
+              <p>{{ item.name }}</p>
+              <span>{{ item.specs }} 公斤</span>
+              <span>{{ item.createTime }}</span>
             </li>
           </ul>
         </div>
@@ -125,173 +125,19 @@ export default {
       listLeft: [],
       listRightHeader: [
         {
-          type: '',
-          variety: '品种',
-          number: '数量',
-          time: '时间',
+          goodsType: '',
+          name: '品种',
+          specs: '数量',
+          createTime: '时间',
         },
       ],
-      listRight: [
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 红皮蒜',
-        //   number: '500',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 独头蒜',
-        //   number: '10000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 白皮蒜',
-        //   number: '120000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 红皮蒜',
-        //   number: '20000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 白皮蒜',
-        //   number: '10000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '200',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '1',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '5',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 红皮蒜',
-        //   number: '500',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 独头蒜',
-        //   number: '10000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 白皮蒜',
-        //   number: '120000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 红皮蒜',
-        //   number: '20000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 白皮蒜',
-        //   number: '10000',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '200',
-        //   unit: '斤',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '销售',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '1',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '5',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-        // {
-        //   type: '收购',
-        //   variety: '大蒜 紫皮蒜',
-        //   number: '2',
-        //   unit: '吨',
-        //   time: '03/6 10:49',
-        // },
-      ],
+      listRight: [],
     };
   },
   mounted() {
     this.getUserTypes(); // 地图坐标数据
     this.getUserTypesLeft(); // 收购网点信息
+    this.getLatestData();
   },
   methods: {
     // 分布change
@@ -337,6 +183,19 @@ export default {
                 addressIcon: require('../../assets/images/icon/mark-green-small.png'),
               });
             });
+          }
+        })
+        .catch(() => {});
+    },
+    // 大蒜收购、销售信息 goods/latestData
+    getLatestData() {
+      this.$api
+        .postBaseApi('goods/latestData')
+        .then((res) => {
+          if (!res) return;
+          if (res.code === 200) {
+            const resData = res.result;
+            this.listRight = resData;
           }
         })
         .catch(() => {});
