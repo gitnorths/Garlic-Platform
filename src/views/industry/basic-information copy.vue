@@ -9,7 +9,7 @@
         <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
     </div>
-    <BasicInformationMaps :mapData="mapData" :lonLatData="lonLatData" :mapColor="mapColor" />
+    <BasicInformationMaps :mapData="mapData" :lonLatData="lonLatData" :mapColor="mapColor" @ok="getData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产值信息</span></div>
@@ -1104,7 +1104,9 @@ export default {
         })
         .catch(() => {});
     },
-
+    getData() {
+      // this.getMapsInfo();
+    },
     // 分布change
     getDistribution(val) {
       if (val === '320000') {
@@ -1139,6 +1141,9 @@ export default {
                 this.lonLatData = res.result;
               }, 5000);
             }
+            // for (let i = 0; i < res.result.length; i++) {
+            //   this.mapColor[res.result[i].townCode] = 'rgba(83, 168, 217, 0.5)';
+            // }
           }
         })
         .catch(() => {});
