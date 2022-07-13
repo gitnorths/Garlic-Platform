@@ -741,9 +741,10 @@ input::placeholder {
 
 .gp-anchor {
   position: absolute;
-  top: 95px;
-  right: 500px;
+  top: 0;
+  right: 120%;
   z-index: 201;
+  width: 200px;
   border-radius: 4px;
 
   .el-select {

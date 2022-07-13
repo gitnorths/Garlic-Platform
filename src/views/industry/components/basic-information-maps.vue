@@ -1,5 +1,6 @@
 <template>
-  <div class="app-container" :style="{ height: windowHeight + 'px' }">
+  <div class="gp-bg" :style="{ height: windowHeight + 'px' }">
+    <dv-loading class="gp-loading" v-show="loading">Loading...</dv-loading>
     <div id="container"></div>
   </div>
 </template>
@@ -27,22 +28,38 @@ export default {
       this.initAMap();
     },
     lonLatData() {
+      this.loading = false;
       this.addMarker();
     },
   },
   data() {
     return {
-      map: null,
-      depth: 2,
-      adcode: 320000,
-      district: '江苏省',
-      city: ['320000', '320300'], // 江苏省徐州市
-      options: [],
-      markers: [],
-      mapStyle: 'darkblue', // darkblue, grey, dark
-      infoWindow: null,
       //实时屏幕高度
       windowHeight: document.documentElement.clientHeight,
+      loading: true,
+      map: null,
+      city: ['320000'], // 江苏省徐州市 '320000', '320300'
+      zoom: 9,
+      depth: 2,
+      adcode: 320000,
+      center: [117.283752, 32.704224],
+      options: [],
+      markers: [],
+      district: '江苏省',
+      mapStyle: 'darkblue', // darkblue, grey, dark
+      mapColors: {
+        320303: 'rgba(79, 255, 245, 0.5)', // 云龙区
+        320305: 'rgba(79, 255, 245, 0.5)', // 贾汪区
+        320321: 'rgba(79, 255, 245, 0.5)', // 丰县
+        320302: 'rgba(79, 255, 245, 0.5)', // 鼓楼区
+        320322: 'rgba(79, 255, 245, 0.5)', // 沛县
+        320312: 'rgba(79, 255, 245, 0.5)', // 铜山区
+        320311: 'rgba(79, 255, 245, 0.5)', // 泉山区
+        320382: 'rgba(79, 255, 245, 0.5)', // 邳州市
+        320324: 'rgba(79, 255, 245, 0.5)', // 睢宁县
+        320381: 'rgba(79, 255, 245, 0.5)', // 新沂市
+      },
+      infoWindow: null,
     };
   },
   mounted() {
@@ -59,8 +76,9 @@ export default {
     initAMap() {
       let that = this;
       this.map = new AMap.Map('container', {
-        center: [117.283752, 32.704224],
-        zoom: 9,
+        zoom: that.zoom,
+        pitch: 0,
+        center: that.center,
       });
 
       let mapStyle = 'amap://styles/' + this.mapStyle;
@@ -91,16 +109,14 @@ export default {
       });
 
       this.map.on('complete', function () {
-        // that.loading = false;
         that.initPro();
-        that.handlePolygon();
-        // that.map.panBy(-50, 750); // 偏移位置
+        // that.map.panBy(0, 600); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro() {
-      const that = this;
+      let that = this;
       this.disProvince && this.disProvince.setMap(null);
       this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
@@ -111,58 +127,18 @@ export default {
             let adcode = properties.adcode;
             return that.getColorByAdcode(adcode);
           },
-          'province-stroke': 'rgba(83, 168, 217, 0.5)',
-          'city-stroke': 'rgba(0, 39, 97, 0.5)', // 中国地级市边界
-          'county-stroke': 'rgba(129, 213, 241, 1)', // 中国区县边界
+          'province-stroke': 'rgba(83, 168, 217, 1)',
+          'city-stroke': 'rgba(129, 213, 241, 0.2)', // 中国地级市边界
+          'county-stroke': 'rgba(129, 213, 241, 0.1)', // 中国区县边界
         },
       });
 
       this.disProvince.setMap(this.map);
     },
 
-    //绘制边界线
-    handlePolygon() {
-      let that = this;
-      that.map.clearMap();
-      let keyword;
-      if (this.city.length > 0) {
-        keyword = this.city[this.city.length - 1];
-      }
-      // 创建行政区查询对象
-      let district = new AMap.DistrictSearch({
-        // 返回行政区边界坐标等具体信息
-        extensions: 'all',
-        // 设置查询行政区级别为 区
-        level: 'district',
-      });
-
-      district.search(keyword, function (status, result) {
-        // 获取朝阳区的边界信息
-        let bounds = result.districtList[0].boundaries;
-        let polygons = [];
-        if (bounds) {
-          for (let i = 0, l = bounds.length; i < l; i++) {
-            //生成行政区划polygon
-            let polygon = new AMap.Polygon({
-              map: that.map,
-              path: bounds[i],
-              fillColor: '#002761', //填充色
-              fillOpacity: 0.5, //填充透明度
-              strokeColor: '#53A8D9', //线颜色
-              strokeOpacity: 1, //线透明度
-              strokeWeight: 3, //线宽
-            });
-            polygons.push(polygon);
-          }
-          // 地图自适应
-          that.map.setFitView();
-        }
-      });
-    },
-
     //添加marker标记
     addMarker() {
-      const that = this;
+      let that = this;
       const lonLatData = this.lonLatData;
       this.map.clearMap();
 
@@ -171,14 +147,14 @@ export default {
       // 绑定点
       lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
-          map: that.map,
+          map: this.map,
           title: item.townName,
           icon: require('../../../assets/images/icon/mark3.png'),
           position: [item.longitude, item.latitude],
         });
         marker.content = item.townName;
         if (i === 0) {
-          marker.on('click', that.markerClick);
+          marker.on('click', this.markerClick);
           marker.emit('click', { target: marker });
         }
 
@@ -187,7 +163,9 @@ export default {
         });
       });
 
-      // this.map.setFitView(null, false, [50, 50, 950, 150], 12);
+      // 地图自适应
+      // this.map.setFitView();
+      this.map.setFitView(null, false, [150, 50, 550, 150], 12);
     },
 
     markerClick(e) {
@@ -197,8 +175,8 @@ export default {
 
     // 颜色辅助方法
     getColorByAdcode(adcode) {
-      if (this.mapColor[adcode]) {
-        return this.mapColor[adcode];
+      if (this.mapColors[adcode]) {
+        return this.mapColors[adcode];
       } else {
         return 'rgba(0, 39, 97, 0.5)';
       }
@@ -208,11 +186,6 @@ export default {
 </script>
 
 <style scoped>
-#app-container {
-  width: 100%;
-  position: relative;
-}
-
 #container {
   width: 100%;
   height: 100%;

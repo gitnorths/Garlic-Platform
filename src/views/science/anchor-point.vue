@@ -252,7 +252,7 @@ export default {
 
     setTimeout(() => {
       this.lonLatData = this.mapData[0].data;
-    }, 5000);
+    }, 3000);
   },
   methods: {
     tabHandle() {

@@ -1,24 +1,24 @@
 <template>
-  <div class="gp-bg gp-industry">
-    <div class="gp-anchor">
-      <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
-        <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="userTypes" @change="getUserTypes">
-        <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-    </div>
+  <div class="gp-bg gp-farmersData">
     <FarmersMaps :mapData="mapData" :lonLatData="lonLatData" />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
-      <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
+      <div class="gp-anchor">
+        <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
+          <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select v-model="userTypes" @change="getUserTypes">
+          <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
         <div class="gp-box height">
           <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
         </div>
       </div>
-      <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
+      <div class="gp-flex gp-flex-direction-column gp-flex3 gp-mb15">
         <div class="gp-box gp-table">
           <el-table :data="tableData" :height="height">
             <el-table-column prop="nickname" label="昵称" align="center" show-overflow-tooltip width="120">
@@ -261,7 +261,7 @@ export default {
             // this.mapData = resData;
             setTimeout(() => {
               this.lonLatData = resData;
-            }, 5000);
+            }, 3000);
           }
         })
         .catch(() => {});
@@ -286,9 +286,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.gp-anchor {
-  right: 580px;
-}
-</style>

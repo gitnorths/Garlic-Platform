@@ -202,7 +202,7 @@ export default {
           if (res.code === 200 && res.result.length > 0) {
             setTimeout(() => {
               this.mapData = res.result;
-            }, 5000);
+            }, 3000);
             // this.getIntegratedData(res.result[0].encoderId);
           }
         })

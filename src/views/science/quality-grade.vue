@@ -49,30 +49,25 @@ export default {
         {
           name: '沛县',
           position: [116.727222, 34.888222],
-          icon: require('../../assets/images/icon/mark-green.png'),
         },
         {
           name: '丰县',
           position: [116.658111, 34.697232],
-          icon: require('../../assets/images/icon/mark3.png'),
         },
         {
           name: '铜山区',
           position: [117.169698, 34.181162],
-          icon: require('../../assets/images/icon/mark3.png'),
         },
         {
           name: '邳州市',
           position: [118.012511, 34.339208],
-          icon: require('../../assets/images/icon/mark3.png'),
         },
         {
           name: '贾汪区',
           position: [117.452222, 34.441222],
-          icon: require('../../assets/images/icon/mark3.png'),
         },
       ];
-    }, 5000);
+    }, 3000);
   },
   methods: {
     load() {},

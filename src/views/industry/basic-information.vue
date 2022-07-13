@@ -1,14 +1,5 @@
 <template>
   <div class="gp-bg">
-    <div class="gp-anchor">
-      <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
-        <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="keyword" clearable placeholder="类型" @change="getKeyword">
-        <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-      </el-select>
-    </div>
     <BasicInformationMaps :mapData="mapData" :lonLatData="lonLatData" :mapColor="mapColor" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
@@ -31,6 +22,15 @@
       </div>
     </div>
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
+      <div class="gp-anchor">
+        <el-select v-model="distribution" clearable placeholder="分布" @change="getDistribution">
+          <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select v-model="keyword" clearable placeholder="类型" @change="getKeyword">
+          <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+        </el-select>
+      </div>
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>产量信息</span></div>
         <div class="gp-box">
@@ -1137,7 +1137,7 @@ export default {
               this.mapData = res.result;
               setTimeout(() => {
                 this.lonLatData = res.result;
-              }, 5000);
+              }, 3000);
             }
           }
         })

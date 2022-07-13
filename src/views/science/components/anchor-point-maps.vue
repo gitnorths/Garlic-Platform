@@ -1,5 +1,5 @@
 <template>
-  <div class="gp-bg">
+  <div class="gp-bg" :style="{ height: windowHeight + 'px' }">
     <dv-loading class="gp-loading" v-show="loading">Loading...</dv-loading>
     <div id="container"></div>
   </div>
@@ -9,7 +9,7 @@
 import AMap from 'AMap';
 
 export default {
-  name: 'ProcurementMaps',
+  name: 'AnchorPointMaps',
   props: {
     mapData: {
       type: Array,
@@ -30,6 +30,7 @@ export default {
       this.initAMap();
     },
     lonLatData() {
+      this.loading = false;
       if (this.lonLatData.length != 0) {
         this.addMarker();
       } else {
@@ -39,19 +40,20 @@ export default {
   },
   data() {
     return {
+      //实时屏幕高度
+      windowHeight: document.documentElement.clientHeight,
       loading: true,
       map: null,
+      city: ['320000'], // 江苏省徐州市 '320000', '320300'
       zoom: 9,
-      level: 'district',
       depth: 2,
       adcode: 320000,
       center: [117.283752, 32.704224],
-      district: '江苏省',
-      mapStyle: 'darkblue', // darkblue, grey
+      options: [],
       markers: [],
-      polygons: [],
-      infoWindow: null,
-      colors: {
+      district: '江苏省',
+      mapStyle: 'darkblue', // darkblue, grey, dark
+      mapColors: {
         320303: 'rgba(79, 255, 245, 0.5)', // 云龙区
         320305: 'rgba(79, 255, 245, 0.5)', // 贾汪区
         320321: 'rgba(79, 255, 245, 0.5)', // 丰县
@@ -63,44 +65,71 @@ export default {
         320324: 'rgba(79, 255, 245, 0.5)', // 睢宁县
         320381: 'rgba(79, 255, 245, 0.5)', // 新沂市
       },
+      infoWindow: null,
     };
   },
   mounted() {
+    // 当浏览器被重置大小时执行
+    window.onresize = () => {
+      return (() => {
+        this.windowHeight = document.documentElement.clientHeight;
+      })();
+    };
+    //调用地图初始化方法
     this.initAMap();
   },
   methods: {
     initAMap() {
-      const that = this;
-      //创建地图
+      let that = this;
       this.map = new AMap.Map('container', {
         zoom: that.zoom,
-        center: that.center,
         pitch: 0,
-        viewMode: '3D',
+        center: that.center,
+      });
+
+      let mapStyle = 'amap://styles/' + this.mapStyle;
+      this.map.setMapStyle(mapStyle); // 设置主题颜色
+
+      //行政区划查询
+      this.district = new AMap.DistrictSearch({
+        subdistrict: 3, // 0：不返回下级行政区 1：返回下一级行政区 2：返回下两级行政区 3：返回下三级行政区
+        showbiz: false, //最后一级返回街道信息
+      }); //注意：需要使用插件同步下发功能才能这样直接使用
+
+      this.district.search('中国', function (status, result) {
+        if (status == 'complete') {
+          let subList = result.districtList[0].districtList;
+          /*
+                利用级联  subList 数组 -> json 进行替换 -> 数组
+                因为citycode只到县区一级 描边又无法描出乡镇 又因最多只能返回下三级 所以这里我只用三级联动
+                如果实在是想显示四级,可以把省份单独抽出来也可以实现
+                这里太烧脑 陆陆续续写了一天 暂时就这样吧
+             */
+          that.options = JSON.parse(
+            JSON.stringify(subList)
+              .replace(/adcode/g, 'value')
+              .replace(/name/g, 'label')
+              .replace(/districtList/g, 'children')
+          );
+        }
       });
 
       this.map.on('complete', function () {
-        that.loading = false;
-        that.initPro(that.adcode, that.depth);
+        that.initPro();
         that.map.panBy(-320, 700); // 偏移位置
       });
     },
 
     // 创建省份图层
-    initPro(adcodes, depths) {
-      let that = this;
+    initPro() {
+      const that = this;
       this.disProvince && this.disProvince.setMap(null);
       this.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
-        adcode: [adcodes],
-        depth: depths,
+        adcode: [that.adcode],
+        depth: that.depth,
         styles: {
           fill: function (properties) {
-            // properties为可用于做样式映射的字段，包含
-            // NAME_CHN:中文名称
-            // adcode_pro
-            // adcode_cit
-            // adcode
             let adcode = properties.adcode;
             return that.getColorByAdcode(adcode);
           },
@@ -111,16 +140,10 @@ export default {
       });
 
       this.disProvince.setMap(this.map);
-
-      // 使用CSS默认样式定义地图上的鼠标样式
-      that.map.setDefaultCursor('pointer');
-      let mapStyle = 'amap://styles/' + this.mapStyle;
-      this.map.setMapStyle(mapStyle); // 设置主题颜色
     },
 
     //添加marker标记
     addMarker() {
-      // const that = this;
       const lonLatData = this.lonLatData;
       this.map.clearMap();
 
@@ -141,23 +164,20 @@ export default {
         marker.on('click', this.markerClick);
         marker.emit('click', { target: marker });
       });
-
-      // this.map.setFitView(null, false, [50, 50, 350, 750], 15);
     },
 
     markerClick(e) {
       const item = e.target.extData;
-      console.log(item);
       this.$emit('getHandleData', item);
       // this.infoWindow.setContent(e.target.content);
       // this.infoWindow.open(this.map, e.target.getPosition());
       let content = [];
       //实例化信息窗体
+      // <div id="closeX" class="gp-map__marker--close"></div>\n
       content.push(
         `<div class="gp-map__marker">\n
         <div class="gp-map__marker--header">\n
         <span>${item.city}(${item.code}) 基本信息</span>\n
-        <div id="closeX" class="gp-map__marker--close"></div>\n
         </div>\n
         <div class="gp-map__marker--body">\n
         <p>监测年度：${item.monitoringYear}</p>\n
@@ -199,8 +219,8 @@ export default {
 
     // 颜色辅助方法
     getColorByAdcode(adcode) {
-      if (this.colors[adcode]) {
-        return this.colors[adcode];
+      if (this.mapColors[adcode]) {
+        return this.mapColors[adcode];
       } else {
         return 'rgba(0, 39, 97, 0.5)';
       }

@@ -1,15 +1,5 @@
 <template>
   <div class="gp-bg gp-procurement">
-    <!-- <div class="gp-anchor">
-      <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
-        <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="userTypes" @change="getUserTypes">
-        <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-    </div> -->
     <ProcurementMaps :mapData="mapData" :lonLatData="lonLatData" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
@@ -35,6 +25,16 @@
       </div>
     </div>
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
+      <!-- <div class="gp-anchor">
+      <el-select v-model="distribution" clearable placeholder="分布" @change="distributionChange">
+        <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="userTypes" @change="getUserTypes">
+        <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+    </div> -->
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>大蒜收购、销售信息</span></div>
         <div class="gp-box">
@@ -160,7 +160,7 @@ export default {
             this.mapData = resData;
             setTimeout(() => {
               this.lonLatData = resData;
-            }, 5000);
+            }, 3000);
           }
         })
         .catch(() => {});
