@@ -28,7 +28,6 @@ export default {
       this.initAMap();
     },
     lonLatData() {
-      this.loading = false;
       this.addMarker();
     },
   },
@@ -39,10 +38,10 @@ export default {
       loading: true,
       map: null,
       city: ['320000'], // 江苏省徐州市 '320000', '320300'
-      zoom: 9,
+      zoom: 7.8,
       depth: 2,
       adcode: 320000,
-      center: [117.283752, 32.704224],
+      center: [118.530903, 33.112126],
       options: [],
       markers: [],
       district: '江苏省',
@@ -71,26 +70,30 @@ export default {
     };
     //调用地图初始化方法
     this.initAMap();
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   },
   methods: {
+    // 初始化地图
     initAMap() {
-      let that = this;
-      this.map = new AMap.Map('container', {
+      const that = this;
+      that.map = new AMap.Map('container', {
         zoom: that.zoom,
         pitch: 0,
         center: that.center,
       });
 
-      let mapStyle = 'amap://styles/' + this.mapStyle;
-      this.map.setMapStyle(mapStyle); // 设置主题颜色
+      let mapStyle = 'amap://styles/' + that.mapStyle;
+      that.map.setMapStyle(mapStyle); // 设置主题颜色
 
       //行政区划查询
-      this.district = new AMap.DistrictSearch({
+      that.district = new AMap.DistrictSearch({
         subdistrict: 3, // 0：不返回下级行政区 1：返回下一级行政区 2：返回下两级行政区 3：返回下三级行政区
         showbiz: false, //最后一级返回街道信息
       }); //注意：需要使用插件同步下发功能才能这样直接使用
 
-      this.district.search('中国', function (status, result) {
+      that.district.search('中国', function (status, result) {
         if (status == 'complete') {
           let subList = result.districtList[0].districtList;
           /*
@@ -108,17 +111,17 @@ export default {
         }
       });
 
-      this.map.on('complete', function () {
+      that.map.on('complete', function () {
         that.initPro();
-        // that.map.panBy(0, 600); // 偏移位置
+        // that.map.panBy(0, 700); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro() {
-      let that = this;
-      this.disProvince && this.disProvince.setMap(null);
-      this.disProvince = new AMap.DistrictLayer.Province({
+      const that = this;
+      that.disProvince && that.disProvince.setMap(null);
+      that.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [that.adcode],
         depth: that.depth,
@@ -133,28 +136,28 @@ export default {
         },
       });
 
-      this.disProvince.setMap(this.map);
+      that.disProvince.setMap(that.map);
     },
 
     //添加marker标记
     addMarker() {
-      let that = this;
-      const lonLatData = this.lonLatData;
-      this.map.clearMap();
+      const that = this;
+      const lonLatData = that.lonLatData;
+      that.map.clearMap();
 
-      this.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
+      that.infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(15, -5) });
 
       // 绑定点
       lonLatData.forEach((item, i) => {
         let marker = new AMap.Marker({
-          map: this.map,
+          map: that.map,
           title: item.townName,
           icon: require('../../../assets/images/icon/mark3.png'),
           position: [item.longitude, item.latitude],
         });
         marker.content = item.townName;
         if (i === 0) {
-          marker.on('click', this.markerClick);
+          marker.on('click', that.markerClick);
           marker.emit('click', { target: marker });
         }
 
@@ -165,7 +168,7 @@ export default {
 
       // 地图自适应
       // this.map.setFitView();
-      this.map.setFitView(null, false, [150, 50, 550, 150], 12);
+      this.map.setFitView(null, false, [250, 0, 600, 0], 9);
     },
 
     markerClick(e) {
@@ -173,7 +176,7 @@ export default {
       this.infoWindow.open(this.map, e.target.getPosition());
     },
 
-    // 颜色辅助方法
+    // 颜色辅助
     getColorByAdcode(adcode) {
       if (this.mapColors[adcode]) {
         return this.mapColors[adcode];

@@ -12,13 +12,13 @@
           </el-option>
         </el-select>
       </div>
-      <div class="gp-flex gp-flex-direction-column gp-flex2 gp-mb15">
+      <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-title"><span>农户数据详情</span></div>
         <div class="gp-box height">
           <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
         </div>
       </div>
-      <div class="gp-flex gp-flex-direction-column gp-flex3 gp-mb15">
+      <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-box gp-table">
           <el-table :data="tableData" :height="height">
             <el-table-column prop="nickname" label="昵称" align="center" show-overflow-tooltip width="120">
@@ -44,7 +44,7 @@ import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
 
 export default {
-  name: 'BasicInformation',
+  name: 'FarmersData',
   components: {
     FarmersMaps,
     BaseChart,
@@ -143,12 +143,14 @@ export default {
     };
   },
   mounted() {
-    this.getInfo();
+    setTimeout(() => {
+      this.getMapsInfo();
+    }, 3000);
+    this.getUserTypes();
     this.queryInviteUsersPage(); // 用户数据
   },
   methods: {
-    getInfo() {
-      this.getUserTypes(); // 地图坐标数据
+    getUserTypes() {
       // 农户数据详情
       this.$api
         .postBaseApi('farmland/statUserAndArea')
@@ -248,7 +250,8 @@ export default {
       }
       this.getUserTypes('distribution');
     },
-    getUserTypes() {
+
+    getMapsInfo() {
       this.$api
         .postBaseApi('uc/user/querAllInviteUser', {
           countyCode: this.distribution,
@@ -259,9 +262,7 @@ export default {
           if (res.code === 200) {
             const resData = res.result;
             // this.mapData = resData;
-            setTimeout(() => {
-              this.lonLatData = resData;
-            }, 3000);
+            this.lonLatData = resData;
           }
         })
         .catch(() => {});

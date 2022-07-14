@@ -18,10 +18,10 @@ export default {
       loading: true,
       map: null,
       city: ['320000'], // 江苏省徐州市 '320000', '320300'
-      zoom: 9,
+      zoom: 7.8,
       depth: 2,
       adcode: 320000,
-      center: [117.283752, 32.704224],
+      center: [120.530903, 33.112126],
       options: [],
       markers: [],
       district: '江苏省',
@@ -51,27 +51,27 @@ export default {
     this.initAMap();
     setTimeout(() => {
       this.loading = false;
-    }, 2000);
+    }, 1000);
   },
   methods: {
     initAMap() {
-      let that = this;
+      const that = this;
       this.map = new AMap.Map('container', {
         zoom: that.zoom,
         pitch: 0,
         center: that.center,
       });
 
-      let mapStyle = 'amap://styles/' + this.mapStyle;
-      this.map.setMapStyle(mapStyle); // 设置主题颜色
+      let mapStyle = 'amap://styles/' + that.mapStyle;
+      that.map.setMapStyle(mapStyle); // 设置主题颜色
 
       //行政区划查询
-      this.district = new AMap.DistrictSearch({
+      that.district = new AMap.DistrictSearch({
         subdistrict: 3, // 0：不返回下级行政区 1：返回下一级行政区 2：返回下两级行政区 3：返回下三级行政区
         showbiz: false, //最后一级返回街道信息
       }); //注意：需要使用插件同步下发功能才能这样直接使用
 
-      this.district.search('中国', function (status, result) {
+      that.district.search('中国', function (status, result) {
         if (status == 'complete') {
           let subList = result.districtList[0].districtList;
           /*
@@ -89,17 +89,17 @@ export default {
         }
       });
 
-      this.map.on('complete', function () {
+      that.map.on('complete', function () {
         that.initPro();
-        that.map.panBy(-320, 700); // 偏移位置
+        // that.map.panBy(-320, 700); // 偏移位置
       });
     },
 
     // 创建省份图层
     initPro() {
       const that = this;
-      this.disProvince && this.disProvince.setMap(null);
-      this.disProvince = new AMap.DistrictLayer.Province({
+      that.disProvince && that.disProvince.setMap(null);
+      that.disProvince = new AMap.DistrictLayer.Province({
         zIndex: 12,
         adcode: [that.adcode],
         depth: that.depth,
@@ -114,7 +114,7 @@ export default {
         },
       });
 
-      this.disProvince.setMap(this.map);
+      that.disProvince.setMap(that.map);
     },
 
     // 颜色辅助方法

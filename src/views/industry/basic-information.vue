@@ -570,7 +570,10 @@ export default {
   },
   mounted() {
     this.getInfo();
-    this.getMapsInfo();
+
+    setTimeout(() => {
+      this.getMapsInfo();
+    }, 3000);
   },
   methods: {
     async getInfo(regions, levels) {
@@ -1113,10 +1116,12 @@ export default {
       this.getInfo(this.distribution, 3);
       this.getMapsInfo('distribution');
     },
+
     // 类型change
     getKeyword() {
       this.getMapsInfo('keyword');
     },
+
     // 地图坐标拾取
     getMapsInfo(type) {
       let params = {
@@ -1134,10 +1139,8 @@ export default {
             if (type === 'keyword' || type === 'distribution') {
               this.lonLatData = res.result;
             } else {
-              this.mapData = res.result;
-              setTimeout(() => {
-                this.lonLatData = res.result;
-              }, 3000);
+              // this.mapData = res.result;
+              this.lonLatData = res.result;
             }
           }
         })

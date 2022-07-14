@@ -117,7 +117,7 @@ export default {
             map: 'world',
             aspectScale: 1, //长宽比
             zoom: 2,
-            left: '-35%',
+            left: '-20%',
             tooltip: {
               show: false,
             },
@@ -138,7 +138,7 @@ export default {
           series: [
             {
               type: 'map',
-              left: '-35%',
+              left: '-20%',
               roam: false,
               label: {
                 show: false,
@@ -186,7 +186,7 @@ export default {
               type: 'scatter',
               coordinateSystem: 'geo',
               zlevel: 2,
-              left: '-35%',
+              left: '-20%',
               rippleEffect: {
                 period: 1,
                 brushType: 'stroke',
@@ -232,7 +232,7 @@ export default {
               type: 'effectScatter',
               coordinateSystem: 'geo',
               zlevel: 2,
-              left: '-35%',
+              left: '-20%',
               rippleEffect: {
                 //涟漪特效
                 period: 15, //动画时间，值越小速度越快
@@ -270,7 +270,7 @@ export default {
               type: 'lines',
               coordinateSystem: 'geo',
               zlevel: 2,
-              left: '-35%',
+              left: '-20%',
               large: true,
               effect: {
                 show: true,

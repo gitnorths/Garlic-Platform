@@ -31,7 +31,6 @@ export default {
       this.initAMap();
     },
     lonLatData() {
-      this.loading = false;
       if (this.lonLatData.length != 0) {
         this.addMarker();
       } else {
@@ -46,10 +45,10 @@ export default {
       loading: true,
       map: null,
       city: ['320000'], // 江苏省徐州市 '320000', '320300'
-      zoom: 9,
+      zoom: 7.8,
       depth: 2,
       adcode: 320000,
-      center: [117.283752, 32.704224],
+      center: [119.530903, 33.112126],
       options: [],
       markers: [],
       district: '江苏省',
@@ -78,6 +77,9 @@ export default {
     };
     //调用地图初始化方法
     this.initAMap();
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   },
   methods: {
     initAMap() {
@@ -165,7 +167,8 @@ export default {
         marker.emit('click', { target: marker });
       });
 
-      this.map.panBy(-120, 320); // 偏移位置
+      // this.map.panBy(-120, 320); // 偏移位置
+      this.map.setFitView(null, false, [0, 0, 0, 600], 9.5);
     },
 
     markerClick(e) {

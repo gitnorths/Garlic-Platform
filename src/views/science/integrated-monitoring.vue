@@ -183,12 +183,13 @@ export default {
       ],
     };
   },
-  created() {
-    this.getInfo();
-    // this.getImage();
+  mounted() {
+    setTimeout(() => {
+      this.getMapsInfo();
+    }, 3000);
   },
   methods: {
-    getInfo() {
+    getMapsInfo() {
       // 监控数据
       this.$api
         .postBaseApi(
@@ -200,9 +201,7 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200 && res.result.length > 0) {
-            setTimeout(() => {
-              this.mapData = res.result;
-            }, 3000);
+            this.mapData = res.result;
             // this.getIntegratedData(res.result[0].encoderId);
           }
         })

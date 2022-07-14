@@ -135,7 +135,9 @@ export default {
     };
   },
   mounted() {
-    this.getUserTypes(); // 地图坐标数据
+    setTimeout(() => {
+      this.getMapsInfo();
+    }, 3000);
     this.getUserTypesLeft(); // 收购网点信息
     this.getLatestData();
   },
@@ -147,7 +149,8 @@ export default {
     //   }
     //   this.getUserTypes('distribution');
     // },
-    getUserTypes() {
+    // 地图坐标数据
+    getMapsInfo() {
       this.$api
         .postBaseApi('uc/user/querAllInviteUser', {
           countyCode: this.distribution,
@@ -157,10 +160,8 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             const resData = res.result;
-            this.mapData = resData;
-            setTimeout(() => {
-              this.lonLatData = resData;
-            }, 3000);
+            // this.mapData = resData;
+            this.lonLatData = resData;
           }
         })
         .catch(() => {});
