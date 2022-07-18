@@ -44,7 +44,7 @@
           <div class="gp-center">
             <div class="gp-map">
               <div class="gp-map__information">
-                <JSMap class="jsmap" :cdata="cdata" />
+                <JSMap class="jsmap" :mapData="mapData" />
                 <div class="gp-map__orbits">
                   <div class="pulse">
                     <div class="ring"></div>
@@ -122,7 +122,7 @@ export default {
         // { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
       ],
       numberRightData: [],
-      cdata: [
+      mapData: [
         {
           name: '盐城',
           value: 20,
@@ -148,7 +148,6 @@ export default {
 
     if (sessionStorage.getItem('UserData')) {
       const userData = JSON.parse(sessionStorage.getItem('UserData'));
-      console.log('userData', userData);
       this.username = userData.nickname;
     }
   },
