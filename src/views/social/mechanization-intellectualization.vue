@@ -1,31 +1,31 @@
 <template>
-  <div class="gp-bg gp-mechanization">
+  <div class="gp-bg gp-social">
     <ul class="infinite-list" v-infinite-scroll="load" style="overflow: auto">
-      <el-row :gutter="20">
-        <el-col :span="24">
-          <div class="gp-mechanization__title">
-            <img :src="mechanizationSrc" alt="" />
-            <div class="gp-mechanization__box">
-              <div class="gp-mechanization__box-left">
-                <p>大蒜的全程机械化包括：<span>耕整、播种、植保、收获、加工</span>等环节。</p>
-                <p>
-                  为了便于机械化收获，必须统一耕整地方式，统一行距、株距。改变传统农艺，以适应机械化生产，真正实现农机农艺的融合。
-                </p>
-                <p>耕整地、植保、加工等环节的机械化一般都有通用机械设备，最关键的在于播种和收获。</p>
-              </div>
-              <div class="gp-mechanization__box-right">
-                <div class="btn-video" @click="showVideo(1)"><span>履带自走式大蒜联合收获机</span></div>
-                <div class="btn-video" @click="showVideo(2)"><span> 大蒜正牙播种机 </span></div>
-              </div>
-            </div>
+      <div class="gp-social__header">
+        <div class="gp-social__title">
+          <img :src="s_bg_l" alt="" />
+          <span>大蒜生产全程机械化</span>
+          <img :src="s_bg_r" alt="" />
+        </div>
+        <div class="gp-social__box">
+          <div class="gp-social__box-left">
+            <p>大蒜的全程机械化包括：<span>耕整、播种、植保、收获、加工</span>等环节。</p>
+            <p>
+              为了便于机械化收获，必须统一耕整地方式，统一行距、株距。改变传统农艺，以适应机械化生产，真正实现农机农艺的融合。
+            </p>
+            <p>耕整地、植保、加工等环节的机械化一般都有通用机械设备，最关键的在于播种和收获。</p>
           </div>
-        </el-col>
-        <el-col v-for="(item, i) in lists" :key="i" :span="24">
-          <div class="grid-prevention">
-            <img :src="item.src" alt="" />
+          <div class="gp-social__box-right">
+            <div class="btn-video" @click="showVideo(1)"><span>履带自走式大蒜联合收获机</span></div>
+            <div class="btn-video" @click="showVideo(2)"><span> 大蒜正牙播种机 </span></div>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+      </div>
+      <div class="gp-social__main">
+        <div class="gp-social__prevention" v-for="(item, i) in lists" :key="i">
+          <img :src="item.src" alt="" />
+        </div>
+      </div>
     </ul>
     <Video-player
       v-if="showVideoPlayer"
@@ -82,6 +82,8 @@ export default {
         },
       },
       mechanizationSrc: require('../../assets/images/home/mechanization0.png'),
+      s_bg_l: require('../../assets/images/home/s_bg-l.png'),
+      s_bg_r: require('../../assets/images/home/s_bg-r.png'),
       lists: [
         {
           src: require('../../assets/images/home/mechanization1.png'),
@@ -121,24 +123,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gp-mechanization {
-  background-color: #010825;
-  padding: 100px 15px 45px;
-
-  &__title {
-    background: rgba(#041141, 0.9);
-    border: 1px solid rgba(#0073df, 0.9);
-    border-radius: 4px;
-
-    img {
-      display: block;
-      margin: 0 auto;
-    }
+.gp-social {
+  &__main {
+    padding-top: 70px;
   }
 
   &__box {
     display: flex;
-    padding: 30px 20px 30px 45px;
+    padding: 35px 45px;
 
     p {
       color: #ffffff;
@@ -167,10 +159,10 @@ export default {
         height: 54px;
         margin: 5px 0;
         padding: 0;
-        border: 1px solid;
-        border-image: linear-gradient(0deg, #71acfd, #b3d3ff) 10 10;
+        // border: 1px solid;
+        // border-image: linear-gradient(0deg, #71acfd, #b3d3ff) 10 10;
         background: linear-gradient(0deg, #0854bb 0%, #2c75d9 100%);
-        border-radius: 0;
+        border-radius: 8px;
         cursor: pointer;
 
         &:hover {
@@ -195,20 +187,13 @@ export default {
     }
   }
 
+  &__prevention {
+    text-align: center;
+  }
+
   .infinite-list {
     height: 100%;
     padding-right: 15px;
-
-    img {
-      display: block;
-      margin: 0 auto;
-    }
-
-    .el-row {
-      .el-col {
-        margin-bottom: 20px;
-      }
-    }
   }
 }
 </style>

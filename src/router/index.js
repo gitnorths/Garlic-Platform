@@ -72,7 +72,7 @@ export const scienceRoutes = [
         name: 'IntegratedMonitoring',
         component: () =>
           import(/* webpackChunkName:"integrated-monitoring"*/ '@/views/science/integrated-monitoring.vue'),
-        meta: { title: '蒜田环境综合监控' },
+        meta: { title: '蒜田环境综合监测' },
       },
       {
         path: '/quality-grade',
