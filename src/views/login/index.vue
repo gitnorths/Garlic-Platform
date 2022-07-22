@@ -93,7 +93,7 @@ export default {
       this.$refs.loginFormRef.validate((valid) => {
         if (valid) {
           const { username } = this.ruleForm;
-          //记住账号 13222056811
+          //记住账号 13222056811, 13222011111
           localStorage.setItem('username', username);
           storage.setLocal(['authority'], username);
           if (username !== null) {

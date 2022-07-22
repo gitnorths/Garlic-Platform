@@ -951,7 +951,7 @@ export default {
 
             if (!resData.data) {
               this.mjypzOption.series = [];
-              this.$refs.mjypzChart.refresh(this.czOption);
+              this.$refs.mjypzChart.refresh(this.mjypzOption);
             } else {
               for (var j = 0; j < resData.data.length; j++) {
                 var data = {

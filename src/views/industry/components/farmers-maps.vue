@@ -28,7 +28,7 @@ export default {
   watch: {
     mapData() {
       //调用地图初始化方法
-      this.initAMap();
+      // this.initAMap();
     },
     lonLatData() {
       if (this.lonLatData.length != 0) {

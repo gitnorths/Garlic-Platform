@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import AMap from 'AMap';
 import qs from 'qs';
 import IntegratedMonitoringMaps from './components/integrated-monitoring-maps';
 
@@ -202,7 +203,22 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200 && res.result.length > 0) {
-            this.mapData = res.result;
+            let that = this;
+            let resData = res.result;
+            that.mapData = [];
+
+            resData.forEach((item) => {
+              AMap.convertFrom([item.longitude, item.latitude], 'gps', function (status, result) {
+                if (result.info === 'ok') {
+                  const lnglats = result.locations[0];
+                  that.mapData.push({
+                    ...item,
+                    latitude: lnglats.lat,
+                    longitude: lnglats.lng,
+                  });
+                }
+              });
+            });
             // this.getIntegratedData(res.result[0].encoderId);
           }
         })
@@ -221,7 +237,6 @@ export default {
           })
         )
         .then((res) => {
-          console.log(res);
           if (!res) return;
           if (res.code === 200) {
             // nonidt://title,nodeId,streamMode

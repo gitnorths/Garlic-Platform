@@ -20,7 +20,7 @@ module.exports = {
   },
   devServer: {
     open: true, // 配置是否自动启动浏览器
-    // port: 8080, // 端口号
+    // port: 8088, // 端口号
     https: false, // 是否使用https, https使用node的一个内部默认的ca证书
     proxy: 'https://garlic.chinanoni.com', // 配置跨域处理,只有一个代理
     // proxy: {

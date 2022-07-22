@@ -147,6 +147,7 @@ export default {
               },
             },
           },
+          formatter: '{b} : {c}',
         },
         xAxis: {
           type: 'category',
@@ -191,55 +192,25 @@ export default {
         },
         series: [
           {
-            type: 'line',
-            symbol: 'circle',
-            symbolSize: 10,
-            showAllSymbol: true,
-            lineStyle: {
-              color: '#1AE1E5',
-              shadowColor: 'rgba(0, 0, 0, .3)',
-              shadowBlur: 0,
-              shadowOffsetY: 5,
-              shadowOffsetX: 5,
-            },
-            label: {
-              show: true,
-              position: 'top',
-              color: '#1AE1E5',
-            },
+            type: 'bar',
+            name: '出口量',
             itemStyle: {
-              color: '#1AE1E5',
-              borderColor: '#fff',
-              borderWidth: 3,
-              shadowColor: 'rgba(0, 0, 0, .3)',
-              shadowBlur: 0,
-              shadowOffsetY: 2,
-              shadowOffsetX: 2,
+              show: true,
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgba(26, 225, 229,0.3)',
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(26, 225, 229,0.8)',
+                },
+              ]),
+              borderRadius: [6, 6, 0, 0],
+              borderWidth: 0,
             },
-            tooltip: {
-              show: false,
-            },
-            areaStyle: {
-              color: new this.$echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: 'rgba(26, 225, 229,0.3)',
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgba(26, 225, 229,0)',
-                  },
-                ],
-                false
-              ),
-              shadowColor: 'rgba(26, 225, 229, 0.9)',
-              shadowBlur: 20,
-            },
+            barWidth: '20%',
+            barGap: '100%',
           },
         ],
       },

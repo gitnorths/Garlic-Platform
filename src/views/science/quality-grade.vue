@@ -4,14 +4,14 @@
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title">
-          <span>{{ title }}年耕地质量等级图集</span>
+          <span>{{ title }}</span>
         </div>
         <div class="gp-box">
           <ul class="gp-list" v-infinite-scroll="load" style="overflow: auto">
             <template v-for="items in list">
               <li v-for="(item, index) in items.data" :key="index" class="gp-list__item">
-                <b>{{ item.key }}</b>
-                <p>耕地{{ item.key }}级</p>
+                <b>{{ index + 1 }}</b>
+                <p>{{ item.name }}</p>
                 <span>{{ item.value }} {{ items.unit }}</span>
                 <span>{{ parseFloat((item.value / items.sum) * 100).toFixed(2) }}%</span>
               </li>
@@ -31,17 +31,23 @@
       custom-class="dialog_qg"
       :visible.sync="dialogEchartsVisible"
     >
+      <div class="gp-group">
+        <p>{{ title2 }}</p>
+      </div>
+      <Base-Chart ref="baseCharts" :chart-id="baseId" :option="chartOption" />
     </el-dialog>
   </div>
 </template>
 
 <script>
 import QualityGradeMaps from './components/quality-grade-maps';
+import BaseChart from '@/components/echarts/baseChart';
 import { xuZhou } from '@/enums/cityData';
 
 export default {
   name: 'QualityGrade',
   components: {
+    BaseChart,
     QualityGradeMaps,
   },
   data() {
@@ -50,9 +56,38 @@ export default {
       mapData: [], // 地图数据
       lonLatData: [], // 坐标数据
       title: null,
+      title2: null,
       list: null,
       url: '',
       srcList: [],
+      baseId: 'baseCharts',
+      chartOption: {
+        grid: {
+          top: '45',
+          left: '10',
+          right: '10',
+          bottom: '10',
+          containLabel: true,
+        },
+        legend: {
+          top: '10',
+          itemGap: 10,
+          itemWidth: 12,
+          itemHeight: 12,
+          textStyle: {
+            color: '#FFFFFF',
+          },
+        },
+        tooltip: {
+          trigger: 'item',
+          backgroundColor: 'rgba(50, 123, 222, 0.9)', // 背景
+          borderWidth: 0,
+          textStyle: {
+            color: '#FFFFFF',
+          },
+          formatter: '{b} : {c} ({d}%)',
+        },
+      },
     };
   },
   mounted() {
@@ -92,12 +127,61 @@ export default {
   methods: {
     load() {},
     getName(name) {
+      let that = this;
       for (let index = 0; index < xuZhou.length; index++) {
         const element = xuZhou[index];
         if (name === element[0].name) {
           this.list = element;
-          this.title = element[0].name + '' + element[0].year;
-          // this.dialogEchartsVisible = true;
+          this.title = element[0].name + '' + element[0].year + '年耕地质量等级图集';
+          this.title2 = element[0].year + '年' + element[0].name;
+          this.dialogEchartsVisible = true;
+
+          // let resColors = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
+
+          console.log(
+            element[0].data,
+            element[0].data.map((item) => '耕地' + item.name + '级')
+          );
+
+          // that.chartOption.legend.data = element[0].data.map((item) => item.name);
+          that.chartOption.series = [
+            {
+              name: '耕地质量等级图集',
+              type: 'pie',
+              radius: '50%',
+              center: ['50%', '50%'],
+              label: {
+                fontWeight: 'bold',
+                rich: {
+                  rich_blue: {
+                    color: '#4D88FE',
+                  },
+                  rich_orange: {
+                    color: '#FFBF3C',
+                  },
+                  rich_green: {
+                    color: '#50CCCB',
+                  },
+                },
+                formatter: function (params) {
+                  console.log(params);
+                  return params.name + ' ' + params.value + '亩 ' + `{rich_orange|${params.percent}%}`;
+                },
+              },
+              labelLine: {
+                length: 10,
+                length2: 60,
+              },
+              // color: resColors,
+              // itemStyle: {
+              //   color: function (params) {
+              //     return resColors[params.dataIndex];
+              //   },
+              // },
+              data: element[0].data,
+            },
+          ];
+          that.$refs.baseCharts.refresh(that.chartOption);
         }
       }
 
@@ -143,12 +227,6 @@ export default {
         }
       }
     }
-  }
-
-  :deep(.el-dialog) {
-    height: 640px;
-    background-color: rgba(4, 17, 65, 0.9);
-    border: 1px solid rgba(0, 115, 223, 0.9);
   }
 }
 

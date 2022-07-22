@@ -7,43 +7,43 @@ export const xuZhou = [
       unit: '公顷',
       data: [
         {
-          key: 1,
+          name: '耕地1级',
           value: 316.19,
         },
         {
-          key: 2,
+          name: '耕地2级',
           value: 7692.07,
         },
         {
-          key: 3,
+          name: '耕地3级',
           value: 22050.62,
         },
         {
-          key: 4,
+          name: '耕地4级',
           value: 24649.0,
         },
         {
-          key: 5,
+          name: '耕地5级',
           value: 17629.35,
         },
         {
-          key: 6,
+          name: '耕地6级',
           value: 4927.42,
         },
         {
-          key: 7,
+          name: '耕地7级',
           value: 1536.0,
         },
         {
-          key: 8,
+          name: '耕地8级',
           value: 0.0,
         },
         {
-          key: 9,
+          name: '耕地9级',
           value: 0.0,
         },
         {
-          key: 10,
+          name: '耕地10级',
           value: 0.0,
         },
       ],
@@ -57,43 +57,43 @@ export const xuZhou = [
       unit: '公顷',
       data: [
         {
-          key: 1,
+          name: '耕地1级',
           value: 302.87,
         },
         {
-          key: 2,
+          name: '耕地2级',
           value: 4814.87,
         },
         {
-          key: 3,
+          name: '耕地3级',
           value: 26539.23,
         },
         {
-          key: 4,
+          name: '耕地4级',
           value: 30529.41,
         },
         {
-          key: 5,
+          name: '耕地5级',
           value: 16613.4,
         },
         {
-          key: 6,
+          name: '耕地6级',
           value: 2160.67,
         },
         {
-          key: 7,
+          name: '耕地7级',
           value: 97.95,
         },
         {
-          key: 8,
+          name: '耕地8级',
           value: 0.0,
         },
         {
-          key: 9,
+          name: '耕地9级',
           value: 0.0,
         },
         {
-          key: 10,
+          name: '耕地10级',
           value: 0.0,
         },
       ],
@@ -107,43 +107,43 @@ export const xuZhou = [
       unit: '公顷',
       data: [
         {
-          key: 1,
+          name: '耕地1级',
           value: 2570.29,
         },
         {
-          key: 2,
+          name: '耕地2级',
           value: 2534.85,
         },
         {
-          key: 3,
+          name: '耕地3级',
           value: 3091.6,
         },
         {
-          key: 4,
+          name: '耕地4级',
           value: 6184.25,
         },
         {
-          key: 5,
+          name: '耕地5级',
           value: 7527.77,
         },
         {
-          key: 6,
+          name: '耕地6级',
           value: 5642.73,
         },
         {
-          key: 7,
+          name: '耕地7级',
           value: 3020.53,
         },
         {
-          key: 8,
+          name: '耕地8级',
           value: 1549.2,
         },
         {
-          key: 9,
+          name: '耕地9级',
           value: 452.52,
         },
         {
-          key: 10,
+          name: '耕地10级',
           value: 92.53,
         },
       ],
@@ -157,43 +157,43 @@ export const xuZhou = [
       unit: '公顷',
       data: [
         {
-          key: 1,
+          name: '耕地1级',
           value: 5370.64,
         },
         {
-          key: 2,
+          name: '耕地2级',
           value: 22303.5,
         },
         {
-          key: 3,
+          name: '耕地3级',
           value: 40063.56,
         },
         {
-          key: 4,
+          name: '耕地4级',
           value: 26603.68,
         },
         {
-          key: 5,
+          name: '耕地5级',
           value: 12519.82,
         },
         {
-          key: 6,
+          name: '耕地6级',
           value: 6896.09,
         },
         {
-          key: 7,
+          name: '耕地7级',
           value: 3803.62,
         },
         {
-          key: 8,
+          name: '耕地8级',
           value: 821.84,
         },
         {
-          key: 9,
+          name: '耕地9级',
           value: 174.76,
         },
         {
-          key: 10,
+          name: '耕地10级',
           value: 0.0,
         },
       ],
@@ -207,43 +207,43 @@ export const xuZhou = [
       unit: '公顷',
       data: [
         {
-          key: 1,
+          name: '耕地1级',
           value: 102.32,
         },
         {
-          key: 2,
+          name: '耕地2级',
           value: 5233.18,
         },
         {
-          key: 3,
+          name: '耕地3级',
           value: 33255.82,
         },
         {
-          key: 4,
+          name: '耕地4级',
           value: 24399.27,
         },
         {
-          key: 5,
+          name: '耕地5级',
           value: 11996.78,
         },
         {
-          key: 6,
+          name: '耕地6级',
           value: 8119.39,
         },
         {
-          key: 7,
+          name: '耕地7级',
           value: 8610.24,
         },
         {
-          key: 8,
+          name: '耕地8级',
           value: 4965.79,
         },
         {
-          key: 9,
+          name: '耕地9级',
           value: 1504.19,
         },
         {
-          key: 10,
+          name: '耕地10级',
           value: 0.0,
         },
       ],

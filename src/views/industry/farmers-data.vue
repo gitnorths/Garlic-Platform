@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import AMap from 'AMap';
 // import qs from 'qs';
 import FarmersMaps from './components/farmers-maps';
 import BaseChart from '@/components/echarts/baseChart';
@@ -260,9 +261,25 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
-            const resData = res.result;
             // this.mapData = resData;
-            this.lonLatData = resData;
+            // this.lonLatData = resData;
+
+            let that = this;
+            let resData = res.result;
+            that.lonLatData = [];
+
+            resData.forEach((item) => {
+              AMap.convertFrom([item.longitude, item.latitude], 'gps', function (status, result) {
+                if (result.info === 'ok') {
+                  const lnglats = result.locations[0];
+                  that.lonLatData.push({
+                    ...item,
+                    latitude: lnglats.lat,
+                    longitude: lnglats.lng,
+                  });
+                }
+              });
+            });
           }
         })
         .catch(() => {});

@@ -4,8 +4,8 @@
       "time": "2020",
       "data": [
         {
-          "latitude": "34.697232",
-          "longitude": "116.658111",
+          "latitude": "34.30153",
+          "longitude": "116.38074",
           "code": "JSF248",
           "city": "徐州市",
           "county": "丰县",
@@ -38,8 +38,8 @@
           "zinc": "0"
         },
         {
-          "latitude": "34.897232",
-          "longitude": "116.658111",
+          "latitude": "34.37532",
+          "longitude": "116.39549",
           "code": "JSF249",
           "city": "徐州市",
           "county": "丰县",
@@ -72,8 +72,8 @@
           "zinc": "0"
         },
         {
-          "latitude": "34.897232",
-          "longitude": "116.458111",
+          "latitude": "34.46182",
+          "longitude": "116.35294",
           "code": "JSW250",
           "city": "徐州市",
           "county": "丰县",
@@ -106,8 +106,8 @@
           "zinc": "0"
         },
         {
-          "latitude": "34.697232",
-          "longitude": "116.458111",
+          "latitude": "34.39135",
+          "longitude": "116.41285",
           "code": "JSW251",
           "city": "徐州市",
           "county": "丰县",
@@ -140,8 +140,8 @@
           "zinc": "0"
         },
         {
-          "latitude": "34.797232",
-          "longitude": "116.558111",
+          "latitude": "34.36403",
+          "longitude": "116.43148",
           "code": "JSE252",
           "city": "徐州市",
           "county": "丰县",
@@ -174,8 +174,8 @@
           "zinc": "0"
         },
         {
-          "latitude": "34.760761",
-          "longitude": "116.936353",
+          "latitude": "34.3048",
+          "longitude": "116.5654",
           "code": "JSE253",
           "city": "徐州市",
           "county": "沛县",
@@ -208,8 +208,8 @@
           "zinc": "7"
         },
         {
-          "latitude": "34.660761",
-          "longitude": "116.836353",
+          "latitude": "34.4212",
+          "longitude": "116.5605",
           "code": "JSV254",
           "city": "徐州市",
           "county": "沛县",
@@ -242,8 +242,8 @@
           "zinc": "2"
         },
         {
-          "latitude": "34.760761",
-          "longitude": "116.836353",
+          "latitude": "34.3048",
+          "longitude": "116.5654",
           "code": "JSW255",
           "city": "徐州市",
           "county": "沛县",
@@ -276,7 +276,7 @@
           "zinc": "2"
         },
         {
-          "latitude": "34.5024",
+          "latitude": "34.4024",
           "longitude": "117.0124",
           "code": "JSW256",
           "city": "徐州市",
@@ -310,7 +310,7 @@
           "zinc": "2"
         },
         {
-          "latitude": "34.32517",
+          "latitude": "34.22517",
           "longitude": "117.08313",
           "code": "JSE257",
           "city": "徐州市",
@@ -344,7 +344,7 @@
           "zinc": "58"
         },
         {
-          "latitude": "34.3461",
+          "latitude": "34.2461",
           "longitude": "117.0151",
           "code": "JSf258",
           "city": "徐州市",
@@ -378,8 +378,8 @@
           "zinc": "79"
         },
         {
-          "latitude": "34.40128",
-          "longitude": "116.94472",
+          "latitude": "34.30128",
+          "longitude": "117.04472",
           "code": "JSf259",
           "city": "徐州市",
           "county": "铜山区",
@@ -412,8 +412,8 @@
           "zinc": "71"
         },
         {
-          "latitude": "34.181162",
-          "longitude": "117.169698",
+          "latitude": "34.0635",
+          "longitude": "117.1536",
           "code": "JSV260",
           "city": "徐州市",
           "county": "铜山区",
@@ -446,8 +446,8 @@
           "zinc": "65"
         },
         {
-          "latitude": "34.2331",
-          "longitude": "117.0247",
+          "latitude": "34.2131",
+          "longitude": "117.1247",
           "code": "JSw262",
           "city": "徐州市",
           "county": "铜山区",

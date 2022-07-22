@@ -151,20 +151,25 @@ export default {
 
       // 绑定点
       lonLatData.forEach((item, i) => {
-        let marker = new AMap.Marker({
-          map: this.map,
-          title: item.name,
-          icon: require('../../../assets/images/icon/mark3.png'),
-          position: item.position,
-        });
-        marker.content = item.name;
-        if (i === 0) {
-          marker.on('click', this.markerClick);
-          marker.emit('click', { target: marker });
-        }
+        AMap.convertFrom(item.position, 'gps', function (status, result) {
+          if (result.info === 'ok') {
+            const lnglats = result.locations[0];
+            let marker = new AMap.Marker({
+              map: that.map,
+              title: item.name,
+              icon: require('../../../assets/images/icon/mark3.png'),
+              position: [lnglats.lng, lnglats.lat],
+            });
+            marker.content = item.name;
+            if (i === 0) {
+              marker.on('click', that.markerClick);
+              marker.emit('click', { target: marker });
+            }
 
-        marker.on('click', function (e) {
-          that.markerClick(e);
+            marker.on('click', function (e) {
+              that.markerClick(e);
+            });
+          }
         });
       });
 
