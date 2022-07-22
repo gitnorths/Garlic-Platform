@@ -985,7 +985,7 @@ export default {
                     if (name == resData.data[i].name) {
                       return `${name} ${((parseInt(resData.data[i].value) / sum) * 100).toFixed(
                         2
-                      )}% \n {value|面积：} {value|${resData.data[i].value} } {value|k㎡}`;
+                      )}% \n {value|面积：} {value|${resData.data[i].value} } {value|亩}`;
                     }
                   }
                 },

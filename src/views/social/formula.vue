@@ -17,22 +17,19 @@
         </div> -->
         <div class="gp-box">
           <div class="gp-formula-title">
-            <span>推荐配方 [大蒜-水稻轮作]</span>
+            <span>推荐配方 [大蒜-水稻轮作推荐施肥方案]</span>
           </div>
           <el-descriptions title="配方一" :column="1" border>
-            <el-descriptions-item v-for="(item, index) in flList_lz" :key="index" :label="item.time_fei_name">
-              {{ item.type_fei_name }} {{ item.volumn }} 公斤 + 氮 {{ item.n }} (mg/t) + 磷 {{ item.p }} (mg/t) + 钾
-              {{ item.k }} (mg/t)
-            </el-descriptions-item>
+            <el-descriptions-item label="基肥">42%（12-12-18）配方肥（硫酸钾）70-80公斤/亩 </el-descriptions-item>
+            <el-descriptions-item label="返青肥">46%尿素7-9公斤/亩</el-descriptions-item>
+            <el-descriptions-item label="膨大肥">46%尿素12-14公斤/亩</el-descriptions-item>
           </el-descriptions>
           <div class="gp-formula-title">
-            <span>推荐配方 [大蒜-玉米套作]</span>
+            <span>推荐配方 [大蒜-玉米套作推荐施肥方案]</span>
           </div>
           <el-descriptions title="配方一" :column="1" border>
-            <el-descriptions-item v-for="(item, index) in flList_tz" :key="index" :label="item.time_fei_name">
-              {{ item.type_fei_name }} {{ item.volumn }} 公斤 + 氮 {{ item.n }} (mg/t) + 磷 {{ item.p }} (mg/t) + 钾
-              {{ item.k }} (mg/t)
-            </el-descriptions-item>
+            <el-descriptions-item label="基肥">48%（20-12-16）配方肥（硫酸钾）80公斤/亩</el-descriptions-item>
+            <el-descriptions-item label="返青肥">50%（25-5-20）配方肥（硫酸钾）40公斤/亩</el-descriptions-item>
           </el-descriptions>
         </div>
       </div>
@@ -167,7 +164,7 @@ export default {
 
       .el-descriptions {
         border: 1px solid #004191;
-        margin-bottom: 14px;
+        margin-bottom: 30px;
 
         &__header {
           height: 50px;

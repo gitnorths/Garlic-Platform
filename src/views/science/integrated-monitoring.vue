@@ -54,10 +54,11 @@
           <p>{{ title }}</p>
         </div>
         <div class="gp-box">
-          <div class="gp-box__video">
+          <el-empty v-if="sensorsData.length === 0" :image-size="200"></el-empty>
+          <div v-if="sensorsData.length != 0" class="gp-box__video">
             <a :href="nonidtHref">{{ nonidtName }}</a>
           </div>
-          <ul class="gp-box__ul">
+          <ul v-if="sensorsData.length != 0" class="gp-box__ul">
             <li v-for="(item, index) in sensorsData" :key="index">
               <img :src="item.src" alt="" />
               <p>
@@ -220,6 +221,7 @@ export default {
           })
         )
         .then((res) => {
+          console.log(res);
           if (!res) return;
           if (res.code === 200) {
             // nonidt://title,nodeId,streamMode
@@ -237,7 +239,7 @@ export default {
               });
               this.sensorsData = resList.Sensors;
             } else {
-              this.sensorsData = this.integratedData;
+              this.sensorsData = [];
             }
           }
         })
@@ -371,6 +373,8 @@ export default {
     .gp-box {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 18px;
 
       &__video {

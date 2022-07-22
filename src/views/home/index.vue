@@ -117,10 +117,7 @@ export default {
       endVal: 0,
       suspend: [],
       username: '',
-      numberLeftData: [
-        // { name: '产量', unit: '吨', cName: 'color1', sVal: 0, eVal: toNumber(12560.2) },
-        // { name: '产值', unit: '吨', cName: 'color2', sVal: 0, eVal: toNumber(12560.2) },
-      ],
+      numberLeftData: [],
       numberRightData: [],
       mapData: [
         {
@@ -201,7 +198,7 @@ export default {
             for (let i = 0; i < resData.area.length; i++) {
               this.numberRightData.push({
                 name: `${resData.area[i].name}种植面积`,
-                unit: 'km²',
+                unit: '亩',
                 cName: `color${i + 3}`,
                 sVal: 0,
                 eVal: resData.area[i].value,

@@ -12,10 +12,10 @@ import AMap from 'AMap';
 export default {
   name: 'QualityGradeMaps',
   props: {
-    mapData: {
-      type: Array,
-      required: true,
-    },
+    // mapData: {
+    //   type: Array,
+    //   required: true,
+    // },
     mapColor: {
       type: Object,
       require: true,

@@ -133,6 +133,7 @@ export default {
 
     //添加marker标记
     addMarker() {
+      const that = this;
       const lonLatData = this.mapData;
       this.map.clearMap();
 
@@ -154,7 +155,7 @@ export default {
         }
 
         marker.on('click', function (e) {
-          this.markerClick(e);
+          that.markerClick(e);
         });
       });
 
