@@ -128,6 +128,15 @@ export default {
     load() {},
     getName(name) {
       let that = this;
+
+      for (let i = 0; i < this.lonLatData.length; i++) {
+        const element = this.lonLatData[i];
+        if (name === element.name) {
+          this.url = element.src;
+          this.srcList = [element.src];
+        }
+      }
+
       for (let index = 0; index < xuZhou.length; index++) {
         const element = xuZhou[index];
         if (name === element[0].name) {
@@ -137,11 +146,6 @@ export default {
           this.dialogEchartsVisible = true;
 
           // let resColors = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
-
-          console.log(
-            element[0].data,
-            element[0].data.map((item) => '耕地' + item.name + '级')
-          );
 
           // that.chartOption.legend.data = element[0].data.map((item) => item.name);
           that.chartOption.series = [
@@ -164,7 +168,6 @@ export default {
                   },
                 },
                 formatter: function (params) {
-                  console.log(params);
                   return params.name + ' ' + params.value + '亩 ' + `{rich_orange|${params.percent}%}`;
                 },
               },
@@ -182,14 +185,6 @@ export default {
             },
           ];
           that.$refs.baseCharts.refresh(that.chartOption);
-        }
-      }
-
-      for (let i = 0; i < this.lonLatData.length; i++) {
-        const element = this.lonLatData[i];
-        if (name === element.name) {
-          this.url = element.src;
-          this.srcList = [element.src];
         }
       }
     },
