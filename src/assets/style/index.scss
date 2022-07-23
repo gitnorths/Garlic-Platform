@@ -79,6 +79,14 @@ input::placeholder {
   padding: 20px;
 }
 
+.pdLR25 {
+  padding: 0 25px;
+}
+
+.pdTB25 {
+  padding: 25px 0;
+}
+
 .gp-flex {
   display: flex;
 }
@@ -433,7 +441,7 @@ input::placeholder {
 
       span {
         font-weight: bold;
-        text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
+        // text-shadow: 0px 12px 4px rgba(13, 49, 105, 0.65);
         background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1169,6 +1177,14 @@ input::placeholder {
       }
     }
   }
+}
+
+.gp-tips {
+  position: absolute;
+  left: 20px;
+  bottom: 45px;
+  color: #73AFFF;
+  font-size: 16px;
 }
 
 .dialog_qg {

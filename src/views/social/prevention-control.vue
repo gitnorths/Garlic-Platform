@@ -102,14 +102,14 @@ export default {
     return {
       s_bg_l: require('../../assets/images/home/s_bg-l.png'),
       s_bg_r: require('../../assets/images/home/s_bg-r.png'),
-      img1: [require('../../assets/images/social/1-1.png'), require('../../assets/images/social/1-2.png')],
-      img2: [require('../../assets/images/social/2-1.png'), require('../../assets/images/social/2-2.png')],
+      img1: [require('../../assets/images/social/pc/1-1.png'), require('../../assets/images/social/pc/1-2.png')],
+      img2: [require('../../assets/images/social/pc/2-1.png'), require('../../assets/images/social/pc/2-2.png')],
       img3: [
-        require('../../assets/images/social/3-1.png'),
-        require('../../assets/images/social/3-2.png'),
-        require('../../assets/images/social/3-3.png'),
+        require('../../assets/images/social/pc/3-1.png'),
+        require('../../assets/images/social/pc/3-2.png'),
+        require('../../assets/images/social/pc/3-3.png'),
       ],
-      img4: [require('../../assets/images/social/4-1.png')],
+      img4: [require('../../assets/images/social/pc/4-1.png')],
     };
   },
   mounted() {},
@@ -126,6 +126,12 @@ export default {
       line-height: 30px;
       font-size: 18px;
       color: #ffffff;
+    }
+  }
+
+  ._img {
+    img {
+      border: 2px solid #008dcf;
     }
   }
 

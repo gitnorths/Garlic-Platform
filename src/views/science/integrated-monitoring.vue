@@ -54,7 +54,7 @@
           <p>{{ title }}</p>
         </div>
         <div class="gp-box">
-          <el-empty v-if="sensorsData.length === 0" :image-size="200"></el-empty>
+          <el-empty v-if="sensorsData.length === 0" :image-size="50"></el-empty>
           <div v-if="sensorsData.length != 0" class="gp-box__video">
             <a :href="nonidtHref">{{ nonidtName }}</a>
           </div>

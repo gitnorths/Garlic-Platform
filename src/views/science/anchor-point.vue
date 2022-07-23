@@ -40,6 +40,7 @@
         </div>
       </div>
     </div>
+    <div class="gp-tips">数据提供单位：江苏省耕地质量与农业环境保护站</div>
   </div>
 </template>
 
