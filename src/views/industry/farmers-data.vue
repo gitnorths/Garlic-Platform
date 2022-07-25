@@ -7,7 +7,7 @@
           <el-option v-for="item in distributionOptions" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
-        <el-select v-model="userTypes" @change="getUserTypes">
+        <el-select v-model="userTypes" @change="getMapsInfo">
           <el-option v-for="item in userTypesOptions" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -147,7 +147,7 @@ export default {
     setTimeout(() => {
       this.getMapsInfo();
     }, 3000);
-    this.getUserTypes();
+    this.getUserTypes(); // 农户数据详情
     this.queryInviteUsersPage(); // 用户数据
   },
   methods: {
@@ -249,7 +249,7 @@ export default {
       if (val === '320000') {
         this.distribution = null;
       }
-      this.getUserTypes('distribution');
+      this.getMapsInfo();
     },
 
     getMapsInfo() {
@@ -286,6 +286,7 @@ export default {
     },
     // 用户数据
     queryInviteUsersPage() {
+      this.tableData = [];
       this.$api
         .postBaseApi('uc/user/queryInviteUsersPage', {
           farmerUserType: -100,

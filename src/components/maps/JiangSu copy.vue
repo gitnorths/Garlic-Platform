@@ -45,7 +45,6 @@ export default {
   methods: {
     initMap() {
       const seriesData = this.mapData;
-      let that = this;
       // 设置点的位置(经纬度)
       let geoCoordMap = {
         南京: [118.767413, 32.041544],
@@ -63,18 +62,55 @@ export default {
         宿迁: [118.575162, 33.963008],
       };
 
-      let convertData = function (data) {
-        let res = [];
-        for (let i = 0; i < data.length; i++) {
-          let geoCoord = geoCoordMap[data[i].name];
-          if (geoCoord) {
-            res.push({
-              name: data[i].name,
-              value: geoCoord.concat(data[i].value),
-            });
+      // 动态计算柱形图的高度（定一个max）
+      let lineMaxHeight = function () {
+        const maxValue = Math.max(...seriesData.map((item) => item.value));
+        return 0.9 / maxValue;
+      };
+
+      // 柱状体的主干
+      let lineData = function () {
+        return seriesData.map((item) => {
+          return {
+            coords: [
+              geoCoordMap[item.name],
+              [geoCoordMap[item.name][0], geoCoordMap[item.name][1] + item.value * lineMaxHeight()],
+            ],
+          };
+        });
+      };
+
+      // 柱状体的顶部
+      let scatterData = function () {
+        return seriesData.map((item) => {
+          if (item.value > 0) {
+            return [
+              geoCoordMap[item.name][0],
+              geoCoordMap[item.name][1] + item.value * lineMaxHeight(),
+              item.name,
+              item.value,
+            ];
+          } else {
+            return {};
           }
-        }
-        return res;
+        });
+      };
+
+      // 柱状体的底部
+      let scatterData2 = function () {
+        return seriesData.map((item) => {
+          if (item.value > 0) {
+            return {
+              name: item.name,
+              value: geoCoordMap[item.name],
+            };
+          } else {
+            return {
+              name: '',
+              value: '',
+            };
+          }
+        });
       };
 
       this.options = {
@@ -102,7 +138,7 @@ export default {
             silent: true,
             z: 1,
             layoutSize: '100%',
-            layoutCenter: ['50%', '50%'],
+            layoutCenter: ['52%', '50%'],
             label: {
               show: false,
             },
@@ -126,7 +162,7 @@ export default {
             z: 2,
             silent: false,
             layoutSize: '100%',
-            layoutCenter: ['50%', '50%'],
+            layoutCenter: ['52%', '50%'],
             aspectScale: 0.9,
             label: {
               show: false,
@@ -182,6 +218,142 @@ export default {
             },
             data: seriesData,
           },
+          // 柱状体的主干
+          {
+            type: 'lines',
+            zlevel: 5,
+            effect: {
+              show: false,
+              // period: 4, //箭头指向速度，值越小速度越快
+              // trailLength: 0.02, //特效尾迹长度[0,1]值越大，尾迹越长重
+              // symbol: 'arrow', //箭头图标
+              // symbol: imgDatUrl,
+              symbolSize: 5, // 图标大小
+            },
+            lineStyle: {
+              width: 25, // 尾迹线条宽度
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 0,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgb(199,145,41)',
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgb(199,145,41)',
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgb(223,176,32)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(223,176,32)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(199,145,41)',
+                  },
+                ],
+                global: false, // 缺省为 false
+              },
+              opacity: 1, // 尾迹线条透明度
+              curveness: 0, // 尾迹线条曲直度
+            },
+            label: {
+              show: false,
+              position: 'end',
+              formatter: '245',
+            },
+            silent: true,
+            data: lineData(),
+          },
+          // 柱状体上
+          {
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            geoIndex: 0,
+            zlevel: 5,
+            label: {
+              show: true,
+              position: 'top',
+              offset: [0, -10],
+              // padding: [6, 10],
+              // backgroundColor: '#10346B',
+              // borderColor: '#60B6FF',
+              // borderWidth: 1,
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: '#20fbff',
+              formatter(params) {
+                if (params.data[3] > 0) {
+                  return params.data[2];
+                } else {
+                  return '';
+                }
+              },
+            },
+            symbol: 'diamond',
+            symbolSize: [25, 10],
+            itemStyle: {
+              color: '#ffd133',
+              opacity: 1,
+            },
+            silent: true,
+            data: scatterData(),
+          },
+          // 柱状体下
+          {
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            geoIndex: 0,
+            zlevel: 5,
+            label: {
+              show: false,
+            },
+            symbol: 'diamond',
+            symbolSize: [25, 10],
+            itemStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 0,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'rgb(199,145,41)',
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgb(199,145,41)',
+                  },
+                  {
+                    offset: 0.5,
+                    color: 'rgb(223,176,32)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(223,176,32)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(199,145,41)',
+                  },
+                ],
+                global: false, // 缺省为 false
+              },
+              opacity: 1,
+            },
+            silent: true,
+            data: scatterData2(),
+          },
           // 底部外框
           {
             type: 'effectScatter',
@@ -192,9 +364,7 @@ export default {
               show: false,
             },
             symbol: 'circle',
-            symbolSize: function (val) {
-              return val[2];
-            },
+            symbolSize: [35, 15],
             itemStyle: {
               color: {
                 type: 'radial',
@@ -224,13 +394,7 @@ export default {
               opacity: 1,
             },
             silent: true,
-            data: convertData(
-              that.mapData
-                .sort(function (a, b) {
-                  return b.value - a.value;
-                })
-                .slice(0, 10)
-            ),
+            data: scatterData2(),
           },
         ],
       };

@@ -70,6 +70,7 @@ export default {
       mapData: [], // 地图数据
       lonLatData: [], // 坐标数据
       mapColor: {},
+      timing: null,
       keyword: '', // 类型
       distributionOptions: [
         {
@@ -570,10 +571,16 @@ export default {
   },
   mounted() {
     this.getInfo();
+    this.timing = setInterval(() => {
+      this.getInfo();
+    }, 8000);
 
     setTimeout(() => {
       this.getMapsInfo();
     }, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timing);
   },
   methods: {
     async getInfo(regions, levels) {
@@ -707,11 +714,12 @@ export default {
           if (res.code === 200) {
             let resData = res.result;
             let resArr = [];
+            this.czOption.legend.data = [];
+            this.czOption.xAxis.data = [];
+            this.czOption.series = [];
+            this.$refs.czChart.refresh(this.czOption);
             // 产值信息
-            if (!resData.data) {
-              this.czOption.series = [];
-              this.$refs.czChart.refresh(this.czOption);
-            } else {
+            if (resData.data) {
               this.czOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
               this.czOption.legend.data = resData.legend;
               this.czOption.xAxis.data = resData.category;
@@ -760,11 +768,12 @@ export default {
           if (res.code === 200) {
             let resData = res.result;
             let resArr = [];
+            this.dshqOption.legend.data = [];
+            this.dshqOption.xAxis.data = [];
+            this.dshqOption.series = [];
+            this.$refs.dshqChart.refresh(this.dshqOption);
             // 大蒜价格行情
-            if (!resData.data) {
-              this.dshqOption.series = [];
-              this.$refs.dshqChart.refresh(this.czOption);
-            } else {
+            if (resData.data) {
               this.dshqOption.legend.data = resData.legend;
               this.dshqOption.xAxis.data = resData.category;
 
@@ -812,11 +821,12 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             let resData = res.result;
+            this.sgyjgOption.series = [];
+            this.sgyjgOption.legend.data = [];
+            this.sgyjgOption.xAxis.data = [];
+            this.$refs.sgyjgChart.refresh(this.sgyjgOption);
 
-            if (!resData.data) {
-              this.sgyjgOption.series = [];
-              this.$refs.sgyjgChart.refresh(this.czOption);
-            } else {
+            if (resData.data) {
               this.sgyjgOption.legend.data = resData.category;
               this.sgyjgOption.xAxis.data = resData.category;
               this.sgyjgOption.series = [
@@ -893,11 +903,12 @@ export default {
               ['#00FFCF', '#00DDB3'],
             ];
             let resArr = [];
+            this.clxxOption.legend.data = [];
+            this.clxxOption.xAxis.data = [];
+            this.clxxOption.series = [];
+            this.$refs.clxxChart.refresh(this.clxxOption);
 
-            if (!resData.data) {
-              this.clxxOption.series = [];
-              this.$refs.clxxChart.refresh(this.czOption);
-            } else {
+            if (resData.data) {
               this.clxxOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
               this.clxxOption.legend.data = resData.legend;
               this.clxxOption.xAxis.data = resData.category;
@@ -948,11 +959,10 @@ export default {
             // 面积与品种
             let resColors = ['#4D81E7', '#00FFCF', '#1AE1E5', '#FFB95B', '#FF7160'];
             let legendData = [];
+            this.mjypzOption.series = [];
+            this.$refs.mjypzChart.refresh(this.mjypzOption);
 
-            if (!resData.data) {
-              this.mjypzOption.series = [];
-              this.$refs.mjypzChart.refresh(this.mjypzOption);
-            } else {
+            if (resData.data) {
               for (var j = 0; j < resData.data.length; j++) {
                 var data = {
                   name: resData.data[j].name,
@@ -1045,12 +1055,13 @@ export default {
           if (!res) return;
           if (res.code === 200) {
             let resData = res.result;
+            this.shhfwzzOption.legend.data = [];
+            this.shhfwzzOption.xAxis.data = [];
+            this.shhfwzzOption.series = [];
+            this.$refs.shhfwzzChart.refresh(this.shhfwzzOption);
 
             // 社会化服务组织
-            if (!resData.data) {
-              this.shhfwzzOption.series = [];
-              this.$refs.shhfwzzChart.refresh(this.shhfwzzOption);
-            } else {
+            if (resData.data) {
               this.shhfwzzOption.legend.data = resData.category;
               this.shhfwzzOption.xAxis.data = resData.category;
               this.shhfwzzOption.series = [

@@ -41,7 +41,7 @@ export const industryRoutes = [
         path: '/farmers-data',
         name: 'FarmersData',
         component: () => import(/* webpackChunkName:"farmers-data"*/ '@/views/industry/farmers-data.vue'),
-        meta: { title: '农户数据' },
+        meta: { title: '用户数据' },
       },
       {
         path: '/garlic-exports',

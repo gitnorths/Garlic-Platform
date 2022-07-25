@@ -25,8 +25,8 @@
                   :size="30"
                   src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                 ></el-avatar>
-
-                <b>{{ nickname }}</b> <i class="el-icon-caret-bottom el-icon--right"></i>
+                <!-- {{ nickname }} -->
+                <b>江苏省农业技术推广总站</b> <i class="el-icon-caret-bottom el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="clearfix"> <span @click="layout">退出</span> </el-dropdown-item>

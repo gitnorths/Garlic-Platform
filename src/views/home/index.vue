@@ -122,20 +122,27 @@ export default {
       mapData: [
         {
           name: '盐城',
-          value: 20,
+          value: 25,
         },
         {
           name: '徐州',
-          value: 10,
+          value: 40,
         },
       ],
     };
   },
   mounted() {
     this.getInfo();
+    this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
+
     this.timeId = setInterval(() => {
       this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
     }, 1000);
+    this.timing = setInterval(() => {
+      this.numberLeftData = [];
+      this.numberRightData = [];
+      this.getInfo();
+    }, 8000);
     this.cancelLoading();
     this.suspend = [
       { name: '社会化服务', className: '__shhfw', path: '/procurement' },
@@ -149,6 +156,7 @@ export default {
     }
   },
   beforeDestroy() {
+    clearInterval(this.timeId);
     clearInterval(this.timing);
   },
   methods: {
