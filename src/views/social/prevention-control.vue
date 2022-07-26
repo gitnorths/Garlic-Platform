@@ -124,8 +124,9 @@ export default {
   &__box {
     p {
       line-height: 30px;
-      font-size: 18px;
       color: #ffffff;
+      font-size: 18px;
+      font-family: 'PangMenZhengDao';
     }
   }
 

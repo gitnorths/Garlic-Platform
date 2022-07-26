@@ -18,8 +18,8 @@
               消息
             </el-link> -->
             <el-link :underline="false">
-              <el-avatar :size="42" :src="user"></el-avatar>
-              {{ username }}
+              <el-avatar :size="32" :src="user"></el-avatar>
+              江苏省农业技术推广总站<!-- {{ username }} -->
             </el-link>
           </div>
         </div>
@@ -105,17 +105,21 @@ export default {
   data() {
     return {
       toDay: null,
-      timeId: null,
-      timing: null,
+      timeDate: null,
+      timeData: null,
       loading: true,
       setting: require('../../assets/images/icon/setting.png'),
       message: require('../../assets/images/icon/message.png'),
       user: require('../../assets/images/icon/user.png'),
       decimals: 1,
-      duration: 1500,
+      duration: 1000,
       startVal: 0,
       endVal: 0,
-      suspend: [],
+      suspend: [
+        { name: '社会化服务', className: '__shhfw', path: '/procurement' },
+        { name: '产业信息', className: '__cyxx', path: '/basic-information' },
+        { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
+      ],
       username: '',
       numberLeftData: [],
       numberRightData: [],
@@ -132,23 +136,20 @@ export default {
     };
   },
   mounted() {
-    this.getInfo();
-    this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
-
-    this.timeId = setInterval(() => {
-      this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
+    setTimeout(() => {
+      this.loading = false;
     }, 1000);
-    this.timing = setInterval(() => {
+
+    this.getInfo();
+    this.dateTime();
+
+    this.timeDate = setInterval(this.dateTime, 1000);
+
+    this.timeData = setInterval(() => {
       this.numberLeftData = [];
       this.numberRightData = [];
       this.getInfo();
-    }, 8000);
-    this.cancelLoading();
-    this.suspend = [
-      { name: '社会化服务', className: '__shhfw', path: '/procurement' },
-      { name: '产业信息', className: '__cyxx', path: '/basic-information' },
-      { name: '科学监测', className: '__kxjc', path: '/anchor-point' },
-    ];
+    }, 10000);
 
     if (sessionStorage.getItem('UserData')) {
       const userData = JSON.parse(sessionStorage.getItem('UserData'));
@@ -156,10 +157,13 @@ export default {
     }
   },
   beforeDestroy() {
-    clearInterval(this.timeId);
-    clearInterval(this.timing);
+    clearInterval(this.timeDate);
+    clearInterval(this.timeData);
   },
   methods: {
+    dateTime() {
+      this.toDay = this.$dayjs().format('YYYY年MM月DD日 HH:mm:ss') + '  ' + this.dayWeeklMap[this.$dayjs().day()];
+    },
     async getInfo() {
       // 左侧数据
       this.$api
@@ -216,11 +220,6 @@ export default {
         })
         .catch(() => {});
     },
-    cancelLoading() {
-      setTimeout(() => {
-        this.loading = false;
-      }, 500);
-    },
   },
 };
 </script>
@@ -268,12 +267,12 @@ export default {
       justify-content: space-between;
       height: 100%;
     }
-
     span {
-      font-size: 16px;
       color: #e2effe;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'PangMenZhengDao';
     }
-
     .right {
       .el-link {
         margin-left: 40px;
@@ -343,7 +342,7 @@ export default {
 
             span {
               font-size: 40px;
-              font-family: 'DIN-BoldItalic';
+              font-family: 'PangMenZhengDao';
               font-style: italic;
               font-weight: bold;
 
@@ -365,9 +364,11 @@ export default {
             }
 
             p {
-              font-size: 18px;
-              font-family: 'PingFang-SC-Medium';
+              line-height: 32px;
               color: #ffffff;
+              font-size: 18px;
+              font-weight: 600;
+              font-family: 'PingFang-SC-Medium';
             }
           }
         }
@@ -378,6 +379,7 @@ export default {
 
         &.right {
           right: 155px;
+          text-align: right;
         }
       }
     }

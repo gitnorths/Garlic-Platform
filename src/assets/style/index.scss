@@ -222,7 +222,8 @@ input::placeholder {
   position: absolute;
   width: 440px;
   top: 95px;
-  bottom: 45px;
+  bottom: 0;
+  padding-bottom: 30px;
 }
 
 .gp-left {
@@ -265,7 +266,7 @@ input::placeholder {
     font-family: PingFang SC;
     font-weight: bold;
     color: #ffffff;
-    text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
+    // text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
 
     background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
     -webkit-background-clip: text;
@@ -332,10 +333,11 @@ input::placeholder {
     background-image: url("@/assets/images/home/title2.png");
 
     span {
+      padding-left: 35px;
+      color: #ffffff;
       font-size: 18px;
       font-weight: bold;
-      color: #ffffff;
-      padding-left: 35px;
+      font-family: "PangMenZhengDao";
     }
   }
 
@@ -343,9 +345,10 @@ input::placeholder {
     padding: 15px;
 
     p {
-      font-size: 14px;
-      color: #ffffff;
       margin-bottom: 10px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: "PangMenZhengDao";
     }
   }
 
@@ -518,18 +521,25 @@ input::placeholder {
       font-size: 16px;
       font-weight: bold;
       font-style: italic;
+      font-family: "PangMenZhengDao";
     }
 
     p {
       flex: 1;
       color: #ffffff;
       font-size: 16px;
+      font-family: "PangMenZhengDao";
     }
 
     span {
       padding: 0 15px;
       color: #73afff;
       font-size: 16px;
+      font-family: "PangMenZhengDao";
+    }
+
+    font {
+      font-family: "PangMenZhengDao";
     }
   }
 }
@@ -560,6 +570,7 @@ input::placeholder {
     color: #ffffff;
     font-size: 20px;
     font-weight: bold;
+    font-family: "PangMenZhengDao";
     padding-left: 40px;
     margin-right: 24px;
     margin-bottom: 10px;
@@ -583,6 +594,7 @@ input::placeholder {
     color: #73afff;
     font-size: 16px;
     font-weight: 500;
+    font-family: "PangMenZhengDao";
   }
 
   .el-radio {
@@ -638,6 +650,9 @@ input::placeholder {
     padding: 20px 0;
 
     p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 400px;
       height: 70px;
       line-height: 70px;
@@ -654,6 +669,7 @@ input::placeholder {
         color: #1ae1e5;
         font-size: 36px;
         font-weight: bold;
+        font-family: "PangMenZhengDao";
         padding: 0 15px;
       }
 
@@ -822,7 +838,8 @@ input::placeholder {
 
         b {
           font-size: 24px;
-          text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
+          font-family: 'PangMenZhengDao';
+          // text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
           background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -853,6 +870,7 @@ input::placeholder {
 
         font {
           color: #66c7ff;
+          font-family: 'PangMenZhengDao';
         }
       }
 
@@ -1183,7 +1201,7 @@ input::placeholder {
   position: absolute;
   left: 20px;
   bottom: 45px;
-  color: #73AFFF;
+  color: #73afff;
   font-size: 16px;
 }
 
@@ -1191,7 +1209,8 @@ input::placeholder {
   &.el-dialog {
     display: flex;
     flex-direction: column;
-    height: 640px;
+    width: 660px;
+    height: 540px;
     background-color: rgba(4, 17, 65, 0.9);
     border: 1px solid rgba(0, 115, 223, 0.9);
 
@@ -1208,8 +1227,6 @@ input::placeholder {
         font-weight: bold;
         color: #ffffff;
         line-height: 24px;
-        text-shadow: 0px 2px 4px rgba(13, 49, 105, 0.65);
-
         background: linear-gradient(0deg, #96cfff 0%, #ffffff 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1225,6 +1242,7 @@ input::placeholder {
     .el-dialog__body {
       flex: 1;
       padding: 0;
+      overflow: hidden;
 
       .gp-group {
         padding: 0 30px;
@@ -1236,7 +1254,21 @@ input::placeholder {
           font-weight: bold;
         }
       }
+      .chart-common {
+        height: calc(100% - 50px);
+      }
     }
+  }
+}
+
+.amap-info {
+  &-content {
+    color: #ffffff;
+    background-color: rgba(4, 17, 65, 0.9);
+    border: 1px solid rgba(0, 115, 223, 0.9);
+  }
+  .bottom-center .amap-info-sharp {
+    border-top-color: rgba(4, 17, 65, 0.9);
   }
 }
 

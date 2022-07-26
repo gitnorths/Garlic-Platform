@@ -5,7 +5,7 @@
       <div class="gp-flex gp-flex-direction-column gp-flex1">
         <div class="gp-title"><span>农业遥感监测</span></div>
         <div class="gp-box">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
+          <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="大蒜种植分布" name="first">
               <el-carousel indicator-position="outside" :autoplay="false">
                 <el-carousel-item v-for="item in 1" :key="item">
@@ -27,7 +27,7 @@
                 </el-carousel-item>
               </el-carousel>
             </el-tab-pane>
-          </el-tabs>
+          </el-tabs> -->
         </div>
       </div>
     </div>
@@ -441,6 +441,7 @@ export default {
               color: #ffffff;
               font-size: 16px;
               font-weight: bold;
+              font-family: 'PangMenZhengDao';
             }
           }
         }

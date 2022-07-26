@@ -193,6 +193,7 @@ export default {
           td {
             border-color: #004191;
             padding-left: 20px;
+            font-family: 'PangMenZhengDao';
           }
         }
 

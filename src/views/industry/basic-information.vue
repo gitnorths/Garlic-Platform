@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import AMap from 'AMap';
 import qs from 'qs';
 import BasicInformationMaps from './components/basic-information-maps';
 import BaseChart from '@/components/echarts/baseChart';
@@ -70,7 +71,7 @@ export default {
       mapData: [], // 地图数据
       lonLatData: [], // 坐标数据
       mapColor: {},
-      timing: null,
+      timeData: null,
       keyword: '', // 类型
       distributionOptions: [
         {
@@ -117,7 +118,7 @@ export default {
           label: '蒜薹',
         },
         {
-          value: '蒜苗',
+          value: '青蒜',
           label: '蒜苗',
         },
       ],
@@ -178,6 +179,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -205,6 +207,7 @@ export default {
           axisLabel: {
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
       },
@@ -270,6 +273,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -297,6 +301,7 @@ export default {
           axisLabel: {
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
       },
@@ -352,6 +357,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -379,6 +385,7 @@ export default {
           axisLabel: {
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
       },
@@ -434,6 +441,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -461,6 +469,7 @@ export default {
           axisLabel: {
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
       },
@@ -502,6 +511,7 @@ export default {
           textStyle: {
             color: '#7EC1FF',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         tooltip: {
@@ -536,6 +546,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -564,6 +575,7 @@ export default {
             color: '#476294',
             fontWeight: 'normal',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
       },
@@ -571,23 +583,19 @@ export default {
   },
   mounted() {
     this.getInfo();
-    this.timing = setInterval(() => {
-      this.getInfo();
-    }, 8000);
+    this.timeData = setInterval(this.getInfo, 8000);
 
     setTimeout(() => {
       this.getMapsInfo();
     }, 3000);
   },
   beforeDestroy() {
-    clearInterval(this.timing);
+    clearInterval(this.timeData);
   },
   methods: {
     async getInfo(regions, levels) {
       regions = regions ? regions : '';
       levels = levels ? levels : '';
-
-      console.log(regions, levels);
 
       let barWidth = 30;
       let colors = [
@@ -708,9 +716,7 @@ export default {
           })
         )
         .then((res) => {
-          console.log(res);
           if (!res) return;
-          console.log(123);
           if (res.code === 200) {
             let resData = res.result;
             let resArr = [];
@@ -727,6 +733,15 @@ export default {
                 resArr.push({
                   name: resData.data[i].name,
                   type: resData.data[i].type,
+                  label: {
+                    show: true,
+                    fontSize: 14,
+                    fontFamily: 'PangMenZhengDao',
+                    borderWidth: 0,
+                    color: '#FFFFFF',
+                    position: 'top',
+                    formatter: '{c}',
+                  },
                   itemStyle: {
                     show: true,
                     color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -781,6 +796,15 @@ export default {
                 resArr.push({
                   name: resData.data[i].name,
                   type: resData.data[i].type,
+                  label: {
+                    show: true,
+                    fontSize: 14,
+                    fontFamily: 'PangMenZhengDao',
+                    borderWidth: 0,
+                    color: '#FFFFFF',
+                    position: 'top',
+                    formatter: '{c}',
+                  },
                   itemStyle: {
                     show: true,
                     color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -844,6 +868,7 @@ export default {
                     color: '#ffffff',
                     fontSize: 12,
                     fontStyle: 'bold',
+                    fontFamily: 'PangMenZhengDao',
                     align: 'center',
                   },
                   data: resData.data,
@@ -916,6 +941,15 @@ export default {
                 resArr.push({
                   name: resData.data[i].name,
                   type: 'line',
+                  label: {
+                    show: true,
+                    fontSize: 14,
+                    fontFamily: 'PangMenZhengDao',
+                    borderWidth: 0,
+                    color: '#FFFFFF',
+                    position: 'top',
+                    formatter: '{c}',
+                  },
                   itemStyle: {
                     show: true,
                     color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -970,6 +1004,7 @@ export default {
                   textStyle: {
                     fontSize: 12,
                     fontWeight: 'bold',
+                    fontFamily: 'PangMenZhengDao',
                     lineHeight: 20,
                     color: resColors[j],
                   },
@@ -1004,6 +1039,7 @@ export default {
                     value: {
                       color: '#ffffff',
                       fontSize: 12,
+                      fontFamily: 'PangMenZhengDao',
                     },
                   },
                 },
@@ -1147,12 +1183,23 @@ export default {
         .then((res) => {
           if (!res) return;
           if (res.code === 200) {
-            if (type === 'keyword' || type === 'distribution') {
-              this.lonLatData = res.result;
-            } else {
-              // this.mapData = res.result;
-              this.lonLatData = res.result;
-            }
+            let that = this;
+            let resData = res.result;
+            console.log('resData', resData);
+            that.lonLatData = [];
+
+            resData.forEach((item) => {
+              AMap.convertFrom([item.longitude, item.latitude], 'gps', function (status, result) {
+                if (result.info === 'ok') {
+                  const lnglats = result.locations[0];
+                  that.lonLatData.push({
+                    ...item,
+                    latitude: lnglats.lat,
+                    longitude: lnglats.lng,
+                  });
+                }
+              });
+            });
           }
         })
         .catch(() => {});

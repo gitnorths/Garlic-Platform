@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="gp-eports__body">
-        <WorldEcharts />
+        <GarlicExportsEcharts />
       </div>
     </div>
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
@@ -28,7 +28,9 @@
               <b>{{ item.index }}</b>
               <p>{{ item.name }}</p>
               <!-- <span>{{ item.type }}</span> -->
-              <span>{{ item.value }} {{ item.unit }}</span>
+              <span>
+                <font>{{ item.value }}</font> {{ item.unit }}
+              </span>
             </li>
           </ul>
         </div>
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-import WorldEcharts from './components/worldEcharts';
+import GarlicExportsEcharts from './components/garlic-exports-echarts';
 import BaseChart from '@/components/echarts/baseChart';
 
 let units = ['吨', '万美元'];
@@ -46,7 +48,7 @@ let units = ['吨', '万美元'];
 export default {
   name: 'FarlicExports',
   components: {
-    WorldEcharts,
+    GarlicExportsEcharts,
     BaseChart,
   },
   data() {
@@ -133,6 +135,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 14,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: [
@@ -163,6 +166,7 @@ export default {
             axisLabel: {
               color: '#476294',
               fontSize: 14,
+              fontFamily: 'PangMenZhengDao',
             },
           },
           {
@@ -191,6 +195,7 @@ export default {
             axisLabel: {
               color: '#476294',
               fontSize: 14,
+              fontFamily: 'PangMenZhengDao',
             },
           },
         ],
@@ -205,6 +210,15 @@ export default {
       {
         name: '出口量',
         type: 'bar',
+        label: {
+          show: true,
+          fontSize: 14,
+          fontFamily: 'PangMenZhengDao',
+          borderWidth: 0,
+          color: '#FFFFFF',
+          position: 'top',
+          formatter: '{c}',
+        },
         itemStyle: {
           show: true,
           color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -228,6 +242,15 @@ export default {
         name: '出口额',
         type: 'bar',
         yAxisIndex: 1,
+        label: {
+          show: true,
+          fontSize: 14,
+          fontFamily: 'PangMenZhengDao',
+          borderWidth: 0,
+          color: '#FFFFFF',
+          position: 'top',
+          formatter: '{c}',
+        },
         itemStyle: {
           show: true,
           color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [

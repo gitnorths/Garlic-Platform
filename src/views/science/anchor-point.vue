@@ -3,40 +3,40 @@
     <AnchorPointMaps :mapData="mapData" :lonLatData="lonLatData" @getHandleData="getHandleData" />
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
-        <div class="gp-title"><span>测土配方施肥长期定位点监测</span></div>
+        <div class="gp-title"><span>测土配方施肥长期定位点监测 - 历年数据</span></div>
         <div class="gp-box gp-p20 gp-flex gp-flex-direction-column">
-          <div class="gp-flex gp-flex-direction-column gp-flex1">
-            <div class="gp-title"><span>历年数据</span></div>
-            <div class="gp-group">
-              <span>{{ tabName }}</span>
-              <el-radio-group size="mini" v-model="tabPosition" @change="tabHandle">
-                <el-radio-button label="ph">pH</el-radio-button>
-                <el-radio-button label="organicMatter">有机质</el-radio-button>
-                <el-radio-button label="totalNitrogen">全氮</el-radio-button>
-                <el-radio-button label="availablePhosphorus">有效磷</el-radio-button>
-                <el-radio-button label="fastActingPotassium">速效钾</el-radio-button>
-                <el-radio-button label="testWeight">容重</el-radio-button>
-                <el-radio-button label="salt">盐分</el-radio-button>
-                <el-radio-button label="cec">CEC</el-radio-button>
-                <el-radio-button label="availableIron">有效铁</el-radio-button>
-                <el-radio-button label="availableManganese">有效锰</el-radio-button>
-                <el-radio-button label="effectiveCopper">有效铜</el-radio-button>
-                <el-radio-button label="availableZinc">有效锌</el-radio-button>
-                <el-radio-button label="waterSolubleBoron">水溶态硼</el-radio-button>
-                <el-radio-button label="effectiveMolybdenum">有效钼</el-radio-button>
-                <el-radio-button label="cadmium">镉</el-radio-button>
-                <el-radio-button label="hg">汞</el-radio-button>
-                <el-radio-button label="arsenic">砷</el-radio-button>
-                <el-radio-button label="lead">铅</el-radio-button>
-                <el-radio-button label="chromium">铬</el-radio-button>
-                <el-radio-button label="nickel">镍</el-radio-button>
-                <el-radio-button label="zinc">锌</el-radio-button>
-              </el-radio-group>
-            </div>
-            <div class="gp-box">
-              <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
-            </div>
+          <!-- <div class="gp-flex gp-flex-direction-column gp-flex1"> -->
+          <!-- <div class="gp-title"><span>历年数据</span></div> -->
+          <div class="gp-group">
+            <span>{{ tabName }}</span>
+            <el-radio-group size="mini" v-model="tabPosition" @change="tabHandle">
+              <el-radio-button label="ph">pH</el-radio-button>
+              <el-radio-button label="organicMatter">有机质</el-radio-button>
+              <el-radio-button label="totalNitrogen">全氮</el-radio-button>
+              <el-radio-button label="availablePhosphorus">有效磷</el-radio-button>
+              <el-radio-button label="fastActingPotassium">速效钾</el-radio-button>
+              <el-radio-button label="testWeight">容重</el-radio-button>
+              <el-radio-button label="salt">盐分</el-radio-button>
+              <el-radio-button label="cec">CEC</el-radio-button>
+              <el-radio-button label="availableIron">有效铁</el-radio-button>
+              <el-radio-button label="availableManganese">有效锰</el-radio-button>
+              <el-radio-button label="effectiveCopper">有效铜</el-radio-button>
+              <el-radio-button label="availableZinc">有效锌</el-radio-button>
+              <el-radio-button label="waterSolubleBoron">水溶态硼</el-radio-button>
+              <el-radio-button label="effectiveMolybdenum">有效钼</el-radio-button>
+              <el-radio-button label="cadmium">镉</el-radio-button>
+              <el-radio-button label="hg">汞</el-radio-button>
+              <el-radio-button label="arsenic">砷</el-radio-button>
+              <el-radio-button label="lead">铅</el-radio-button>
+              <el-radio-button label="chromium">铬</el-radio-button>
+              <el-radio-button label="nickel">镍</el-radio-button>
+              <el-radio-button label="zinc">锌</el-radio-button>
+            </el-radio-group>
           </div>
+          <div class="gp-box">
+            <Base-Chart ref="baseChart" :chart-id="baseId" :option="baseOption" />
+          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -162,6 +162,7 @@ export default {
             inside: false,
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         yAxis: {
@@ -189,12 +190,22 @@ export default {
           axisLabel: {
             color: '#476294',
             fontSize: 12,
+            fontFamily: 'PangMenZhengDao',
           },
         },
         series: [
           {
             type: 'bar',
             name: '出口量',
+            label: {
+              show: true,
+              fontSize: 14,
+              fontFamily: 'PangMenZhengDao',
+              borderWidth: 0,
+              color: '#FFFFFF',
+              position: 'top',
+              formatter: '{c}',
+            },
             itemStyle: {
               show: true,
               color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [

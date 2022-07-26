@@ -21,14 +21,11 @@
       <div class="gp-flex gp-flex-direction-column gp-flex1 gp-mb15">
         <div class="gp-box gp-table">
           <el-table :data="tableData" :height="height">
-            <el-table-column prop="nickname" label="昵称" align="center" show-overflow-tooltip width="120">
-            </el-table-column>
-            <el-table-column prop="typeName" label="用户类型" align="center" show-overflow-tooltip width="100">
-            </el-table-column>
+            <el-table-column prop="nickname" label="昵称" align="center" show-overflow-tooltip> </el-table-column>
+            <el-table-column prop="typeName" label="用户类型" align="center" show-overflow-tooltip> </el-table-column>
             <!-- <el-table-column prop="varieties" label="单位名称" align="center" show-overflow-tooltip width="120">
             </el-table-column> -->
-            <el-table-column prop="area" label="种植面积" align="center" show-overflow-tooltip width="100">
-            </el-table-column>
+            <el-table-column prop="area" label="种植面积" align="center" show-overflow-tooltip> </el-table-column>
             <el-table-column prop="fullAddress" label="地址" align="center" show-overflow-tooltip> </el-table-column>
           </el-table>
         </div>
@@ -115,11 +112,13 @@ export default {
             color: '#ffffff',
             fontWeight: 'bold',
             fontSize: '24px',
+            fontFamily: 'PangMenZhengDao',
           },
           subtext: '0户',
           subtextStyle: {
             color: '#71B0F8',
             fontSize: '18px',
+            fontFamily: 'PangMenZhengDao',
           },
         },
         grid: {
@@ -175,6 +174,7 @@ export default {
                 textStyle: {
                   fontSize: 14,
                   fontWeight: 'bold',
+                  fontFamily: 'PangMenZhengDao',
                   lineHeight: 20,
                   color: resColors[i],
                 },
@@ -182,7 +182,7 @@ export default {
               legendData.push(data);
             }
             this.baseOption.title.text = sum + '亩';
-            this.baseOption.title.subtext = farmers + '户';
+            this.baseOption.title.subtext = farmers + ' 户';
             this.baseOption.legend = {
               orient: 'vertical',
               right: '10',
@@ -198,7 +198,7 @@ export default {
                   if (name == resData.chart[i].name) {
                     return `${name}  ${((parseInt(resData.chart[i].value) / sum) * 100).toFixed(0)}% \n {value|${
                       resData.chart[i].user
-                    }户 } {value|${resData.chart[i].value}亩 } `;
+                    } 户 } {value|${resData.chart[i].value} 亩 } `;
                   }
                 }
               },
@@ -207,6 +207,7 @@ export default {
                   value: {
                     color: '#ffffff',
                     fontSize: 12,
+                    fontFamily: 'PangMenZhengDao',
                   },
                 },
               },
@@ -226,10 +227,12 @@ export default {
                       color: '#d9efff',
                       fontSize: 15,
                       height: 40,
+                      fontFamily: 'PangMenZhengDao',
                     },
                     c: {
                       color: '#fff',
                       fontSize: 14,
+                      fontFamily: 'PangMenZhengDao',
                     },
                   },
                 },
