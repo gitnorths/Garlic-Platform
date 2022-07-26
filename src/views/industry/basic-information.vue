@@ -2,24 +2,9 @@
   <div class="gp-bg">
     <BasicInformationMaps :mapData="mapData" :lonLatData="lonLatData" :mapColor="mapColor" />
     <div class="gp-left gp-flex gp-flex-direction-column zIndex100">
-      <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>产值信息</span></div>
-        <div class="gp-box">
-          <Base-Chart ref="czChart" :chart-id="czId" :option="czOption" />
-        </div>
-      </div>
-      <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>大蒜价格行情</span></div>
-        <div class="gp-box">
-          <Base-Chart ref="dshqChart" :chart-id="dshqId" :option="dshqOption" />
-        </div>
-      </div>
-      <div class="gp-flex gp-flex-direction-column gp-flex1">
-        <div class="gp-title"><span>收购与加工</span></div>
-        <div class="gp-box">
-          <Base-Chart ref="sgyjgChart" :chart-id="sgyjgId" :option="sgyjgOption" />
-        </div>
-      </div>
+      <ProductionValue :levels="levels" :regions="regions"></ProductionValue>
+      <GarlicPriceQuotation :levels="levels" :regions="regions"></GarlicPriceQuotation>
+      <AcquisitionProcessing :levels="levels" :regions="regions"></AcquisitionProcessing>
     </div>
     <div class="gp-right gp-flex gp-flex-direction-column zIndex100">
       <div class="gp-anchor">
@@ -56,7 +41,12 @@
 <script>
 import AMap from 'AMap';
 import qs from 'qs';
+import ProductionValue from './components/ProductionValue';
+import GarlicPriceQuotation from './components/GarlicPriceQuotation';
+import AcquisitionProcessing from './components/AcquisitionProcessing';
+
 import BasicInformationMaps from './components/basic-information-maps';
+
 import BaseChart from '@/components/echarts/baseChart';
 import { sumBy } from 'lodash';
 
@@ -64,13 +54,18 @@ export default {
   name: 'BasicInformation',
   components: {
     BasicInformationMaps,
+    GarlicPriceQuotation,
+    AcquisitionProcessing,
+    ProductionValue,
     BaseChart,
   },
   data() {
     return {
+      levels: '',
+      regions: '',
       mapData: [], // 地图数据
-      lonLatData: [], // 坐标数据
       mapColor: {},
+      lonLatData: [], // 坐标数据
       timeData: null,
       keyword: '', // 类型
       distributionOptions: [
@@ -122,273 +117,6 @@ export default {
           label: '蒜苗',
         },
       ],
-      // 产值信息
-      czId: 'czChart',
-      czOption: {
-        grid: {
-          top: '45',
-          left: '0',
-          right: '10',
-          bottom: '10',
-          containLabel: true,
-        },
-        legend: {
-          top: 10,
-          right: 15,
-          itemWidth: 16,
-          itemHeight: 8,
-          textStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-        },
-        tooltip: {
-          show: 'true',
-          trigger: 'axis',
-          backgroundColor: 'rgba(50, 123, 222, 0.9)', // 背景
-          textStyle: {
-            color: '#FFFFFF',
-          },
-          borderWidth: 0,
-          padding: [8, 8], //内边距
-          // formatter: function (params) {
-          //   let str = params[0].name + '<br />';
-          //   for (let i = 0; i < params.length; i++) {
-          //     if (params[i].seriesName !== '') {
-          //       str += params[i].seriesName + '：' + params[i].value + '吨<br/>';
-          //     }
-          //   }
-          //   return str;
-          // },
-        },
-        xAxis: {
-          type: 'category',
-          axisPointer: {
-            type: 'shadow',
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          axisLabel: {
-            inside: false,
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位：吨',
-          nameTextStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: '#415A89 ',
-            },
-          },
-          axisLabel: {
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-      },
-      // 大蒜价格行情
-      dshqId: 'dshqChart',
-      dshqOption: {
-        grid: {
-          top: '45',
-          left: '0',
-          right: '10',
-          bottom: '10',
-          containLabel: true,
-        },
-        legend: {
-          top: 10,
-          right: 15,
-          itemWidth: 16,
-          itemHeight: 8,
-          textStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-        },
-        tooltip: {
-          show: 'true',
-          trigger: 'axis',
-          backgroundColor: 'rgba(50, 123, 222, 0.9)', // 背景
-          textStyle: {
-            color: '#FFFFFF',
-          },
-          borderWidth: 0,
-          // padding: [8, 8], //内边距
-          // formatter: function (params) {
-          //   let str = params[0].name + '<br />';
-          //   for (let i = 0; i < params.length; i++) {
-          //     if (params[i].seriesName !== '') {
-          //       str += params[i].seriesName + '：' + params[i].value + '吨<br/>';
-          //     }
-          //   }
-          //   return str;
-          // },
-        },
-        xAxis: {
-          type: 'category',
-          axisPointer: {
-            label: {
-              color: '#00FF00',
-            },
-            lineStyle: {
-              color: '#00FF00',
-            },
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          axisLabel: {
-            inside: false,
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位：吨',
-          nameTextStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: '#415A89 ',
-            },
-          },
-          axisLabel: {
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-      },
-      // 收购与加工
-      sgyjgId: 'sgyjgChart',
-      sgyjgOption: {
-        grid: {
-          top: '45',
-          left: '10',
-          right: '10',
-          bottom: '10',
-          containLabel: true,
-        },
-        legend: {
-          top: 10,
-          right: 15,
-          itemWidth: 16,
-          itemHeight: 8,
-          textStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-        },
-        tooltip: {
-          show: 'true',
-          trigger: 'item',
-          backgroundColor: 'rgba(50, 123, 222, 0.9)', // 背景
-          textStyle: {
-            color: '#FFFFFF',
-          },
-          borderWidth: 0,
-          // padding: [8, 8], //内边距
-          // formatter: function (params) {
-          //   console.log(params);
-          //   return params.name + '：' + params.value + '吨';
-          // },
-        },
-        xAxis: {
-          type: 'category',
-          axisPointer: {
-            type: 'shadow',
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          axisLabel: {
-            inside: false,
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-        yAxis: {
-          type: 'value',
-          name: '单位：吨',
-          nameTextStyle: {
-            color: '#7EC1FF',
-            fontSize: 12,
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: '#415A89',
-            },
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: '#415A89 ',
-            },
-          },
-          axisLabel: {
-            color: '#476294',
-            fontSize: 12,
-            fontFamily: 'PangMenZhengDao',
-          },
-        },
-      },
       // 产量信息
       clxxId: 'clxxChart',
       clxxOption: {
@@ -583,7 +311,7 @@ export default {
   },
   mounted() {
     this.getInfo();
-    this.timeData = setInterval(this.getInfo, 8000);
+    // this.timeData = setInterval(this.getInfo, 8000);
 
     setTimeout(() => {
       this.getMapsInfo();
@@ -700,137 +428,6 @@ export default {
           ],
         },
       ];
-      let resColor = [
-        ['#4D81E7', '#144FC4'],
-        ['#1AE1E5', '#0CCFD3'],
-        ['#00FFCF', '#00DDB3'],
-      ];
-      // 产值信息
-      this.$api
-        .postBaseApi(
-          'cc/outputValue/getChartData',
-          qs.stringify({
-            type: 1, // 0 产量 1 产值
-            region: regions,
-            level: levels,
-          })
-        )
-        .then((res) => {
-          if (!res) return;
-          if (res.code === 200) {
-            let resData = res.result;
-            let resArr = [];
-            this.czOption.legend.data = [];
-            this.czOption.xAxis.data = [];
-            this.czOption.series = [];
-            this.$refs.czChart.refresh(this.czOption);
-            // 产值信息
-            if (resData.data) {
-              this.czOption.color = ['#4D81E7', '#1AE1E5', '#00FFCF'];
-              this.czOption.legend.data = resData.legend;
-              this.czOption.xAxis.data = resData.category;
-              for (let i = 0; i < resData.data.length; i++) {
-                resArr.push({
-                  name: resData.data[i].name,
-                  type: resData.data[i].type,
-                  label: {
-                    show: true,
-                    fontSize: 14,
-                    fontFamily: 'PangMenZhengDao',
-                    borderWidth: 0,
-                    color: '#FFFFFF',
-                    position: 'top',
-                    formatter: '{c}',
-                  },
-                  itemStyle: {
-                    show: true,
-                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                      {
-                        offset: 0,
-                        color: resColor[i][0],
-                      },
-                      {
-                        offset: 1,
-                        color: resColor[i][1],
-                      },
-                    ]),
-                    borderRadius: [6, 6, 0, 0],
-                    borderWidth: 0,
-                  },
-                  barWidth: '12px',
-                  barGap: '100%',
-                  data: resData.data[i].data,
-                });
-              }
-              this.czOption.series = resArr;
-              this.$refs.czChart.refresh(this.czOption);
-            }
-          }
-        })
-        .catch(() => {});
-
-      // 大蒜价格行情
-      this.$api
-        .postBaseApi(
-          'cc/garlicPrice/getChartData',
-          qs.stringify({
-            region: regions,
-            level: levels,
-          })
-        )
-        .then((res) => {
-          if (!res) return;
-          if (res.code === 200) {
-            let resData = res.result;
-            let resArr = [];
-            this.dshqOption.legend.data = [];
-            this.dshqOption.xAxis.data = [];
-            this.dshqOption.series = [];
-            this.$refs.dshqChart.refresh(this.dshqOption);
-            // 大蒜价格行情
-            if (resData.data) {
-              this.dshqOption.legend.data = resData.legend;
-              this.dshqOption.xAxis.data = resData.category;
-
-              for (let i = 0; i < resData.data.length; i++) {
-                resArr.push({
-                  name: resData.data[i].name,
-                  type: resData.data[i].type,
-                  label: {
-                    show: true,
-                    fontSize: 14,
-                    fontFamily: 'PangMenZhengDao',
-                    borderWidth: 0,
-                    color: '#FFFFFF',
-                    position: 'top',
-                    formatter: '{c}',
-                  },
-                  itemStyle: {
-                    show: true,
-                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                      {
-                        offset: 0,
-                        color: resColor[i][0],
-                      },
-                      {
-                        offset: 1,
-                        color: resColor[i][1],
-                      },
-                    ]),
-                    borderRadius: [6, 6, 0, 0],
-                    borderWidth: 0,
-                  },
-                  barWidth: '12px',
-                  barGap: '100%',
-                  data: resData.data[i].data,
-                });
-              }
-              this.dshqOption.series = resArr;
-              this.$refs.dshqChart.refresh(this.dshqOption);
-            }
-          }
-        })
-        .catch(() => {});
 
       // 收购与加工
       this.$api
@@ -1067,8 +664,8 @@ export default {
                     },
                   },
                   itemStyle: {
-                    borderWidth: 5,
-                    borderColor: '#010825',
+                    borderWidth: 0,
+                    // borderColor: 'rgba(0,0,0,1)',
                   },
                 },
               ];
@@ -1160,6 +757,8 @@ export default {
       if (val === '320000') {
         this.distribution = '';
       }
+      this.regions = this.distribution;
+      this.levels = 3;
       this.getInfo(this.distribution, 3);
       this.getMapsInfo('distribution');
     },
@@ -1185,7 +784,6 @@ export default {
           if (res.code === 200) {
             let that = this;
             let resData = res.result;
-            console.log('resData', resData);
             that.lonLatData = [];
 
             resData.forEach((item) => {
